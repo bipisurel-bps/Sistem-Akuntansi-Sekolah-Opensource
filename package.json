@@ -2,7 +2,9 @@
   "name": "sas-opensource",
   "version": "0.1.0",
   "description": "Sistem keuangan dan akuntansi multi-unit sekolah, madrasah, dan pesantren — double-entry & ISAK 35",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
@@ -23,6 +25,7 @@
   "license": "MIT",
   "devDependencies": {
     "html-to-docx": "^1.8.0",
+    "jsdom": "^30.1.3",
     "pagedjs": "^0.4.3",
     "playwright": "^1.61.1"
   },

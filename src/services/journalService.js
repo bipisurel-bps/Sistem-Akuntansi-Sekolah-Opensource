@@ -122,6 +122,7 @@ const createDraft = db.transaction(async (user, payload) => {
   if (!unit_id || !await qUnit.get(unit_id)) throw new ApiError(400, 'Unit utama tidak valid.');
   const period = await ensurePeriod(tanggal);
   const { lines } = await normalizeLines(payload.lines || [], unit_id, payload.amountsInSen);
+  await require('./openingService').assertCanTransact(lines, tanggal);
 
   const info = await db.prepare(`
     INSERT INTO journals (tanggal, deskripsi, unit_id, period_id, status, sumber, created_by)
@@ -149,6 +150,7 @@ const updateDraft = db.transaction(async (user, journalId, payload) => {
   const deskripsi = (payload.deskripsi != null ? payload.deskripsi : j.deskripsi);
   if (!deskripsi || !String(deskripsi).trim()) throw new ApiError(400, 'Deskripsi wajib diisi.');
   const { lines } = await normalizeLines(payload.lines || [], unit_id);
+  await require('./openingService').assertCanTransact(lines, tanggal, j.id);
 
   await db.prepare(`UPDATE journals SET tanggal=?, deskripsi=?, unit_id=?, period_id=?, updated_at=datetime('now') WHERE id=?`)
     .run(tanggal, String(deskripsi).trim(), unit_id, period.id, journalId);
@@ -181,10 +183,11 @@ const submit = db.transaction(async (user, journalId, ip) => {
 });
 
 const approve = db.transaction(async (user, journalId, ip, force) => {
-  const j = await qJournal.get(journalId);
+  const j = await db.prepare('SELECT * FROM journals WHERE id=? FOR UPDATE').get(journalId);
   if (!j) throw new ApiError(404, 'Jurnal tidak ditemukan.');
   if (j.status !== 'pending') throw new ApiError(409, `Hanya jurnal "pending" yang bisa disetujui (status kini: ${j.status}).`);
   await assertPeriodOpen(j.period_id);
+  await require('./openingService').assertCanTransact(await qLines.all(journalId), j.tanggal, j.id);
   const { totalDebit, totalKredit } = await sumLines(journalId);
   assertBalanced(totalDebit, totalKredit);
   if (!force) await assertWithinBudget(await qLines.all(journalId), j.tanggal);
@@ -192,27 +195,30 @@ const approve = db.transaction(async (user, journalId, ip, force) => {
     .run(user.id, journalId);
   await audit.log(user, 'approve', 'journal', journalId, { nomor: j.nomor }, ip);
   await audit.log(user, 'post', 'journal', journalId, { nomor: j.nomor }, ip);
+  await require('./openingService').finalize(j);
   return getJournal(journalId);
 });
 
 const reject = db.transaction(async (user, journalId, alasan, ip) => {
-  const j = await qJournal.get(journalId);
+  const j = await db.prepare('SELECT * FROM journals WHERE id=? FOR UPDATE').get(journalId);
   if (!j) throw new ApiError(404, 'Jurnal tidak ditemukan.');
   if (j.status !== 'pending') throw new ApiError(409, `Hanya jurnal "pending" yang bisa ditolak (status kini: ${j.status}).`);
   await db.prepare(`UPDATE journals SET status='rejected', rejected_by=?, reject_alasan=?, updated_at=datetime('now') WHERE id=?`)
     .run(user.id, (alasan || '').trim() || null, journalId);
   await audit.log(user, 'reject', 'journal', journalId, { alasan }, ip);
+  await require('./openingService').retryRejected(j);
   return getJournal(journalId);
 });
 
 const reverse = db.transaction(async (user, journalId, ip) => {
-  const j = await qJournal.get(journalId);
+  const j = await db.prepare('SELECT * FROM journals WHERE id=? FOR UPDATE').get(journalId);
   if (!j) throw new ApiError(404, 'Jurnal tidak ditemukan.');
   if (j.status !== 'posted') throw new ApiError(409, `Hanya jurnal "posted" yang bisa dibalik (status kini: ${j.status}).`);
   if (j.reversed_by) throw new ApiError(409, 'Jurnal ini sudah pernah dibalik.');
   await assertPeriodOpen(j.period_id);
 
   const origLines = await qLines.all(journalId);
+  await require('./openingService').beforeReverse(j);
   const info = await db.prepare(`
     INSERT INTO journals (tanggal, deskripsi, unit_id, period_id, status, sumber, created_by,
                           submitted_by, approved_by, posted_at, reversal_of)
@@ -237,6 +243,7 @@ const createPosted = db.transaction(async (user, payload) => {
   const period = await ensurePeriod(tanggal);
   await assertPeriodOpen(period.id);
   const { lines, totalDebit, totalKredit } = await normalizeLines(payload.lines || [], unit_id, payload.amountsInSen);
+  await require('./openingService').assertCanTransact(lines, tanggal);
   assertBalanced(totalDebit, totalKredit);
   if (!payload.allowOverBudget) await assertWithinBudget(lines, tanggal);
 

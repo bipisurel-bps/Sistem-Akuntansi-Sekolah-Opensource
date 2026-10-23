@@ -42,7 +42,7 @@ Seed menyediakan 19 pengguna: tiga per peran asli, ditambah operator. Domain ema
 
 ## Instalasi manual
 
-Prasyarat: Node.js **22+**, npm, PostgreSQL **16+**. Siapkan role `sas` dan database miliknya menggunakan administrator PostgreSQL:
+Prasyarat: Node.js **22.22.2+ pada jalur 22 LTS atau 24.15+**, npm, PostgreSQL **16+**. Siapkan role `sas` dan database miliknya menggunakan administrator PostgreSQL:
 
 ```sh
 createuser -P sas
@@ -64,6 +64,12 @@ npm run dev
 ```
 
 **`npm run seed` mengosongkan data sebelum mengisi contoh; `npm run reset` juga menghapus skema. Jangan gunakan keduanya pada database sekolah yang sudah dipakai.** Data contoh berperiode 2026 (ditambah Desember 2025 terkunci), sehingga dapat langsung dipakai mempelajari alur transaksi. Tambahkan periode sesuai tahun operasional melalui Master Data.
+
+## Sekolah yang belum mempunyai jurnal
+
+Pada database kosong, atur `SEED_MODE=school` di `.env` sebelum `npm run db:init` atau startup Docker pertama. SAS membuat satu unit dan tiga akun (admin1/operator/bendahara1), master COA serta kas operasional, tanpa transaksi demo. Login pertama membuka menu **Mulai Pembukuan**: tentukan tanggal mulai → isi saldo dan piutang per siswa → periksa keseimbangan → ajukan jurnal pembuka untuk persetujuan bendahara/admin. Saldo nol juga didukung.
+
+Mengganti `SEED_MODE` tidak menimpa database yang telah terisi. Untuk mencoba pada instalasi demo, tambahkan unit kosong dari Master Data. Panduan lengkap dan batas dukungan saldo historis: [MULAI-PEMBUKUAN.md](docs/MULAI-PEMBUKUAN.md).
 
 ## Konfigurasi instansi
 

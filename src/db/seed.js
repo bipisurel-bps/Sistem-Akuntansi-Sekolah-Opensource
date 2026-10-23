@@ -10,6 +10,7 @@ const tax = require('../services/taxService');
 const config = require('../config');
 const DEMO_PASS = process.env.SEED_PASSWORD || 'sasDemo123!';
 const DEMO_DOMAIN = process.env.SEED_EMAIL_DOMAIN || 'sekolah.example';
+const SCHOOL_MODE = process.env.SEED_MODE === 'school';
 
 async function seed() {
   if (process.env.NODE_ENV === 'production' && (!process.env.SEED_PASSWORD || DEMO_PASS === 'sasDemo123!' || DEMO_PASS.length < 12)) {
@@ -24,6 +25,10 @@ async function seed() {
   // ---------------- Units ----------------
   const insUnit = db.prepare('INSERT INTO units (kode,nama,is_yayasan) VALUES (?,?,?)');
   const units = {};
+  if (SCHOOL_MODE) {
+    units.SD = (await insUnit.run('SCH', config.schoolName, 0)).lastInsertRowid;
+    units.SMA = units.SD;
+  } else {
   units.YYS = (await insUnit.run('YYS', 'Yayasan Pusat', 1)).lastInsertRowid;
   units.SD = (await insUnit.run('SD', 'SD SAS', 0)).lastInsertRowid;
   units.SMP = (await insUnit.run('SMP', 'SMP SAS', 0)).lastInsertRowid;
@@ -31,6 +36,7 @@ async function seed() {
   await db.prepare('UPDATE units SET nama=? WHERE id=?').run(config.institutionName, units.YYS);
   await db.prepare('UPDATE units SET nama=? WHERE id=?').run(`${config.schoolName} — SD`, units.SD);
   await db.prepare('UPDATE units SET nama=? WHERE id=?').run(`${config.schoolName} — SMP`, units.SMP);
+  }
 
   // ---------------- COA ----------------
   const A = 'aset', L = 'liabilitas', E = 'aset_neto', P = 'pendapatan', B = 'beban';
@@ -84,8 +90,9 @@ async function seed() {
   const insUser = db.prepare('INSERT INTO users (nama,email,password_hash,role,unit_id,aktif) VALUES (?,?,?,?,?,1)');
   const userByRole = {};
   for (const role of Object.keys(roleNames)) {
+    if (SCHOOL_MODE && !['admin', 'bendahara'].includes(role)) continue;
     userByRole[role] = [];
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= (SCHOOL_MODE ? 1 : 3); i++) {
       const uk = (roleUnit[role] || [])[i - 1] || null;
       const id = (await insUser.run(`${roleNames[role]} ${i}`, `${role.replace('_', '')}${i}@${DEMO_DOMAIN}`,
         auth.hashPassword(DEMO_PASS), role, uk ? units[uk] : null)).lastInsertRowid;
@@ -97,6 +104,21 @@ async function seed() {
 
   // ---------------- Periode ----------------
   const insPeriod = db.prepare('INSERT INTO periods (tahun,bulan,status) VALUES (?,?,?)');
+  if (SCHOOL_MODE) {
+    for (let m = 1; m <= 12; m++) await insPeriod.run(new Date().getFullYear(), m, 'open');
+    const categories = [['penerimaan', 'Pembayaran SPP', '1131'], ['penerimaan', 'Pendaftaran', '4200'],
+      ['penerimaan', 'Sumbangan tidak terikat', '4400'], ['penerimaan', 'Dana BOS', '4310'],
+      ['pengeluaran', 'Operasional sekolah', '5400'], ['pengeluaran', 'Gaji dan tunjangan', '5100']];
+    for (let i = 0; i < categories.length; i++) {
+      const [jenis, nama, kode] = categories[i];
+      await db.prepare('INSERT INTO cash_categories (jenis,nama,account_id,urutan) VALUES (?,?,?,?)').run(jenis, nama, accId[kode], i);
+    }
+    // Rekening bernilai nol tetap perlu tersedia bagi sekolah yang mulai tanpa saldo.
+    await db.prepare('INSERT INTO bank_accounts (nama,bank,account_id,unit_id) VALUES (?,?,?,?)')
+      .run('Kas Operasional Sekolah', 'Tunai', accId['1111'], units.SD);
+    console.log('✓ Master sekolah siap: 1 unit, COA, periode, admin, operator, bendahara; tanpa transaksi demo.');
+    return;
+  }
   await insPeriod.run(2025, 12, 'closed');
   for (let m = 1; m <= 12; m++) await insPeriod.run(2026, m, 'open');
   const adminU = await auth.getUser(userByRole.admin[0].id);

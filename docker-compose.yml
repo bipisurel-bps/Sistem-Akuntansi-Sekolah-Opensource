@@ -31,6 +31,7 @@ services:
       SCHOOL_NAME: ${SCHOOL_NAME:-Sekolah SAS}
       SEED_PASSWORD: ${SEED_PASSWORD:-sasDemo123!}
       SEED_EMAIL_DOMAIN: ${SEED_EMAIL_DOMAIN:-sekolah.example}
+      SEED_MODE: ${SEED_MODE:-demo}
     command: ["sh", "-c", "node src/db/initialize.js && exec node server.js"]
     depends_on:
       db:

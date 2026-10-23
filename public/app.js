@@ -106,7 +106,16 @@ const unitName = () => state.unit === 'all' ? 'Konsolidasi — semua unit'
   try { state.accounts = await api.get('/api/master/accounts'); } catch { state.accounts = []; }
   renderShell();
   window.addEventListener('hashchange', route);
-  if (!location.hash) location.hash = '#/dashboard';
+  if (!location.hash) {
+    let first = '#/dashboard';
+    if (['admin', 'bendahara', 'staf_akuntansi'].includes(state.user.role)) {
+      const unit = state.units.find(u => u.id === state.user.unit_id) || state.units.find(u => !u.is_yayasan && u.aktif);
+      if (unit) {
+        try { if (!(await api.get('/api/opening?unit_id=' + unit.id)).blocked) first = '#/mulai'; } catch (_) {}
+      }
+    }
+    location.hash = first;
+  }
   route();
 })();
 
@@ -124,6 +133,7 @@ const NAV = [
   { k: 'bukubesar', label: 'Buku Besar', icon: iconBook },
   { k: 'neraca', label: 'Neraca Saldo', icon: iconChart },
   { group: 'PENGATURAN' },
+  { k: 'mulai', label: 'Mulai Pembukuan', icon: iconBook, need: () => ['admin', 'bendahara', 'staf_akuntansi'].includes(state.user.role) },
   { k: 'master', label: 'Master Data', icon: iconDb, need: () => true },
   { k: 'admin', label: 'Administrasi', icon: iconGear, need: () => perms.closing || perms.backup },
   { k: 'audit', label: 'Jejak Audit', icon: iconShield, need: () => perms.admin || state.user.role === 'pengurus_yayasan' },
@@ -188,11 +198,13 @@ function setActive(k, crumb) {
 async function route() {
   const hash = location.hash.replace(/^#/, '') || '/dashboard';
   const parts = hash.split('/').filter(Boolean); // e.g. ['jurnal','5']
+  document.body.classList.toggle('opening-page', parts[0] === 'mulai');
   const main = $('#main'); if (!main) return;
   main.innerHTML = '<div class="subtle" style="padding:20px;">Memuat…</div>';
   try {
     switch (parts[0]) {
       case 'dashboard': setActive('dashboard', 'Dashboard'); return viewDashboard();
+      case 'mulai': setActive('mulai', 'Mulai Pembukuan'); return await viewOpening();
       case 'jurnal':
         if (parts[1] === 'baru') { setActive('jurnal', 'Buat Jurnal'); return viewJurnalForm(null); }
         if (parts[1] && parts[2] === 'edit') { setActive('jurnal', 'Ubah Jurnal'); return viewJurnalForm(+parts[1]); }

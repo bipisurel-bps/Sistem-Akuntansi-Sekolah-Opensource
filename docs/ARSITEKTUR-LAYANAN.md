@@ -2,6 +2,8 @@
 
 Status: rancangan teknis, belum diimplementasikan. Dasar keputusan produk: [KONSEP-LAYANAN.md](KONSEP-LAYANAN.md). Satu repositori dan satu alur rilis; pembatasan layanan bersama merupakan kebijakan hosting, bukan penghapusan fitur dari kode MIT.
 
+Pembaruan fondasi: bootstrap master tanpa transaksi demo (`SEED_MODE=school`) dan panduan saldo awal sudah tersedia pada instalasi satu instansi; lihat [MULAI-PEMBUKUAN.md](MULAI-PEMBUKUAN.md). Pemisahan tenant, undangan akun, kebijakan fitur hosted dan portal tetap merupakan rencana berikutnya.
+
 ## Keputusan utama
 
 Gunakan monolit Express modular dengan **aplikasi bersama dan satu database per instansi**. Instansi adalah pemilik pembukuan: sekolah mandiri atau yayasan. Layanan bersama membatasi satu unit per instansi; instalasi mandiri dapat memiliki beberapa unit dalam satu instansi. Jangan menyamakan `unit_id` dengan batas antarinstansi.

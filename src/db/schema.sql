@@ -167,6 +167,17 @@ CREATE TABLE IF NOT EXISTS invoices (
 CREATE INDEX IF NOT EXISTS idx_invoices_student ON invoices(student_id);
 CREATE INDEX IF NOT EXISTS idx_invoices_unit ON invoices(unit_id);
 
+-- Tagihan historis saldo awal sudah diakui sebelum tanggal mulai pembukuan.
+ALTER TABLE invoices ADD COLUMN IF NOT EXISTS is_opening INTEGER NOT NULL DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS opening_setups (
+  unit_id INTEGER PRIMARY KEY REFERENCES units(id),
+  journal_id INTEGER UNIQUE REFERENCES journals(id),
+  tanggal TEXT NOT NULL,
+  detail TEXT NOT NULL,
+  created_by INTEGER NOT NULL REFERENCES users(id)
+);
+
 CREATE TABLE IF NOT EXISTS payments (
   id         SERIAL PRIMARY KEY,
   invoice_id INTEGER NOT NULL REFERENCES invoices(id),

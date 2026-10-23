@@ -40,6 +40,7 @@ app.use('/api/auth', require('./src/routes/auth'));
 // Semua rute di bawah wajib login
 app.use('/api', auth.requireAuth);
 app.use('/api/master', require('./src/routes/master'));
+app.use('/api/opening', require('./src/routes/opening'));
 app.use('/api/journals', require('./src/routes/journals'));
 app.use('/api/kasbank', require('./src/routes/kasbank'));
 app.use('/api/piutang', require('./src/routes/piutang'));

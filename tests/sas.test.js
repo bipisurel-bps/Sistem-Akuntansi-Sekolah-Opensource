@@ -3,6 +3,7 @@ process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
 process.env.SEED_EMAIL_DOMAIN = 'sekolah.example';
 process.env.SEED_PASSWORD = 'sasDemo123!';
 process.env.NODE_ENV = 'development';
+process.env.SEED_MODE = 'demo';
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { spawn, spawnSync } = require('node:child_process');

@@ -130,7 +130,7 @@ async function settleStatus(inv, settled) {
   return settled >= inv.nominal ? 'lunas' : (settled > 0 ? 'sebagian' : 'terbit');
 }
 async function decorate(inv) {
-  const paid = await paidOf(inv.id), relief = await reliefOf(inv.id), recognized = await recognizedOf(inv.id);
+  const paid = await paidOf(inv.id), relief = await reliefOf(inv.id), recognized = inv.is_opening ? inv.nominal : await recognizedOf(inv.id);
   return { ...inv, paid, relief, recognized, sisa: inv.nominal - paid - relief, deferred: inv.nominal - recognized };
 }
 async function listInvoices(f = {}) {
@@ -380,7 +380,7 @@ function monthlyPortion(inv, monthIndex) {
   return monthIndex === inv.tenor_bulan - 1 ? inv.nominal - base * (inv.tenor_bulan - 1) : base;
 }
 async function invoicesForMonth(tahun, bulan, unitId) {
-  const params = []; let where = "i.status <> 'void'";
+  const params = []; let where = "i.status <> 'void' AND i.is_opening=0";
   if (unitId) { where += ' AND i.unit_id=?'; params.push(unitId); }
   const invs = await db.prepare(`SELECT * FROM invoices i WHERE ${where}`).all(...params);
   const out = [];

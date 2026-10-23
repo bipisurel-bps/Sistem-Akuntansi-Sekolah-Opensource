@@ -1,0 +1,10 @@
+'use strict';
+const router = require('express').Router();
+const auth = require('../auth');
+const opening = require('../services/openingService');
+const { h, ip } = require('./helpers');
+router.use(auth.requireRole('admin', 'bendahara', 'staf_akuntansi'));
+router.get('/', h(req => opening.status(req.user, +req.query.unit_id)));
+router.post('/preview', h(req => opening.preview(req.user, req.body)));
+router.post('/submit', h(req => opening.submit({ ...req.user, ip: ip(req) }, req.body)));
+module.exports = router;
