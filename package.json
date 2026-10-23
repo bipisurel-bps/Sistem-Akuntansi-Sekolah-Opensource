@@ -1,0 +1,36 @@
+{
+  "name": "sas-opensource",
+  "version": "0.1.0",
+  "description": "Sistem keuangan dan akuntansi multi-unit sekolah, madrasah, dan pesantren — double-entry & ISAK 35",
+  "engines": { "node": ">=22" },
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "migrate": "node src/db/migrate.js",
+    "seed": "node src/db/seed.js",
+    "db:init": "node src/db/initialize.js",
+    "reset": "node src/db/migrate.js --fresh && node src/db/seed.js",
+    "clean": "node src/db/clean.js",
+    "test": "node scripts/test.mjs",
+    "docs:screenshots": "node scripts/screenshots.mjs",
+    "docs:manual": "node scripts/build-manual.mjs",
+    "docs:pdf": "node scripts/build-pdf.mjs",
+    "docs:docx": "node scripts/build-docx.mjs",
+    "docs:all": "npm run docs:manual && npm run docs:pdf && npm run docs:docx"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "html-to-docx": "^1.8.0",
+    "pagedjs": "^0.4.3",
+    "playwright": "^1.61.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "pg": "^8.22.0"
+  }
+}

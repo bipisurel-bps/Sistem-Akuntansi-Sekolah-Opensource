@@ -1,0 +1,1273 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Manual Penggunaan Sistem Akuntansi Sekolah (SAS) Open Source</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#2E1E4F;--primary2:#3F2A68;--ink:#241E33;--muted:#6b647a;--muted2:#4a4458;--line:#E7E4EF;--soft:#F4F3F8;--gold:#C9A227;--gold-bg:#F3E9C8;--gold-ink:#8A6A16;--green:#256D42;--red:#C0392B;}
+*{box-sizing:border-box;} html{scroll-behavior:smooth;}
+body{margin:0;font-family:'Plus Jakarta Sans',system-ui,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--soft);line-height:1.62;font-size:15px;}
+.mono{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;}
+.doc{display:flex;}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:288px;background:linear-gradient(180deg,#2E1E4F,#3F2A68);color:#EFEAF7;display:flex;flex-direction:column;padding:20px 0;z-index:10;}
+.side-brand{display:flex;gap:11px;align-items:center;padding:0 22px 16px;}
+.side-brand .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#C9A227,#F3E9C8);color:#2E1E4F;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.side-brand b{display:block;font-size:16px;letter-spacing:.03em;} .side-brand span{display:block;font-size:11px;color:#B7ACD6;}
+.search{margin:0 18px 12px;padding:9px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;font-size:13px;font-family:inherit;}
+.search::placeholder{color:#B7ACD6;}
+.side-nav{overflow-y:auto;flex:1;padding:4px 10px 10px;}
+.side-nav a{display:block;color:#CFC6E6;text-decoration:none;font-size:12.6px;padding:5px 12px;border-radius:7px;border-left:2px solid transparent;}
+.side-nav a:hover{background:rgba(255,255,255,.07);color:#fff;}
+.side-nav a.active{background:rgba(201,162,39,.18);color:#fff;border-left-color:var(--gold);}
+.side-nav a.nav-l3{padding-left:24px;font-size:12px;color:#B0A6CC;}
+.side-nav a.hide{display:none;}
+.side-foot{padding:12px 22px 2px;font-size:11px;color:#9A8FBC;border-top:1px solid rgba(255,255,255,.1);}
+.content{margin-left:288px;flex:1;max-width:940px;padding:0 56px 90px;background:#fff;min-height:100vh;box-shadow:0 0 40px rgba(46,30,79,.06);}
+.content>section{padding-top:26px;}
+h2{font-size:26px;font-weight:800;color:var(--primary);margin:46px 0 6px;padding-top:14px;border-top:3px solid var(--gold);letter-spacing:-.01em;}
+h2.notoc,h2.nobreak{border-top:none;}
+h3{font-size:19.5px;font-weight:800;color:var(--primary2);margin:30px 0 8px;}
+h4{font-size:15.5px;font-weight:800;color:var(--ink);margin:20px 0 6px;}
+p{margin:9px 0;} a{color:var(--primary2);}
+ul,ol{margin:9px 0;padding-left:22px;} li{margin:4px 0;}
+ol.steps{counter-reset:step;list-style:none;padding-left:0;}
+ol.steps>li{counter-increment:step;position:relative;padding:6px 0 6px 44px;margin:6px 0;}
+ol.steps>li::before{content:counter(step);position:absolute;left:0;top:5px;width:28px;height:28px;background:var(--primary);color:#fff;border-radius:50%;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.lead{font-size:16.5px;color:var(--muted2);}
+.mono,code{font-family:'JetBrains Mono',monospace;font-size:.9em;background:var(--soft);padding:1px 5px;border-radius:5px;}
+.callout{border-radius:11px;padding:13px 16px 13px 46px;margin:14px 0;position:relative;font-size:14px;border:1px solid;}
+.callout::before{position:absolute;left:14px;top:12px;font-size:18px;}
+.callout.tip{background:#EAF6EF;border-color:#BFE3CD;} .callout.tip::before{content:"💡";}
+.callout.warn{background:#FBF3DC;border-color:#EAD79B;} .callout.warn::before{content:"⚠️";}
+.callout.note{background:#EEF0FB;border-color:#CBD2F0;} .callout.note::before{content:"📌";}
+.box-sas{background:linear-gradient(180deg,#F7F3FF,#F1ECFA);border:1px solid #DBCFF2;border-left:4px solid var(--primary);border-radius:11px;padding:13px 16px;margin:16px 0;font-size:14px;}
+.box-sas b.tag{display:inline-block;background:var(--primary);color:#fff;font-size:11px;font-weight:800;padding:2px 9px;border-radius:6px;letter-spacing:.04em;margin-right:6px;}
+.figure{margin:18px 0;}
+.figure img{width:100%;border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 18px rgba(46,30,79,.10);}
+.caption{font-size:12.5px;color:var(--muted);margin-top:7px;text-align:center;font-weight:600;}
+.caption b{color:var(--primary2);}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0;}
+table.tbl th{background:var(--soft);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);font-size:11px;letter-spacing:.03em;color:var(--muted2);}
+table.tbl td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+table.tbl td.c,table.tbl th.c{text-align:center;} table.tbl td.r{text-align:right;}
+table.matrix .yes{color:var(--green);font-size:15px;} table.matrix .no{color:#CFC9DA;}
+.jrnl{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0;font-family:'JetBrains Mono',monospace;}
+.jrnl th{background:var(--primary);color:#fff;padding:7px 10px;font-size:11px;text-align:left;}
+.jrnl td{padding:6px 10px;border-bottom:1px solid var(--line);} .jrnl td.r{text-align:right;} .jrnl tr.tot td{font-weight:700;border-top:2px solid var(--primary);background:var(--soft);}
+.src-note{font-size:12px;color:var(--muted);font-style:italic;}
+.proc{margin:22px 0 6px;padding:8px 14px;background:linear-gradient(90deg,#F1ECFA,transparent);border-left:4px solid var(--gold);font-size:16px;font-weight:800;color:var(--primary2);border-radius:0 8px 8px 0;}
+.proc-meta{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:12px 0;font-size:13px;background:#fff;}
+.proc-meta>div{padding:10px 14px;border-right:1px solid var(--line);}
+.proc-meta>div:last-child{border-right:none;}
+.proc-meta .k{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;color:var(--gold-ink);text-transform:uppercase;margin-bottom:3px;}
+.result{background:#EAF6EF;border:1px solid #BFE3CD;border-radius:9px;padding:9px 14px;margin:12px 0;font-size:14px;}
+.result b{color:var(--green);}
+.dl dt{font-weight:800;color:var(--primary2);margin-top:12px;}
+.dl dd{margin:2px 0 0;padding-left:0;color:var(--muted2);}
+.faq{margin:14px 0;border-bottom:1px solid var(--line);padding-bottom:12px;}
+.faq .q{font-weight:800;color:var(--ink);}
+.faq .q::before{content:"T: ";color:var(--gold-ink);}
+.faq .a{margin-top:4px;color:var(--muted2);}
+.faq .a::before{content:"J: ";color:var(--primary2);font-weight:800;}
+.pill{display:inline-block;background:var(--gold-bg);color:var(--gold-ink);font-size:11px;font-weight:800;padding:2px 9px;border-radius:9999px;}
+.status-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.badge{display:inline-block;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:800;}
+.b-draft{background:#EDE9F6;color:#3F2A68;} .b-pending{background:#FBF3DC;color:#8A6A16;} .b-posted{background:#E3F1E7;color:#256D42;} .b-rev{background:#EAE6F2;color:#5B5468;} .b-rej{background:#F7E4E1;color:#C0392B;}
+/* Cover */
+.cover{height:min(100vh,1040px);min-height:840px;background:linear-gradient(150deg,#2E1E4F 0%,#3F2A68 60%,#4B3080 100%);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:64px 60px;margin:0 -56px;position:relative;overflow:hidden;}
+.cover::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,39,.30),transparent 70%);}
+.cover-top{display:flex;align-items:center;gap:16px;z-index:1;}
+.cover-logo{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#C9A227,#F3E9C8);color:#2E1E4F;font-weight:800;font-size:34px;display:flex;align-items:center;justify-content:center;}
+.cover-org{font-size:14px;font-weight:700;letter-spacing:.22em;color:#E7DCFF;}
+.cover-kicker{font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;}
+.cover-title{font-size:56px;font-weight:800;line-height:1.05;margin:14px 0 18px;letter-spacing:-.02em;}
+.cover-sub{font-size:18px;color:#D9CEF2;line-height:1.6;}
+.cover-foot{display:flex;justify-content:space-between;font-size:15px;color:#CFC3EC;border-top:1px solid rgba(255,255,255,.2);padding-top:18px;z-index:1;}
+.toc-page{padding-top:30px;}
+ul.toc{list-style:none;padding:0;margin:12px 0;column-gap:40px;}
+ul.toc li{margin:3px 0;}
+ul.toc li.toc-l2{font-weight:800;color:var(--primary);margin-top:12px;border-top:1px solid var(--line);padding-top:8px;}
+ul.toc li.toc-l3{padding-left:18px;font-size:13.5px;}
+ul.toc a{text-decoration:none;color:inherit;display:flex;justify-content:space-between;gap:12px;align-items:baseline;}
+ul.toc a:hover{color:var(--gold-ink);}
+mark{background:#FCE9A6;padding:0 2px;border-radius:3px;}
+/* Print / PDF */
+@media print{
+  @page{size:A4;margin:20mm 16mm 18mm;
+    @bottom-center{content:"Manual Sistem Akuntansi Sekolah (SAS) Open Source · v1.0";font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:#8a8397;}
+    @bottom-right{content:"Hal. " counter(page);font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:#8a8397;}
+    @top-right{content:"Yayasan Pendidikan Contoh";font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:#b3acc0;}
+  }
+  @page cover{margin:0;@bottom-center{content:none;}@bottom-right{content:none;}@top-right{content:none;}}
+  .no-print{display:none!important;}
+  body{background:#fff;font-size:10.5pt;}
+  .content{margin:0;max-width:none;box-shadow:none;padding:0;}
+  .cover{page:cover;height:100vh;margin:0;page-break-after:always;}
+  .toc-page{page-break-after:always;}
+  h2{page-break-before:always;page-break-after:avoid;border-top:none;padding-top:0;}
+  h2.notoc,h2.nobreak,#daftar-isi{page-break-before:avoid;}
+  h3,h4{page-break-after:avoid;}
+  .figure,table,.callout,.box-sas,.jrnl,.proc-meta,.result,.faq{page-break-inside:avoid;}
+  .proc{page-break-after:avoid;}
+  .figure img{box-shadow:none;}
+  ul.toc a::after{content:target-counter(attr(href), page);color:var(--muted);font-weight:700;}
+}
+@media(max-width:900px){.sidebar{display:none;}.content{margin:0;padding:0 20px 60px;}.cover{margin:0 -20px;}}
+</style>
+<div class="doc">
+  <aside class="sidebar no-print">
+    <div class="side-brand"><div class="logo">S</div><div><b>SAS</b><span>Manual Penggunaan</span></div></div>
+    <input id="q" class="search" type="search" placeholder="Cari di manual…" autocomplete="off">
+    <nav class="side-nav"><a class="nav-l2 " href="#bagian-a" data-id="bagian-a">Bagian A — Pendahuluan</a><a class="nav-l3 " href="#a1-tentang" data-id="a1-tentang">A.1 Tentang Sistem Akuntansi Sekolah (SAS) Open Source</a><a class="nav-l3 " href="#a2-peran" data-id="a2-peran">A.2 Peran dan Hak Akses</a><a class="nav-l3 " href="#a3-memulai" data-id="a3-memulai">A.3 Memulai</a><a class="nav-l3 " href="#a4-konsep" data-id="a4-konsep">A.4 Konsep Penting untuk Semua Pengguna</a><a class="nav-l2 " href="#bagian-b" data-id="bagian-b">Bagian B — Prosedur Penggunaan per Modul</a><a class="nav-l3 " href="#b1-master" data-id="b1-master">B.1 Master Data</a><a class="nav-l3 " href="#b2-jurnal" data-id="b2-jurnal">B.2 Jurnal Umum</a><a class="nav-l3 " href="#b3-kasbank" data-id="b3-kasbank">B.3 Kas &amp; Bank</a><a class="nav-l3 " href="#b4-piutang" data-id="b4-piutang">B.4 Piutang Siswa (SPP)</a><a class="nav-l3 " href="#b5-anggaran" data-id="b5-anggaran">B.5 Anggaran (RKAT)</a><a class="nav-l3 " href="#b6-laporan" data-id="b6-laporan">B.6 Laporan Keuangan</a><a class="nav-l3 " href="#b7-dashboard" data-id="b7-dashboard">B.7 Dashboard dan Jejak Audit</a><a class="nav-l3 " href="#b8-rutinitas" data-id="b8-rutinitas">B.8 Rutinitas Periodik (Checklist)</a><a class="nav-l2 " href="#bagian-c" data-id="bagian-c">Bagian C — Prosedur dan Perlakuan Akuntansi</a><a class="nav-l3 " href="#c1-kebijakan" data-id="c1-kebijakan">C.1 Kebijakan Akuntansi Ringkas</a><a class="nav-l3 " href="#c2-psak72" data-id="c2-psak72">C.2 Pengakuan Pendapatan SPP (PSAK 72)</a><a class="nav-l3 " href="#c3-ckpn" data-id="c3-ckpn">C.3 CKPN Piutang Siswa (PSAK 71)</a><a class="nav-l3 " href="#c4-antarunit" data-id="c4-antarunit">C.4 Transaksi Antar-Unit</a><a class="nav-l3 " href="#c5-hibah" data-id="c5-hibah">C.5 Sumbangan/Hibah Terikat</a><a class="nav-l3 " href="#c6-gaji" data-id="c6-gaji">C.6 Beban Gaji, PPh 21 &amp; BPJS</a><a class="nav-l3 " href="#c7-penyusutan" data-id="c7-penyusutan">C.7 Penyusutan &amp; Imbalan Pascakerja (PSAK 24)</a><a class="nav-l3 " href="#c8-tutupbuku" data-id="c8-tutupbuku">C.8 Tutup Buku Tahunan</a><a class="nav-l3 " href="#c9-keringanan" data-id="c9-keringanan">C.9 Keringanan &amp; Beasiswa SPP</a><a class="nav-l2 " href="#bagian-d" data-id="bagian-d">Bagian D — Lampiran</a><a class="nav-l3 " href="#d1-coa" data-id="d1-coa">D.1 Bagan Akun Lengkap</a><a class="nav-l3 " href="#d2-matriks" data-id="d2-matriks">D.2 Matriks Peran &amp; Kewenangan</a><a class="nav-l3 " href="#d3-glosarium" data-id="d3-glosarium">D.3 Glosarium</a><a class="nav-l3 " href="#d4-faq" data-id="d4-faq">D.4 FAQ &amp; Pemecahan Masalah</a><a class="nav-l3 " href="#d5-future" data-id="d5-future">D.5 Pengembangan Selanjutnya</a><a class="nav-l3 " href="#d6-versi" data-id="d6-versi">D.6 Informasi Versi &amp; Kontak</a></nav>
+    <div class="side-foot">v1.0 · 2026-10-23</div>
+  </aside>
+  <main class="content">
+    <section class="cover">
+    <div class="cover-top">
+      <div class="cover-logo">T</div>
+      <div class="cover-org">YAYASAN PENDIDIKAN CONTOH</div>
+    </div>
+    <div class="cover-mid">
+      <div class="cover-kicker">Dokumen Resmi · Panduan Pengguna</div>
+      <h1 class="cover-title">Manual Penggunaan<br>Sistem Akuntansi Sekolah (SAS) Open Source</h1>
+      <div class="cover-sub">Sistem Informasi Keuangan &amp; Akuntansi<br>Yayasan Pendidikan Contoh — SD &amp; SMP SAS</div>
+    </div>
+    <div class="cover-foot">
+      <div><b>Versi 1.0</b></div><div>2026-10-23</div>
+    </div>
+  </section>
+  <section class="toc-page">
+    <h2 id="daftar-isi" class="notoc">Daftar Isi</h2>
+    <ul class="toc"><li class="toc-l2"><a href="#bagian-a">Bagian A — Pendahuluan</a></li><li class="toc-l3"><a href="#a1-tentang">A.1 Tentang Sistem Akuntansi Sekolah (SAS) Open Source</a></li><li class="toc-l3"><a href="#a2-peran">A.2 Peran dan Hak Akses</a></li><li class="toc-l3"><a href="#a3-memulai">A.3 Memulai</a></li><li class="toc-l3"><a href="#a4-konsep">A.4 Konsep Penting untuk Semua Pengguna</a></li><li class="toc-l2"><a href="#bagian-b">Bagian B — Prosedur Penggunaan per Modul</a></li><li class="toc-l3"><a href="#b1-master">B.1 Master Data</a></li><li class="toc-l3"><a href="#b2-jurnal">B.2 Jurnal Umum</a></li><li class="toc-l3"><a href="#b3-kasbank">B.3 Kas &amp; Bank</a></li><li class="toc-l3"><a href="#b4-piutang">B.4 Piutang Siswa (SPP)</a></li><li class="toc-l3"><a href="#b5-anggaran">B.5 Anggaran (RKAT)</a></li><li class="toc-l3"><a href="#b6-laporan">B.6 Laporan Keuangan</a></li><li class="toc-l3"><a href="#b7-dashboard">B.7 Dashboard dan Jejak Audit</a></li><li class="toc-l3"><a href="#b8-rutinitas">B.8 Rutinitas Periodik (Checklist)</a></li><li class="toc-l2"><a href="#bagian-c">Bagian C — Prosedur dan Perlakuan Akuntansi</a></li><li class="toc-l3"><a href="#c1-kebijakan">C.1 Kebijakan Akuntansi Ringkas</a></li><li class="toc-l3"><a href="#c2-psak72">C.2 Pengakuan Pendapatan SPP (PSAK 72)</a></li><li class="toc-l3"><a href="#c3-ckpn">C.3 CKPN Piutang Siswa (PSAK 71)</a></li><li class="toc-l3"><a href="#c4-antarunit">C.4 Transaksi Antar-Unit</a></li><li class="toc-l3"><a href="#c5-hibah">C.5 Sumbangan/Hibah Terikat</a></li><li class="toc-l3"><a href="#c6-gaji">C.6 Beban Gaji, PPh 21 &amp; BPJS</a></li><li class="toc-l3"><a href="#c7-penyusutan">C.7 Penyusutan &amp; Imbalan Pascakerja (PSAK 24)</a></li><li class="toc-l3"><a href="#c8-tutupbuku">C.8 Tutup Buku Tahunan</a></li><li class="toc-l3"><a href="#c9-keringanan">C.9 Keringanan &amp; Beasiswa SPP</a></li><li class="toc-l2"><a href="#bagian-d">Bagian D — Lampiran</a></li><li class="toc-l3"><a href="#d1-coa">D.1 Bagan Akun Lengkap</a></li><li class="toc-l3"><a href="#d2-matriks">D.2 Matriks Peran &amp; Kewenangan</a></li><li class="toc-l3"><a href="#d3-glosarium">D.3 Glosarium</a></li><li class="toc-l3"><a href="#d4-faq">D.4 FAQ &amp; Pemecahan Masalah</a></li><li class="toc-l3"><a href="#d5-future">D.5 Pengembangan Selanjutnya</a></li><li class="toc-l3"><a href="#d6-versi">D.6 Informasi Versi &amp; Kontak</a></li></ul>
+  </section>
+    <h2 id="bagian-a">Bagian A — Pendahuluan</h2>
+<p class="lead">Bagian ini memperkenalkan Sistem Akuntansi Sekolah (SAS) Open Source: untuk apa sistem ini, siapa saja
+penggunanya, cara masuk pertama kali, dan konsep dasar yang perlu dipahami setiap
+pengguna sebelum mulai bekerja. Tidak diperlukan latar belakang akuntansi untuk
+membaca bagian ini.</p>
+
+<h3 id="a1-tentang">A.1 Tentang Sistem Akuntansi Sekolah (SAS) Open Source</h3>
+<p><b>Sistem Akuntansi Sekolah (SAS) Open Source</b> (Sistem Informasi Keuangan dan Akuntansi) adalah aplikasi web
+untuk mengelola pembukuan <b>Yayasan Pendidikan Contoh</b> beserta unit-unit di bawahnya
+secara terpusat, rapi, dan dapat diaudit. Sistem mencatat setiap transaksi keuangan,
+menjaga agar pembukuan selalu seimbang, dan menghasilkan laporan keuangan sesuai
+standar yang berlaku untuk entitas nirlaba.</p>
+
+<h4>Cakupan unit</h4>
+<p>SAS membukukan tiga unit kerja sekaligus dan menyajikannya secara terpisah
+maupun gabungan (konsolidasi):</p>
+<ul>
+  <li><b>Yayasan Pusat</b> — entitas induk yang menaungi dan mendanai unit.</li>
+  <li><b>SD SAS</b> — perguruan tinggi (segmen/unit kerja).</li>
+  <li><b>SMP SAS</b> — perguruan tinggi (segmen/unit kerja).</li>
+</ul>
+<p>Di pojok kanan atas layar, Anda dapat memilih melihat data <b>satu unit tertentu</b>
+atau <b>Konsolidasi — semua unit</b>. Saat konsolidasi, transaksi antar-unit otomatis
+saling menghapus (eliminasi) agar tidak terjadi penghitungan ganda.</p>
+
+<h4>Prinsip utama sistem</h4>
+<ul>
+  <li><b>Berpasangan (double-entry).</b> Setiap jurnal harus seimbang: total sisi Debit
+    sama dengan total sisi Kredit. Sistem menolak jurnal yang tidak seimbang.</li>
+  <li><b>Multi-unit dengan eliminasi.</b> Setiap baris jurnal wajib menyebut unit.
+    Akun antar-unit (mis. <span class="mono">Piutang/Utang Antar-Unit</span>) dieliminasi
+    saat konsolidasi.</li>
+  <li><b>Persetujuan berjenjang.</b> Transaksi dibuat oleh satu peran, lalu
+    <b>disetujui</b> peran lain sebelum benar-benar memengaruhi saldo.</li>
+  <li><b>Jejak audit.</b> Setiap tindakan penting (buat, ajukan, setujui, tolak, balik,
+    login, ganti sandi) dicatat lengkap dengan pelaku dan waktunya.</li>
+  <li><b>Sesuai ISAK 35.</b> Laporan keuangan disajikan untuk entitas nirlaba, dengan
+    klasifikasi <b>aset neto tanpa/dengan pembatasan</b>.</li>
+</ul>
+<div class="callout note">Manual ini mendokumentasikan fitur yang <b>sudah tersedia</b>
+di sistem. Fitur yang direncanakan namun belum dibangun disebut terpisah pada bagian
+<i>Pengembangan selanjutnya</i>.</div>
+
+<h3 id="a2-peran">A.2 Peran dan Hak Akses</h3>
+<p>Setiap pengguna memiliki satu <b>peran</b> yang menentukan menu dan tindakan yang
+boleh dilakukannya. Pembagian peran ini menegakkan prinsip persetujuan berjenjang —
+misalnya, orang yang <i>membuat</i> jurnal umumnya bukan orang yang <i>menyetujuinya</i>.</p>
+<ul>
+  <li><b>Administrator</b> — mengelola data acuan (bagan akun, unit, periode, pengguna),
+    backup, dan seluruh fungsi sistem.</li>
+  <li><b>Staf Akuntansi</b> — pencatat utama: jurnal, kas, piutang, pajak, anggaran.</li>
+  <li><b>Kasir</b> — mencatat penerimaan dan pengeluaran kas harian tanpa perlu memahami
+    debit/kredit.</li>
+  <li><b>Bendahara</b> — <b>menyetujui</b> jurnal &amp; transaksi kas, rekonsiliasi, dan
+    proses bulanan.</li>
+  <li><b>Kepala Unit</b> — memantau laporan dan kinerja unitnya.</li>
+  <li><b>Pengurus Yayasan</b> — <b>mengesahkan anggaran (RKAT)</b>, menyetujui, dan
+    memantau seluruh yayasan.</li>
+</ul>
+<p>Matriks berikut merangkum kewenangan tiap peran. Tanda ● berarti berwenang.</p>
+<div class="figure"><table class="tbl matrix"><thead><tr><th>KEWENANGAN</th><th class="c">Admin</th><th class="c">Staf Akuntansi</th><th class="c">Kasir</th><th class="c">Bendahara</th><th class="c">Kepala Unit</th><th class="c">Pengurus Yayasan</th></tr></thead><tbody><tr><td>Input jurnal / kas</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Setujui & posting jurnal</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Rekonsiliasi bank</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kelola siswa & tagihan</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Catat pembayaran SPP</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Proses CKPN & amortisasi</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Susun anggaran RKAT</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Sahkan anggaran RKAT</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Potong & setor pajak</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kelola master data & COA</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kunci / buka periode</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Tutup buku tahunan</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Backup database</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Lihat semua laporan & dashboard</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Lihat jejak audit</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr></tbody></table></div>
+  <p class="src-note">● = berwenang. Sumber: konfigurasi <span class="mono">computePerms()</span> & <span class="mono">requireRole()</span> di kode.</p>
+<p class="caption"><b>Tabel A.1</b> — Matriks peran × kewenangan.</p>
+
+<h3 id="a3-memulai">A.3 Memulai</h3>
+
+<h4>Masuk ke sistem (login)</h4>
+<ol class="steps">
+  <li>Buka alamat SAS di peramban (mis. <span class="mono">https://sas.sekolah.example</span>).</li>
+  <li>Masukkan <b>email</b> dan <b>kata sandi</b> yang diberikan Administrator.</li>
+  <li>Klik <b>Masuk</b>. Bila benar, Anda diarahkan ke <b>Dashboard</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Halaman login">
+  <div class="caption"><b>Gambar A.1</b> — Halaman masuk Sistem Akuntansi Sekolah (SAS) Open Source.</div></div>
+<div class="callout warn">Jika muncul pesan <i>"Email atau kata sandi salah"</i>, periksa
+kembali penulisan email. Setelah beberapa kali gagal dan Anda lupa sandi, hubungi
+Administrator untuk pengaturan ulang.</div>
+
+<h4>Mengenal tata letak</h4>
+<p>Setelah masuk, layar terbagi menjadi tiga bagian utama. Nomor pada gambar merujuk
+penjelasan di bawahnya.</p>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Dashboard beranotasi">
+  <div class="caption"><b>Gambar A.2</b> — Dashboard eksekutif dan elemen navigasi utama.</div></div>
+<ol>
+  <li><b>Menu samping (sidebar)</b> — seluruh modul, dikelompokkan menjadi
+    <i>Transaksi</i>, <i>Pelaporan</i>, dan <i>Pengaturan</i>. Menu yang tampil menyesuaikan
+    peran Anda.</li>
+  <li><b>Pemilih unit</b> — berpindah antara satu unit dan tampilan
+    <i>Konsolidasi — semua unit</i>.</li>
+  <li><b>Ganti Sandi</b> — mengubah kata sandi Anda sendiri (lihat di bawah).</li>
+  <li><b>Kartu ringkasan &amp; panel</b> — angka kunci keuangan, termasuk kartu
+    <b>Menunggu Persetujuan</b> yang menjadi pusat kerja para penyetuju.</li>
+</ol>
+
+<h4>Mengganti kata sandi</h4>
+<ol class="steps">
+  <li>Klik tombol <b>Ganti Sandi</b> di kanan atas.</li>
+  <li>Isi <b>kata sandi lama</b>, lalu <b>kata sandi baru</b> (minimal 8 karakter) dan ulangi.</li>
+  <li>Klik <b>Simpan</b>. Gunakan kata sandi baru pada login berikutnya.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Dialog ganti sandi" style="max-width:560px;display:block;margin:0 auto;">
+  <div class="caption"><b>Gambar A.3</b> — Dialog ganti kata sandi.</div></div>
+<div class="callout tip">Ganti kata sandi awal dari Administrator segera setelah login
+pertama, dan gunakan kata sandi yang unik untuk akun SAS Anda.</div>
+
+<h3 id="a4-konsep">A.4 Konsep Penting untuk Semua Pengguna</h3>
+
+<h4>Status dokumen</h4>
+<p>Setiap jurnal/transaksi memiliki <b>status</b> yang menunjukkan posisinya dalam alur
+persetujuan:</p>
+<div class="status-row">
+  <span class="badge b-draft">Draft</span>
+  <span class="badge b-pending">Menunggu</span>
+  <span class="badge b-posted">Diposting</span>
+  <span class="badge b-rev">Dibalik</span>
+  <span class="badge b-rej">Ditolak</span>
+</div>
+<ul>
+  <li><b>Draft</b> — masih disusun; boleh diubah atau dihapus; <i>belum</i> memengaruhi saldo.</li>
+  <li><b>Menunggu Persetujuan</b> — sudah diajukan; menunggu keputusan penyetuju;
+    belum memengaruhi saldo.</li>
+  <li><b>Diposting</b> — sudah disetujui dan <b>memengaruhi saldo</b>. Bersifat final.</li>
+  <li><b>Dibalik</b> — jurnal terposting yang dikoreksi melalui jurnal balik.</li>
+  <li><b>Ditolak</b> — pengajuan yang tidak disetujui, disertai alasan.</li>
+</ul>
+
+<h4>Mengapa jurnal yang sudah diposting tidak bisa diedit</h4>
+<p>Demi integritas dan keperluan audit, jurnal berstatus <b>Diposting</b> bersifat
+<b>permanen</b> — tidak dapat diubah atau dihapus. Bila terjadi kesalahan, koreksi
+dilakukan dengan membuat <b>jurnal balik (reversal)</b>: sistem otomatis membentuk jurnal
+kebalikannya sehingga efek jurnal keliru ternetralkan, lalu Anda membuat jurnal yang
+benar. Dengan cara ini, riwayat asli tetap terlihat dan jejak koreksi terdokumentasi.</p>
+<div class="callout warn"><b>Tidak bisa dibatalkan diam-diam.</b> Menghapus atau
+mengubah angka jurnal terposting <i>tidak</i> tersedia — ini disengaja. Selalu gunakan
+jurnal balik untuk koreksi. (Lihat prosedur di <b>B.2</b>.)</div>
+
+<h4>Kunci periode</h4>
+<p>Pembukuan dibagi per <b>periode</b> bulanan. Setelah sebuah periode direkonsiliasi dan
+ditutup, periode itu <b>dikunci</b>: tidak ada lagi jurnal yang boleh masuk ke tanggal
+dalam periode tersebut. Ini menjaga agar laporan yang sudah difinalisasi tidak berubah
+di kemudian hari. Jika Anda mencoba memposting ke periode terkunci, sistem menolaknya.</p>
+<div class="callout note">Membuka kembali periode/tahun yang sudah ditutup hanya dapat
+dilakukan peran tertentu (Bendahara/Pengurus/Admin) dan tercatat di jejak audit. Lihat
+<b>B.8</b> dan <b>C.8</b>.</div>
+
+<h2 id="bagian-b">Bagian B — Prosedur Penggunaan per Modul</h2>
+<p class="lead">Bagian ini memandu tugas sehari-hari langkah demi langkah. Setiap prosedur
+mengikuti format seragam: <b>Tujuan → Pelaku → Prasyarat → Langkah → Hasil → Kesalahan
+umum</b>. Bagian ini dapat diikuti tanpa pendampingan, bahkan oleh pengguna baru.</p>
+
+<!-- ============================ B.1 MASTER DATA ============================ -->
+<h3 id="b1-master">B.1 Master Data</h3>
+<p>Master Data adalah data acuan yang dipakai seluruh modul: <b>Bagan Akun</b>, <b>Unit</b>,
+<b>Periode</b>, dan <b>Pengguna</b>. Menu ini umumnya dikelola Administrator/Staf Akuntansi.
+Buka melalui <i>Pengaturan → Master Data</i>, lalu pilih tab yang sesuai.</p>
+
+<h4 class="proc">Prosedur B.1.1 — Menambah akun pada Bagan Akun (COA)</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Menambah akun baru ke daftar akun.</div>
+  <div><span class="k">Pelaku</span>Admin / Staf Akuntansi.</div>
+  <div><span class="k">Prasyarat</span>Mengetahui kode, tipe, dan saldo normal akun.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Bagan Akun</b>. Daftar akun tampil berjenjang beserta saldo normal (D/K).</li>
+  <li>Klik <b>+ Tambah akun</b>.</li>
+  <li>Isi <b>kode</b>, <b>nama</b>, pilih <b>tipe</b> (aset, liabilitas, aset neto, pendapatan,
+    beban), <b>saldo normal</b>, dan induk akun bila ada.</li>
+  <li>Klik <b>Simpan</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Bagan akun">
+  <div class="caption"><b>Gambar B1.1</b> — Bagan Akun (Chart of Accounts).</div></div>
+<div class="result"><b>Hasil:</b> Akun baru muncul di daftar dan siap dipakai pada jurnal
+(jika ditandai <i>dapat diposting</i>).</div>
+<div class="callout warn"><b>Kesalahan umum:</b> kode akun ganda ditolak. Akun "induk"
+(header) sebaiknya <i>tidak</i> dapat diposting — jadikan hanya akun paling rinci yang
+<i>dapat diposting</i>.</div>
+
+<h4 class="proc">Prosedur B.1.2 — Membuka atau mengunci periode</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mengizinkan/menghentikan posting pada suatu bulan.</div>
+  <div><span class="k">Pelaku</span>Admin / Bendahara / Pengurus.</div>
+  <div><span class="k">Prasyarat</span>Rekonsiliasi bulan tersebut selesai (untuk mengunci).</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Periode</b>. Setiap bulan menampilkan status <i>terbuka</i>/<i>terkunci</i>.</li>
+  <li>Klik tombol kunci/buka pada baris bulan yang dituju.</li>
+  <li>Konfirmasikan. Periode terkunci menolak jurnal baru bertanggal di dalamnya.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Periode">
+  <div class="caption"><b>Gambar B1.2</b> — Pengelolaan periode akuntansi.</div></div>
+<div class="callout note">Unit, pengguna, dan penetapan peran dikelola di tab <b>Unit</b> dan
+<b>Pengguna</b> dengan pola yang sama (Tambah → isi → Simpan). Pada tab Pengguna,
+Administrator menetapkan email, peran, dan unit penempatan.</div>
+
+<!-- ============================ B.2 JURNAL UMUM ============================ -->
+<h3 id="b2-jurnal">B.2 Jurnal Umum</h3>
+<p>Jurnal Umum adalah inti pembukuan. Alur bakunya: <b>Draft → Ajukan → Setujui →
+Diposting</b>, dengan koreksi hanya melalui <b>jurnal balik</b>.</p>
+
+<h4 class="proc">Prosedur B.2.1 — Membuat dan mengajukan jurnal</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mencatat transaksi berpasangan yang seimbang.</div>
+  <div><span class="k">Pelaku</span>Staf Akuntansi / Kasir / Bendahara / Admin.</div>
+  <div><span class="k">Prasyarat</span>Periode terbuka; akun tersedia di COA.</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Jurnal Umum</b> → <b>+ Buat jurnal</b>.</li>
+  <li>Isi <b>tanggal</b>, <b>unit</b>, dan <b>deskripsi</b> transaksi.</li>
+  <li>Tambahkan baris: pilih <b>akun</b>, unit, lalu isi nominal pada kolom <b>Debit</b>
+    atau <b>Kredit</b>. Tambah baris sesuai kebutuhan.</li>
+  <li>Pastikan <b>total Debit = total Kredit</b> (indikator seimbang di bawah tabel).</li>
+  <li>Klik <b>Ajukan persetujuan</b>. Nomor jurnal otomatis diberikan saat diajukan.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Form jurnal">
+  <div class="caption"><b>Gambar B2.1</b> — Formulir pembuatan jurnal.</div></div>
+<div class="result"><b>Hasil:</b> Jurnal berstatus <span class="badge b-pending">Menunggu</span>,
+menunggu persetujuan. Saldo <i>belum</i> berubah.</div>
+<div class="callout warn"><b>Kesalahan umum:</b> tombol Ajukan nonaktif berarti jurnal
+belum seimbang — periksa selisih Debit/Kredit. Menyimpan sebagai draft dulu juga
+diperbolehkan bila data belum lengkap.</div>
+
+<h4 class="proc">Prosedur B.2.2 — Menyetujui atau menolak (Bendahara)</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Memvalidasi lalu memposting jurnal.</div>
+  <div><span class="k">Pelaku</span>Bendahara / Pengurus / Admin.</div>
+  <div><span class="k">Prasyarat</span>Ada jurnal berstatus Menunggu.</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Jurnal Umum</b>, klik baris berstatus <span class="badge b-pending">Menunggu</span>.</li>
+  <li>Periksa akun dan nominal pada bukti jurnal.</li>
+  <li>Klik <b>Setujui &amp; posting</b> untuk memposting, atau <b>Tolak</b> disertai alasan.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Approval bendahara">
+  <div class="caption"><b>Gambar B2.2</b> — Tampilan persetujuan: tombol <b>Setujui</b> (1) dan <b>Tolak</b> (2).</div></div>
+<div class="result"><b>Hasil:</b> Jurnal menjadi <span class="badge b-posted">Diposting</span>
+dan memengaruhi saldo. Jika ditolak, kembali dapat diperbaiki pembuatnya.</div>
+<div class="callout note">Bila jurnal beban melampaui pagu anggaran (RKAT), sistem
+memperingatkan. Penyetuju dapat tetap menyetujui dengan konfirmasi <i>melampaui pagu</i>
+(lihat B.5).</div>
+
+<h4 class="proc">Prosedur B.2.3 — Koreksi melalui jurnal balik &amp; cetak voucher</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mengoreksi jurnal terposting yang keliru.</div>
+  <div><span class="k">Pelaku</span>Bendahara / Pengurus / Admin.</div>
+  <div><span class="k">Prasyarat</span>Jurnal sudah Diposting; periode masih terbuka.</div>
+</div>
+<ol class="steps">
+  <li>Buka detail jurnal terposting yang keliru.</li>
+  <li>Klik <b>Buat jurnal balik</b>. Sistem membentuk jurnal kebalikannya dan mempostingnya.</li>
+  <li>Buat jurnal baru yang benar (Prosedur B.2.1).</li>
+  <li>Untuk arsip, klik <b>Cetak voucher</b> guna mencetak bukti jurnal yang rapi.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Voucher jurnal" style="max-width:620px;display:block;margin:0 auto;">
+  <div class="caption"><b>Gambar B2.3</b> — Voucher jurnal siap cetak.</div></div>
+<div class="callout warn"><b>Kesalahan umum:</b> mencari tombol "Edit/Hapus" pada jurnal
+terposting — tidak ada, memang disengaja. Selalu gunakan jurnal balik.</div>
+
+<!-- ============================ B.3 KAS & BANK ============================ -->
+<h3 id="b3-kasbank">B.3 Kas &amp; Bank</h3>
+<p>Modul ini untuk mencatat penerimaan/pengeluaran kas dan merekonsiliasi mutasi bank.
+Kasir dapat mencatat kas <b>tanpa</b> memahami debit/kredit — cukup memilih <b>kategori</b>.</p>
+
+<h4 class="proc">Prosedur B.3.1 — Mencatat penerimaan kas (Kasir)</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mencatat uang masuk ke kas/bank.</div>
+  <div><span class="k">Pelaku</span>Kasir / Staf Akuntansi / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Rekening &amp; kategori sudah disiapkan admin.</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Kas &amp; Bank → Penerimaan kas</b>.</li>
+  <li>Pilih <b>rekening</b> tujuan, <b>tanggal</b>, dan <b>kategori</b> penerimaan
+    (mis. "Pendapatan pendaftaran").</li>
+  <li>Isi <b>jumlah</b> dan catatan, lalu <b>Simpan</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Penerimaan kas">
+  <div class="caption"><b>Gambar B3.1</b> — Formulir penerimaan kas (tampilan Kasir).</div></div>
+<div class="result"><b>Hasil:</b> Sistem membentuk jurnal <b>berstatus Menunggu</b> untuk
+disetujui Bendahara. Kasir tidak perlu menentukan akun — kategori sudah memetakannya.</div>
+<div class="callout warn"><b>Kesalahan umum:</b> memilih kategori yang salah. Bila ragu,
+konsultasikan pemetaan kategori→akun ke Staf Akuntansi. Pengeluaran kas mengikuti
+langkah serupa pada tab <b>Pengeluaran kas</b>.</div>
+
+<h4 class="proc">Prosedur B.3.2 — Rekonsiliasi bank dari CSV mutasi</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mencocokkan catatan sistem dengan mutasi bank.</div>
+  <div><span class="k">Pelaku</span>Staf Akuntansi / Bendahara / Admin.</div>
+  <div><span class="k">Prasyarat</span>File CSV mutasi dari internet banking.</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Kas &amp; Bank → Rekonsiliasi bank</b>, pilih rekening.</li>
+  <li>Unggah <b>CSV</b> mutasi. Petakan kolom (tanggal, keterangan, debit/kredit) sesuai
+    format bank Anda.</li>
+  <li>Klik <b>Cocokkan otomatis</b> — sistem memasangkan mutasi dengan transaksi bernominal
+    sama dan tanggal ±3 hari.</li>
+  <li>Cocokkan sisanya secara manual; selesaikan selisih bila ada.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Rekonsiliasi bank">
+  <div class="caption"><b>Gambar B3.2</b> — Rekonsiliasi bank &amp; impor CSV.</div></div>
+<div class="callout warn"><b>Kesalahan umum:</b> impor gagal karena pemetaan kolom keliru
+atau format tanggal berbeda. Periksa kembali kolom mana yang berisi tanggal dan nominal.</div>
+
+<!-- ============================ B.4 PIUTANG SPP ============================ -->
+<h3 id="b4-piutang">B.4 Piutang Siswa (SPP)</h3>
+<p>Mengelola tagihan SPP: data siswa, penerbitan tagihan massal, pembayaran,
+umur piutang (aging) &amp; CKPN, serta pengakuan pendapatan bulanan.</p>
+
+<h4 class="proc">Prosedur B.4.1 — Menambah &amp; mengimpor siswa</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mendata siswa penerima tagihan.</div>
+  <div><span class="k">Pelaku</span>Admin / Staf Akuntansi.</div>
+  <div><span class="k">Prasyarat</span>Untuk impor: file CSV berisi kolom nim, nama, unit.</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Piutang SPP → Siswa</b>.</li>
+  <li>Untuk satu siswa: <b>+ Tambah siswa</b>, isi data, <b>Simpan</b>.</li>
+  <li>Untuk banyak sekaligus: klik <b>Impor CSV</b>, unduh templat bila perlu, pilih berkas,
+    tinjau <b>pratinjau</b>, lalu <b>Simpan</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Impor siswa CSV">
+  <div class="caption"><b>Gambar B4.1</b> — Impor siswa dari CSV dengan pratinjau.</div></div>
+<div class="result"><b>Hasil:</b> Ringkasan impor menampilkan jumlah <b>berhasil</b> dan
+<b>dilewati</b> (mis. NIS/NISN duplikat atau unit tak dikenal) beserta alasannya.</div>
+
+<h4 class="proc">Prosedur B.4.2 — Menerbitkan tagihan SPP massal</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Membuat tagihan satu semester untuk banyak siswa.</div>
+  <div><span class="k">Pelaku</span>Admin / Staf Akuntansi / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Data siswa sudah ada.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Generate tagihan massal</b>.</li>
+  <li>Isi <b>semester</b>, <b>nominal</b>, tanggal, jatuh tempo, dan tenor amortisasi.</li>
+  <li>Pilih siswa sasaran (per unit/angkatan), lalu <b>Terbitkan</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Generate tagihan">
+  <div class="caption"><b>Gambar B4.2</b> — Penerbitan tagihan SPP massal.</div></div>
+<div class="result"><b>Hasil:</b> Untuk tiap siswa terbentuk jurnal
+<span class="mono">(D) Piutang SPP / (K) Pendapatan Diterima di Muka</span>. Siswa yang
+sudah punya tagihan pada semester sama dilewati otomatis.</div>
+
+<h4 class="proc">Prosedur B.4.3 — Mencatat pembayaran (lunas atau cicilan)</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mencatat pembayaran SPP siswa.</div>
+  <div><span class="k">Pelaku</span>Admin / Staf / Kasir / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Tagihan sudah terbit.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Daftar tagihan</b>. Cari tagihan siswa.</li>
+  <li>Klik <b>Catat bayar</b> pada baris tagihan.</li>
+  <li>Isi <b>jumlah</b> (boleh sebagian untuk cicilan), rekening penerima, tanggal, metode.
+    Klik <b>Simpan</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Catat pembayaran" style="max-width:560px;display:block;margin:0 auto;">
+  <div class="caption"><b>Gambar B4.3</b> — Mencatat pembayaran/cicilan SPP.</div></div>
+<div class="callout warn"><b>Kesalahan umum:</b> mencatat pembayaran SPP lewat modul Kas
+(kategori umum) alih-alih di sini. <b>Selalu</b> catat pembayaran SPP melalui tombol
+<i>Catat bayar</i> agar buku besar Piutang tetap sinkron dengan rincian tagihan. (Lihat
+FAQ di D.4.)</div>
+
+<h4 class="proc">Prosedur B.4.4 — Mencatat keringanan / beasiswa</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mengurangi tagihan SPP tanpa kas (potongan/diskon atau beasiswa).</div>
+  <div><span class="k">Pelaku</span>Admin / Staf Akuntansi / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Tagihan masih bersisa.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Daftar tagihan</b>, klik <b>Keringanan</b> pada baris tagihan.</li>
+  <li>Pilih <b>jenis</b>: <b>Potongan/diskon</b> (kebijakan harga) atau <b>Beasiswa</b>.</li>
+  <li>Isi <b>jumlah</b> (sebagian untuk parsial, atau seluruh sisa untuk penuh), tanggal,
+    dan keterangan. Klik <b>Simpan</b>.</li>
+</ol>
+<div class="result"><b>Hasil:</b> sisa tagihan berkurang &amp; jurnal terbentuk otomatis —
+<b>Potongan</b>: <span class="mono">(D) Potongan SPP 4150 / (K) Piutang</span> (pendapatan
+neto turun); <b>Beasiswa</b>: <span class="mono">(D) Beban Beasiswa 5350 / (K) Piutang</span>
+(pendapatan tetap bruto). Aging, CKPN, dan buku besar tetap konsisten.</div>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Keringanan/beasiswa" style="max-width:560px;display:block;margin:0 auto;">
+  <div class="caption"><b>Gambar B4.6</b> — Mencatat keringanan / beasiswa SPP.</div></div>
+<div class="callout note">Beasiswa <b>parsial</b> menutup sebagian sisa (siswa membayar
+selebihnya); <b>penuh</b> menutup seluruh sisa. Perlakuan akuntansi lengkap di <b>C.9</b>.</div>
+
+<h4 class="proc">Prosedur B.4.5 — Membaca aging &amp; memproses CKPN</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Menilai umur piutang dan cadangan kerugian.</div>
+  <div><span class="k">Pelaku</span>Staf Akuntansi / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Ada piutang beredar.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Aging &amp; CKPN</b>. Piutang dikelompokkan per <b>bucket umur</b> dengan
+    tarif cadangan yang dapat dikonfigurasi.</li>
+  <li>Sesuaikan <b>tarif per bucket</b> bila kebijakan berubah.</li>
+  <li>Klik <b>Buat draft CKPN</b>. Sistem membuat jurnal penyesuaian
+    <span class="mono">(D) Beban CKPN / (K) CKPN</span> berstatus <b>draft</b> untuk ditinjau.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Aging & CKPN">
+  <div class="caption"><b>Gambar B4.4</b> — Umur piutang &amp; perhitungan CKPN.</div></div>
+
+<h4 class="proc">Prosedur B.4.6 — Menjalankan pengakuan pendapatan bulanan</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Mengamortisasi pendapatan diterima di muka (PSAK 72).</div>
+  <div><span class="k">Pelaku</span>Admin / Staf / Bendahara.</div>
+  <div><span class="k">Prasyarat</span>Ada tagihan bertenor amortisasi.</div>
+</div>
+<ol class="steps">
+  <li>Buka tab <b>Pengakuan pendapatan</b>, pilih <b>tahun</b> dan <b>bulan</b>.</li>
+  <li>Tinjau pratinjau jumlah yang akan diakui.</li>
+  <li>Klik <b>Jalankan</b>. Sistem memindahkan porsi bulan tersebut dari
+    <i>Pendapatan Diterima di Muka</i> ke <i>Pendapatan SPP</i>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Pengakuan pendapatan">
+  <div class="caption"><b>Gambar B4.5</b> — Pengakuan pendapatan bulanan (amortisasi).</div></div>
+<div class="callout note">Proses bulan yang sama tidak dapat dijalankan dua kali (dicegah
+sistem), sehingga aman diulang.</div>
+
+<!-- ============================ B.5 ANGGARAN RKAT ============================ -->
+<h3 id="b5-anggaran">B.5 Anggaran (RKAT)</h3>
+<p>RKAT menetapkan pagu belanja per unit dengan alur <b>Draft → Diajukan → Disahkan</b>.
+Setelah disahkan, pagu ditegakkan pada posting beban.</p>
+
+<h4 class="proc">Prosedur B.5.1 — Menyusun, mengajukan, mengesahkan RKAT</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Menetapkan anggaran belanja unit.</div>
+  <div><span class="k">Pelaku</span>Susun: Staf/Bendahara. Sahkan: Pengurus Yayasan.</div>
+  <div><span class="k">Prasyarat</span>Pilih satu unit (bukan konsolidasi).</div>
+</div>
+<ol class="steps">
+  <li>Buka <b>Anggaran (RKAT)</b>, pilih <b>unit</b> dan <b>tahun</b> di kanan atas.</li>
+  <li>Saat status <i>Draft</i>: isi pagu tiap pos beban, lalu <b>Ajukan RKAT</b>.</li>
+  <li>Pengurus Yayasan membuka halaman yang sama dan klik <b>Sahkan RKAT</b>.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Realisasi anggaran">
+  <div class="caption"><b>Gambar B5.1</b> — Laporan realisasi vs anggaran (pagu, realisasi, sisa, %).</div></div>
+<div class="result"><b>Hasil:</b> Batang persentase menandai pos yang <b>waspada (≥80%)</b>
+dengan warna emas dan yang <b>melampaui pagu</b> dengan merah. Posting beban yang
+melampaui pagu RKAT yang telah disahkan akan diblokir (kecuali penyetuju meng-override).</div>
+
+<!-- ============================ B.6 LAPORAN KEUANGAN ============================ -->
+<h3 id="b6-laporan">B.6 Laporan Keuangan</h3>
+<p>SAS menyajikan empat laporan ISAK 35. Buka <b>Laporan Keuangan</b>, pilih jenis
+laporan, rentang tanggal, dan unit (atau <i>Konsolidasi</i>).</p>
+
+<h4 class="proc">Prosedur B.6.1 — Menghasilkan &amp; mengekspor laporan</h4>
+<div class="proc-meta">
+  <div><span class="k">Tujuan</span>Menyajikan laporan keuangan resmi.</div>
+  <div><span class="k">Pelaku</span>Semua peran (lihat); umumnya Staf/Bendahara/Pengurus.</div>
+  <div><span class="k">Prasyarat</span>Jurnal periode terkait sudah diposting.</div>
+</div>
+<ol class="steps">
+  <li>Pilih jenis: <b>Posisi Keuangan</b>, <b>Penghasilan Komprehensif</b>,
+    <b>Perubahan Aset Neto</b>, atau <b>Arus Kas</b>.</li>
+  <li>Atur <b>periode</b> dan pilih <b>unit</b> atau <b>Konsolidasi — semua unit</b>.</li>
+  <li>Klik <b>Export PDF</b> (cetak) atau <b>Export Excel</b> sesuai kebutuhan.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Laporan posisi keuangan">
+  <div class="caption"><b>Gambar B6.1</b> — Laporan Posisi Keuangan (konsolidasi).</div></div>
+<div class="callout note">Pada mode konsolidasi, jika akun antar-unit belum nol sempurna,
+muncul <b>peringatan eliminasi</b> beserta selisihnya. Telusuri via Buku Besar akun
+antar-unit (lihat C.4).</div>
+
+<!-- ============================ B.7 DASHBOARD & AUDIT ============================ -->
+<h3 id="b7-dashboard">B.7 Dashboard dan Jejak Audit</h3>
+<p>Dashboard merangkum kondisi keuangan; Jejak Audit menelusuri setiap perubahan.</p>
+<h4>Membaca dashboard</h4>
+<p>Kartu atas menampilkan Total Aset, Kas &amp; Bank, Aset Neto, Surplus/Defisit YTD,
+Piutang Beredar (dengan CKPN), Serapan Anggaran, Siswa Aktif, dan jumlah dokumen
+Menunggu Persetujuan. Di bawahnya: kinerja per unit, umur piutang, tren penerimaan 12
+bulan, dan status eliminasi antar-unit. Lihat <b>Gambar A.2</b>.</p>
+<h4>Menelusuri jejak audit</h4>
+<ol class="steps">
+  <li>Buka <b>Jejak Audit</b>.</li>
+  <li>Saring berdasarkan <b>entitas</b> atau <b>aksi</b>, atau ketik kata kunci lalu Enter.</li>
+  <li>Baca siapa melakukan apa dan kapan.</li>
+</ol>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Jejak audit">
+  <div class="caption"><b>Gambar B7.1</b> — Jejak audit dengan penyaring &amp; pencarian.</div></div>
+
+<!-- ============================ B.8 RUTINITAS PERIODIK ============================ -->
+<h3 id="b8-rutinitas">B.8 Rutinitas Periodik (Checklist)</h3>
+<h4>Harian — Kasir</h4>
+<ul>
+  <li>Catat seluruh penerimaan &amp; pengeluaran kas hari itu (B.3.1).</li>
+  <li>Pastikan tidak ada transaksi tertunda di akhir hari.</li>
+  <li>Serahkan bukti fisik ke Bendahara untuk persetujuan.</li>
+</ul>
+<h4>Bulanan — Staf Akuntansi</h4>
+<ul>
+  <li>Rekonsiliasi seluruh rekening bank (B.3.2).</li>
+  <li>Jalankan pengakuan pendapatan SPP bulan berjalan (B.4.5).</li>
+  <li>Tinjau aging dan buat draft CKPN bila perlu (B.4.4).</li>
+  <li>Pastikan seluruh jurnal disetujui, lalu <b>kunci periode</b> (B.1.2).</li>
+  <li>Hasilkan laporan bulanan (B.6.1) untuk pimpinan.</li>
+</ul>
+<h4>Tahunan — Bendahara/Pengurus</h4>
+<ul>
+  <li>Pastikan seluruh periode tahun berjalan terkunci.</li>
+  <li>Jalankan <b>tutup buku tahunan</b> (memindahkan surplus/defisit ke aset neto) —
+    lihat C.8.</li>
+  <li>Pastikan <b>backup</b> terbaru tersedia (tab Backup Database).</li>
+</ul>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Tutup buku">
+  <div class="caption"><b>Gambar B8.1</b> — Tutup buku tahunan (Administrasi).</div></div>
+
+<h2 id="bagian-c">Bagian C — Prosedur dan Perlakuan Akuntansi</h2>
+<p class="lead">Bagian ini ditujukan untuk <b>Staf Akuntansi dan auditor</b>. Ditulis lebih
+teknis, memuat kebijakan akuntansi ringkas dan contoh jurnal berangka. Setiap sub-bab
+ditutup kotak <b>"Di SAS"</b> yang menghubungkan perlakuan ke fitur konkret di aplikasi.</p>
+
+<h3 id="c1-kebijakan">C.1 Kebijakan Akuntansi Ringkas</h3>
+<ul>
+  <li><b>Basis akrual.</b> Pendapatan dan beban diakui saat terjadi, bukan saat kas
+    diterima/dibayar.</li>
+  <li><b>Penyajian ISAK 35.</b> Sebagai entitas nirlaba, laporan terdiri atas Laporan
+    Posisi Keuangan, Penghasilan Komprehensif, Perubahan Aset Neto, dan Arus Kas.</li>
+  <li><b>Klasifikasi aset neto.</b> Aset neto dipilah menjadi <b>tanpa pembatasan</b> dan
+    <b>dengan pembatasan</b> dari pemberi sumber daya.</li>
+  <li><b>Satuan &amp; pembulatan.</b> Nilai disimpan sebagai bilangan bulat (sen) untuk
+    menghindari galat pembulatan, dan disajikan dalam format Rupiah.</li>
+</ul>
+
+<h3 id="c2-psak72">C.2 Pengakuan Pendapatan SPP (PSAK 72)</h3>
+<p>SPP diterima di muka untuk masa manfaat satu semester, sehingga <b>tidak</b> langsung
+diakui sebagai pendapatan. Pendapatan diakui bertahap (amortisasi) selama tenor. Contoh:
+SPP Rp 12.000.000, tenor 6 bulan.</p>
+
+<h4>1) Penerbitan tagihan</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 1131 Piutang SPP Siswa</td><td class="r">12.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 2120 Pendapatan Diterima di Muka — SPP</td><td class="r"></td><td class="r">12.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">12.000.000</td><td class="r">12.000.000</td></tr></table>
+
+<h4>2) Penerimaan pembayaran</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 1121 Bank</td><td class="r">12.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 1131 Piutang SPP Siswa</td><td class="r"></td><td class="r">12.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">12.000.000</td><td class="r">12.000.000</td></tr></table>
+
+<h4>3) Amortisasi bulanan (Rp 12.000.000 ÷ 6 = Rp 2.000.000/bulan)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 2120 Pendapatan Diterima di Muka — SPP</td><td class="r">2.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 4100 Pendapatan SPP</td><td class="r"></td><td class="r">2.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">2.000.000</td><td class="r">2.000.000</td></tr></table>
+<div class="box-sas"><b class="tag">Di SAS</b> Jurnal (1) terbentuk otomatis saat
+<b>Generate tagihan massal</b> (B.4.2); jurnal (2) saat <b>Catat bayar</b> (B.4.3); jurnal
+(3) saat menjalankan <b>Pengakuan pendapatan</b> bulanan (B.4.5). Semua di modul
+<i>Piutang SPP</i>.</div>
+
+<h3 id="c3-ckpn">C.3 CKPN Piutang Siswa (PSAK 71)</h3>
+<p>Cadangan Kerugian Penurunan Nilai (CKPN) memperkirakan piutang yang berpotensi tak
+tertagih, dihitung per <b>bucket umur</b> dengan tarif kebijakan:</p>
+<table class="tbl"><thead><tr><th>Bucket umur</th><th class="c">Tarif</th><th class="r">Contoh saldo</th><th class="r">CKPN</th></tr></thead>
+<tbody>
+<tr><td>Belum jatuh tempo</td><td class="c">0%</td><td class="r">18.000.000</td><td class="r">0</td></tr>
+<tr><td>1–30 hari</td><td class="c">5%</td><td class="r">16.500.000</td><td class="r">825.000</td></tr>
+<tr><td>31–60 hari</td><td class="c">10%</td><td class="r">21.000.000</td><td class="r">2.100.000</td></tr>
+<tr><td>61–90 hari</td><td class="c">25%</td><td class="r">15.000.000</td><td class="r">3.750.000</td></tr>
+<tr><td>&gt; 90 hari</td><td class="c">50%</td><td class="r">49.500.000</td><td class="r">24.750.000</td></tr>
+<tr class="tot" style="font-weight:700;"><td>Total</td><td class="c"></td><td class="r">120.000.000</td><td class="r">31.425.000</td></tr>
+</tbody></table>
+<p>Jurnal penyesuaian (menaikkan cadangan ke saldo yang ditargetkan):</p>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5800 Beban CKPN</td><td class="r">31.425.000</td><td class="r"></td></tr>
+<tr><td>(K) 1139 CKPN Piutang SPP (kontra-aset)</td><td class="r"></td><td class="r">31.425.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">31.425.000</td><td class="r">31.425.000</td></tr></table>
+<div class="box-sas"><b class="tag">Di SAS</b> Buka <i>Piutang SPP → Aging &amp; CKPN</i>
+(B.4.4). Tarif tiap bucket dapat dikonfigurasi. Tombol <b>Buat draft CKPN</b> menghasilkan
+jurnal di atas berstatus <b>draft</b> — ditinjau dan diajukan seperti jurnal biasa.
+Direview setidaknya setiap akhir bulan/triwulan.</div>
+
+<h3 id="c4-antarunit">C.4 Transaksi Antar-Unit</h3>
+<p>Dipakai saat satu unit menanggung/meminjamkan dana untuk unit lain. Kedua sisi dicatat
+dengan akun antar-unit. Contoh: Yayasan menalangi honor guru SD Rp 30.000.000.</p>
+<h4>Di sisi Yayasan (pemberi)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 1140 Piutang Antar-Unit</td><td class="r">30.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 1122 Bank</td><td class="r"></td><td class="r">30.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">30.000.000</td><td class="r">30.000.000</td></tr></table>
+<h4>Di sisi SD (penerima)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5300 Honor Guru Luar Biasa</td><td class="r">30.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 2150 Utang Antar-Unit</td><td class="r"></td><td class="r">30.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">30.000.000</td><td class="r">30.000.000</td></tr></table>
+<p>Saat <b>konsolidasi</b>, Piutang Antar-Unit (Rp 30.000.000) dan Utang Antar-Unit
+(Rp 30.000.000) <b>saling menghapus menjadi nol</b> — sehingga tidak membesarkan aset dan
+liabilitas gabungan secara semu.</p>
+<div class="box-sas"><b class="tag">Di SAS</b> Gunakan akun bertanda <i>antar-unit</i>
+(1140 / 2150). Dashboard menampilkan <b>status eliminasi</b>; jika saldo konsolidasi belum
+nol, telusuri via <i>Buku Besar</i> akun antar-unit untuk menemukan pasangan yang belum
+klop.</div>
+
+<h3 id="c5-hibah">C.5 Sumbangan/Hibah Terikat</h3>
+<p>Hibah dengan syarat penggunaan dicatat sebagai <b>aset neto dengan pembatasan</b>.
+Contoh: hibah beasiswa terikat Rp 75.000.000.</p>
+<h4>Penerimaan hibah terikat</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 1123 Bank</td><td class="r">75.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 4300 Hibah/Sumbangan Terikat <span class="pill">dengan pembatasan</span></td><td class="r"></td><td class="r">75.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">75.000.000</td><td class="r">75.000.000</td></tr></table>
+<h4>Pelepasan pembatasan (saat syarat terpenuhi, mis. beasiswa disalurkan)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) Aset Neto Dengan Pembatasan — pelepasan</td><td class="r">75.000.000</td><td class="r"></td></tr>
+<tr><td>(K) Aset Neto Tanpa Pembatasan — pelepasan</td><td class="r"></td><td class="r">75.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">75.000.000</td><td class="r">75.000.000</td></tr></table>
+<div class="box-sas"><b class="tag">Di SAS</b> Penerimaan dapat dicatat via <i>Kas &amp;
+Bank</i> dengan kategori "Hibah/sumbangan terikat", atau via Jurnal Umum. Pelepasan
+pembatasan dicatat sebagai <b>jurnal reklasifikasi</b> di Jurnal Umum. Efeknya tampak pada
+<i>Laporan Perubahan Aset Neto</i> (kolom tanpa/dengan pembatasan).</div>
+
+<h3 id="c6-gaji">C.6 Beban Gaji, PPh 21 &amp; BPJS</h3>
+<p>Pembayaran gaji melibatkan potongan yang menjadi utang kepada pihak ketiga. Contoh:
+gaji Rp 85.000.000, PPh 21 Rp 1.700.000, BPJS (bagian pegawai) Rp 3.000.000.</p>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5100 Beban Gaji &amp; Tunjangan</td><td class="r">85.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 2130 Utang PPh 21</td><td class="r"></td><td class="r">1.700.000</td></tr>
+<tr><td>(K) 2140 Utang BPJS</td><td class="r"></td><td class="r">3.000.000</td></tr>
+<tr><td>(K) 1121 Bank (dibayarkan neto)</td><td class="r"></td><td class="r">80.300.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">85.000.000</td><td class="r">85.000.000</td></tr></table>
+<p>Utang PPh 21 kemudian disetor ke kas negara (mengurangi utang dan bank). Untuk
+honorarium bukan pegawai tetap, pemotongan PPh 21 dilakukan melalui modul <i>Pajak</i>.</p>
+<div class="box-sas"><b class="tag">Di SAS</b> Jurnal gaji penuh dicatat via
+<i>Jurnal Umum</i>. Pemotongan &amp; <b>penyetoran PPh 21/23</b> honorarium dikelola di modul
+<i>Pajak (PPh)</i> — pemotongan, rekap masa, dan setor (menghasilkan jurnal otomatis).</div>
+
+<h3 id="c7-penyusutan">C.7 Penyusutan &amp; Imbalan Pascakerja (PSAK 24)</h3>
+<h4>Penyusutan aset tetap (berkala)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5700 Beban Penyusutan</td><td class="r">18.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 1290 Akumulasi Penyusutan (kontra-aset)</td><td class="r"></td><td class="r">18.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">18.000.000</td><td class="r">18.000.000</td></tr></table>
+<h4>Provisi imbalan pascakerja (PSAK 24)</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5xxx Beban Imbalan Pascakerja</td><td class="r">10.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 2210 Provisi Imbalan Pascakerja</td><td class="r"></td><td class="r">10.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">10.000.000</td><td class="r">10.000.000</td></tr></table>
+<div class="box-sas"><b class="tag">Di SAS</b> Keduanya dicatat sebagai <b>jurnal
+berkala</b> melalui <i>Jurnal Umum</i> (akun 5700/1290 dan 2210 telah tersedia di COA).
+Belum ada modul aset tetap/penyusutan khusus — lihat <i>Pengembangan selanjutnya</i>.</div>
+
+<h3 id="c8-tutupbuku">C.8 Tutup Buku Tahunan</h3>
+<p>Pada akhir tahun, akun nominal (pendapatan &amp; beban) ditutup ke <b>aset neto</b>
+sehingga saldo awal tahun berikutnya nol. Secara ringkas, surplus/defisit tiap unit
+dipindahkan:</p>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 4xxx Seluruh Pendapatan</td><td class="r">xxx</td><td class="r"></td></tr>
+<tr><td>(K) 5xxx Seluruh Beban</td><td class="r"></td><td class="r">xxx</td></tr>
+<tr><td>(K) 3100/3200 Aset Neto (surplus)</td><td class="r"></td><td class="r">selisih</td></tr>
+<tr class="tot"><td>Total</td><td class="r">xxx</td><td class="r">xxx</td></tr></table>
+<p>Pendapatan/beban <b>dengan pembatasan</b> ditutup ke Aset Neto Dengan Pembatasan;
+sisanya ke Aset Neto Tanpa Pembatasan.</p>
+<div class="box-sas"><b class="tag">Di SAS</b> Buka <i>Administrasi → Tutup Buku Tahunan</i>
+(B.8). Sistem membentuk jurnal penutup otomatis <b>per unit</b>, mengunci periode tahun
+tersebut. Tutup buku dapat <b>dibatalkan</b> (membalik jurnal penutup &amp; membuka periode)
+oleh peran berwenang bila diperlukan, dan seluruhnya tercatat di jejak audit.</div>
+<div class="figure"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgODAwIDEwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNGYxZmEiLz48dGV4dCB4PSIyMCIgeT0iNTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE3IiBmaWxsPSIjNDkzMzZjIj5TQVMg4oCUIHBhbmR1YW4gdGVrczsgdGFuZ2thcGFuIGxheWFyIGJhcnUgYmVsdW0gZGlidWF0LjwvdGV4dD48L3N2Zz4=" alt="Perubahan aset neto">
+  <div class="caption"><b>Gambar C.1</b> — Laporan Perubahan Aset Neto (tanpa/dengan pembatasan).</div></div>
+
+<h3 id="c9-keringanan">C.9 Keringanan &amp; Beasiswa SPP</h3>
+<p>SPP dapat berbeda antar siswa karena potongan (kebijakan harga) atau beasiswa
+(parsial/penuh, didanai yayasan/sekolah maupun donor). Prinsipnya: tagih <b>bruto</b>, lalu
+catat keringanan sebagai transaksi tersendiri lewat modul Piutang — sehingga jumlah
+potongan/beasiswa <b>terlihat</b> di laporan dan buku besar Piutang tetap cocok dengan
+rincian tagihan. Contoh SPP bruto Rp 12.000.000.</p>
+
+<h4>Potongan / diskon (kebijakan harga) — kontra-pendapatan</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 4150 Potongan / Keringanan SPP</td><td class="r">2.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 1131 Piutang SPP Siswa</td><td class="r"></td><td class="r">2.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">2.000.000</td><td class="r">2.000.000</td></tr></table>
+<p>4150 adalah <b>kontra-pendapatan</b> (saldo debit) sehingga mengurangi Pendapatan SPP →
+pendapatan <b>neto</b> = bruto − potongan.</p>
+
+<h4>Beasiswa (didanai yayasan/sekolah) — beban</h4>
+<table class="jrnl"><tr><th>Akun</th><th class="r">Debit</th><th class="r">Kredit</th></tr>
+<tr><td>(D) 5350 Beban Beasiswa</td><td class="r">5.000.000</td><td class="r"></td></tr>
+<tr><td>(K) 1131 Piutang SPP Siswa</td><td class="r"></td><td class="r">5.000.000</td></tr>
+<tr class="tot"><td>Total</td><td class="r">5.000.000</td><td class="r">5.000.000</td></tr></table>
+<p>Pendapatan SPP tetap diakui <b>penuh (bruto)</b> lewat amortisasi; beasiswa tampil
+sebagai <b>beban</b> terpisah — transparan berapa yayasan menyubsidi. Siswa membayar
+sisa (parsial) atau nol (penuh). Beasiswa dari <b>donor eksternal</b> memakai jurnal yang
+sama (Beban Beasiswa), dengan penerimaan hibah &amp; pelepasan pembatasan dicatat terpisah
+(lihat C.5).</p>
+<div class="box-sas"><b class="tag">Di SAS</b> Buka <i>Piutang SPP → Daftar tagihan →
+Keringanan</i> (B.4.4), pilih jenis <b>Potongan</b> atau <b>Beasiswa</b>. Sistem memposting
+jurnal di atas dan mencatat keringanan sehingga <b>sisa tagihan, aging, CKPN, dan buku besar
+Piutang</b> tetap konsisten. Untuk SPP beda-beda per siswa, terbitkan tagihan per
+individu atau generate per prodi/angkatan dengan nominal masing-masing.</div>
+
+<h2 id="bagian-d">Bagian D — Lampiran</h2>
+
+<h3 id="d1-coa">D.1 Bagan Akun Lengkap</h3>
+<p>Daftar seluruh akun (Chart of Accounts) yang aktif di sistem. Tabel ini
+<b>digenerate otomatis dari basis data</b> sehingga selalu mencerminkan kondisi terbaru.</p>
+<div class="figure"><table class="tbl"><thead><tr><th>KODE</th><th>NAMA AKUN</th><th>TIPE</th><th class="c">SALDO NORMAL</th><th>DAPAT DIPOSTING</th><th>SIFAT</th></tr></thead><tbody><tr>
+      <td class="mono">1000</td><td>ASET</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1100</td><td>Aset Lancar</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1110</td><td>Kas</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1111</td><td>Kas Besar</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1112</td><td>Kas Kecil</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1120</td><td>Bank</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1121</td><td>Bank Mandiri — SPP SD</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1122</td><td>Bank BSI — Operasional Yayasan</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1123</td><td>Bank BNI — SMP</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1124</td><td>Rekening BOS</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1130</td><td>Piutang</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1131</td><td>Piutang SPP Siswa</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1139</td><td>CKPN Piutang SPP</td><td>aset</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>kontra</td>
+    </tr><tr>
+      <td class="mono">1140</td><td>Piutang Antar-Unit</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>antar-unit</td>
+    </tr><tr>
+      <td class="mono">1200</td><td>Aset Tetap</td><td>aset</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1210</td><td>Tanah</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1220</td><td>Gedung &amp; Bangunan</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1230</td><td>Peralatan &amp; Mesin</td><td>aset</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">1290</td><td>Akumulasi Penyusutan</td><td>aset</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>kontra</td>
+    </tr><tr>
+      <td class="mono">2000</td><td>LIABILITAS</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2100</td><td>Liabilitas Jangka Pendek</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2110</td><td>Utang Usaha</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2120</td><td>Pendapatan Diterima di Muka — SPP</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2130</td><td>Utang PPh 21</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2135</td><td>Utang PPh 23</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2140</td><td>Utang BPJS</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2150</td><td>Utang Antar-Unit</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>antar-unit</td>
+    </tr><tr>
+      <td class="mono">2200</td><td>Liabilitas Jangka Panjang</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">2210</td><td>Provisi Imbalan Pascakerja</td><td>liabilitas</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">3000</td><td>ASET NETO</td><td>aset_neto</td>
+      <td class="c">K</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">3100</td><td>Aset Neto Tanpa Pembatasan</td><td>aset_neto</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:tanpa</td>
+    </tr><tr>
+      <td class="mono">3200</td><td>Aset Neto Dengan Pembatasan</td><td>aset_neto</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:dengan</td>
+    </tr><tr>
+      <td class="mono">3300</td><td>Surplus (Defisit) Tahun Berjalan</td><td>aset_neto</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:tanpa</td>
+    </tr><tr>
+      <td class="mono">4000</td><td>PENDAPATAN</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">4100</td><td>Pendapatan SPP</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">4150</td><td>Potongan / Keringanan SPP</td><td>pendapatan</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>kontra</td>
+    </tr><tr>
+      <td class="mono">4200</td><td>Pendapatan Pendaftaran</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">4210</td><td>Pendapatan Uang Pangkal / Gedung</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:tanpa</td>
+    </tr><tr>
+      <td class="mono">4300</td><td>Hibah / Sumbangan Terikat</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:dengan</td>
+    </tr><tr>
+      <td class="mono">4310</td><td>Pendapatan Bantuan Operasional Sekolah (BOS)</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:dengan</td>
+    </tr><tr>
+      <td class="mono">4400</td><td>Sumbangan Tidak Terikat</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>neto:tanpa</td>
+    </tr><tr>
+      <td class="mono">4900</td><td>Pendapatan Lain-lain</td><td>pendapatan</td>
+      <td class="c">K</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5000</td><td>BEBAN</td><td>beban</td>
+      <td class="c">D</td>
+      <td>—</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5100</td><td>Beban Gaji &amp; Tunjangan</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5200</td><td>Beban BPJS</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5300</td><td>Honor Guru Luar Biasa</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5350</td><td>Beban Beasiswa</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5400</td><td>Beban Operasional</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5410</td><td>Belanja Buku &amp; Bahan Ajar</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5420</td><td>Belanja Kegiatan Pembelajaran</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5500</td><td>Beban Listrik, Air &amp; Internet</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5600</td><td>Beban Pemeliharaan</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5700</td><td>Beban Penyusutan</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5800</td><td>Beban CKPN</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr><tr>
+      <td class="mono">5900</td><td>Beban Akreditasi</td><td>beban</td>
+      <td class="c">D</td>
+      <td>Ya</td>
+      <td>—</td>
+    </tr></tbody></table></div>
+    <p class="src-note">Dihasilkan otomatis dari basis data — 55 akun. Perbarui dengan <span class="mono">npm run docs:manual</span>.</p>
+
+<h3 id="d2-matriks">D.2 Matriks Peran &amp; Kewenangan</h3>
+<p>Rangkuman kewenangan tiap peran, digenerate dari konfigurasi sistem.</p>
+<div class="figure"><table class="tbl matrix"><thead><tr><th>KEWENANGAN</th><th class="c">Admin</th><th class="c">Staf Akuntansi</th><th class="c">Kasir</th><th class="c">Bendahara</th><th class="c">Kepala Unit</th><th class="c">Pengurus Yayasan</th></tr></thead><tbody><tr><td>Input jurnal / kas</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Setujui & posting jurnal</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Rekonsiliasi bank</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kelola siswa & tagihan</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Catat pembayaran SPP</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Proses CKPN & amortisasi</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Susun anggaran RKAT</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Sahkan anggaran RKAT</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Potong & setor pajak</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kelola master data & COA</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Kunci / buka periode</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Tutup buku tahunan</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Backup database</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td></tr><tr><td>Lihat semua laporan & dashboard</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td><td class="c"><span class="yes">●</span></td></tr><tr><td>Lihat jejak audit</td><td class="c"><span class="yes">●</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="no">·</span></td><td class="c"><span class="yes">●</span></td></tr></tbody></table></div>
+  <p class="src-note">● = berwenang. Sumber: konfigurasi <span class="mono">computePerms()</span> & <span class="mono">requireRole()</span> di kode.</p>
+
+<h3 id="d3-glosarium">D.3 Glosarium</h3>
+<dl class="dl">
+  <dt>Aset neto</dt><dd>Kekayaan bersih entitas nirlaba (setara "ekuitas"), dipilah menjadi
+    <i>tanpa pembatasan</i> dan <i>dengan pembatasan</i> dari pemberi dana.</dd>
+  <dt>Double-entry (berpasangan)</dt><dd>Prinsip bahwa setiap transaksi dicatat pada dua sisi
+    (debit dan kredit) dengan jumlah sama.</dd>
+  <dt>Saldo normal</dt><dd>Sisi (Debit/Kredit) tempat suatu akun bertambah. Aset &amp; beban
+    normal Debit; liabilitas, aset neto, &amp; pendapatan normal Kredit.</dd>
+  <dt>Jurnal balik (reversal)</dt><dd>Jurnal kebalikan untuk menetralkan jurnal terposting
+    yang keliru — cara satu-satunya mengoreksi tanpa mengubah riwayat.</dd>
+  <dt>Periode terkunci</dt><dd>Bulan pembukuan yang telah ditutup dan tidak menerima jurnal
+    baru.</dd>
+  <dt>Konsolidasi</dt><dd>Penggabungan laporan seluruh unit menjadi satu, setelah transaksi
+    antar-unit dieliminasi.</dd>
+  <dt>Eliminasi antar-unit</dt><dd>Penghapusan saldo yang timbul dari transaksi antar-unit
+    (mis. Piutang vs Utang Antar-Unit) agar tidak dihitung ganda saat konsolidasi.</dd>
+  <dt>Pendapatan diterima di muka</dt><dd>Kas/tagihan yang diterima untuk jasa yang belum
+    diberikan (mis. SPP satu semester); liabilitas yang diakui menjadi pendapatan bertahap.</dd>
+  <dt>Amortisasi pendapatan</dt><dd>Pengakuan pendapatan secara bertahap selama masa manfaat
+    (PSAK 72).</dd>
+  <dt>Aging (umur piutang)</dt><dd>Pengelompokan piutang menurut lama tunggakan sejak jatuh
+    tempo.</dd>
+  <dt>CKPN</dt><dd>Cadangan Kerugian Penurunan Nilai — estimasi piutang tak tertagih
+    (PSAK 71), disajikan sebagai kontra-aset.</dd>
+  <dt>Kontra-akun</dt><dd>Akun yang mengurangi akun lain (mis. Akumulasi Penyusutan mengurangi
+    Aset Tetap; CKPN mengurangi Piutang).</dd>
+  <dt>RKAT</dt><dd>Rencana Kegiatan dan Anggaran Tahunan — pagu belanja per unit.</dd>
+  <dt>Pagu</dt><dd>Batas anggaran suatu pos belanja.</dd>
+  <dt>ISAK 35</dt><dd>Standar penyajian laporan keuangan entitas berorientasi nonlaba.</dd>
+</dl>
+
+<h3 id="d4-faq">D.4 FAQ &amp; Pemecahan Masalah</h3>
+
+<div class="faq"><div class="q">Saya lupa kata sandi. Bagaimana?</div>
+<div class="a">Belum ada pemulihan sandi mandiri. Hubungi Administrator untuk menyetel ulang
+kata sandi akun Anda, lalu ganti sendiri via <b>Ganti Sandi</b> (A.3).</div></div>
+
+<div class="faq"><div class="q">Tombol "Ajukan" nonaktif — jurnal tidak bisa diajukan.</div>
+<div class="a">Jurnal belum seimbang. Pastikan <b>total Debit = total Kredit</b>. Periksa baris
+yang nominalnya salah kolom atau kosong.</div></div>
+
+<div class="faq"><div class="q">Saya salah memilih unit, tetapi jurnal sudah diposting.</div>
+<div class="a">Jurnal terposting tidak dapat diedit. Buat <b>jurnal balik</b> (B.2.3) untuk
+menetralkannya, lalu buat jurnal baru dengan unit yang benar.</div></div>
+
+<div class="faq"><div class="q">Impor siswa CSV gagal atau banyak baris dilewati.</div>
+<div class="a">Periksa ringkasan impor: penyebab umum adalah <b>NIS/NISN duplikat</b>, <b>kolom unit
+tak dikenal</b> (gunakan kode YYS/SD/SMP), atau kolom wajib kosong. Unduh templat CSV dari
+dialog impor sebagai acuan.</div></div>
+
+<div class="faq"><div class="q">Laporan konsolidasi menampilkan peringatan eliminasi.</div>
+<div class="a">Saldo akun antar-unit belum nol — biasanya karena pasangan jurnal di salah satu
+unit belum dibuat/diposting. Telusuri <b>Buku Besar</b> akun 1140/2150 untuk menemukan
+selisihnya (lihat C.4).</div></div>
+
+<div class="faq"><div class="q">Angka dashboard tidak sama dengan laporan keuangan.</div>
+<div class="a">Dashboard menampilkan posisi <b>tahun berjalan</b> per hari ini, sedangkan laporan
+mengikuti <b>rentang tanggal</b> yang Anda pilih. Samakan periode, dan pastikan tidak ada
+jurnal yang masih berstatus Draft/Menunggu (belum memengaruhi saldo).</div></div>
+
+<div class="faq"><div class="q">Saya tidak bisa memposting ke bulan lalu.</div>
+<div class="a">Periode tersebut kemungkinan sudah <b>terkunci</b>. Minta peran berwenang membuka
+periode (B.1.2), atau catat transaksi pada periode berjalan bila sesuai kebijakan.</div></div>
+
+<div class="faq"><div class="q">Pembayaran SPP tidak mengurangi piutang di laporan aging.</div>
+<div class="a">Pembayaran SPP harus dicatat lewat <b>Catat bayar</b> di modul Piutang (B.4.3),
+bukan sebagai penerimaan kas umum. Bila terlanjur lewat Kas, buku besar Piutang akan
+berbeda dari rincian tagihan — koreksi dengan jurnal balik lalu catat ulang di modul
+Piutang.</div></div>
+
+<div class="faq"><div class="q">Tombol "Setujui" tidak muncul di jurnal.</div>
+<div class="a">Persetujuan hanya tersedia bagi peran penyetuju (Bendahara/Pengurus/Admin) dan
+hanya untuk jurnal berstatus <b>Menunggu</b>. Jurnal Draft harus <b>diajukan</b> dulu.</div></div>
+
+<div class="faq"><div class="q">Beberapa menu tidak tampil di sisi saya.</div>
+<div class="a">Menu menyesuaikan peran (lihat matriks D.2). Jika Anda memerlukan akses tambahan,
+hubungi Administrator.</div></div>
+
+<div class="faq"><div class="q">Posting beban ditolak karena melampaui pagu.</div>
+<div class="a">Pos beban telah melewati anggaran RKAT yang disahkan. Penyetuju dapat
+meng-<b>override</b> dengan konfirmasi, atau anggaran direvisi lebih dulu (B.5).</div></div>
+
+<div class="faq"><div class="q">Angka CKPN belum muncul di laporan.</div>
+<div class="a">Jurnal CKPN yang baru dibuat berstatus <b>draft</b>. Ia baru memengaruhi laporan
+setelah diajukan dan disetujui (diposting).</div></div>
+
+<div class="faq"><div class="q">Pendapatan SPP tidak bertambah padahal sudah ada tagihan.</div>
+<div class="a">SPP diakui bertahap. Jalankan <b>Pengakuan pendapatan</b> bulanan (B.4.5) agar
+porsi bulan itu berpindah dari Pendapatan Diterima di Muka ke Pendapatan SPP.</div></div>
+
+<div class="faq"><div class="q">Bagaimana membatalkan tutup buku?</div>
+<div class="a">Pada <i>Administrasi → Tutup Buku Tahunan</i>, gunakan <b>Batalkan tutup buku</b>.
+Sistem membalik jurnal penutup dan membuka kembali periode. Tindakan tercatat di audit.</div></div>
+
+<div class="faq"><div class="q">Voucher tidak bisa dicetak / jendela tidak muncul.</div>
+<div class="a">Voucher terbuka di jendela baru. Bila peramban memblokir <i>pop-up</i>, izinkan
+pop-up untuk situs SAS lalu klik <b>Cetak voucher</b> lagi.</div></div>
+
+<div class="faq"><div class="q">Di mana letak backup, dan bagaimana memulihkannya?</div>
+<div class="a">Backup otomatis (harian dan saat sistem start) tersimpan di folder <span class="mono">data/backups</span>
+di server, disimpan hingga 30 hari. Pemulihan dilakukan Administrator di server. Buat
+backup manual kapan saja di <i>Administrasi → Backup Database</i>.</div></div>
+
+<div class="faq"><div class="q">File Excel hasil ekspor tampil berantakan.</div>
+<div class="a">Berkas berformat spreadsheet HTML. Buka dengan Excel/LibreOffice (bukan editor
+teks). Bila muncul peringatan format, pilih tetap buka.</div></div>
+
+<h3 id="d5-future">D.5 Pengembangan Selanjutnya</h3>
+<p>Fitur berikut <b>belum</b> tersedia dan direncanakan pada pengembangan berikutnya:</p>
+<ul>
+  <li>Modul <b>aset tetap &amp; penyusutan otomatis</b> (kini via Jurnal Umum berkala).</li>
+  <li>Modul <b>penggajian (payroll) penuh</b> massal (kini gaji dicatat via Jurnal Umum).</li>
+  <li><b>Pelepasan pembatasan</b> aset neto secara otomatis saat syarat terpenuhi.</li>
+  <li><b>Notifikasi</b> (dalam aplikasi/email) untuk dokumen yang menunggu persetujuan.</li>
+  <li>Integrasi <b>e-Bupot/e-Faktur</b> dan pembuatan berkas SPT masa pajak.</li>
+  <li><b>Pemulihan (restore) backup</b> mandiri dari antarmuka.</li>
+</ul>
+
+<h3 id="d6-versi">D.6 Informasi Versi &amp; Kontak</h3>
+<table class="tbl"><tbody>
+  <tr><td style="width:220px;"><b>Dokumen</b></td><td>Manual Penggunaan Sistem Akuntansi Sekolah (SAS) Open Source</td></tr>
+  <tr><td><b>Versi dokumen</b></td><td>1.0</td></tr>
+  <tr><td><b>Aplikasi</b></td><td>Sistem Akuntansi Sekolah (SAS) Open Source — Sistem Informasi Keuangan &amp; Akuntansi</td></tr>
+  <tr><td><b>Untuk</b></td><td>Yayasan Pendidikan Contoh (SD &amp; SMP SAS)</td></tr>
+  <tr><td><b>Administrator sistem</b></td><td>[nama &amp; kontak admin — lengkapi sebelum distribusi]</td></tr>
+  <tr><td><b>Cara memperbarui</b></td><td>Perbarui screenshot dengan <span class="mono">npm run docs:screenshots</span>, lalu rakit ulang manual dengan <span class="mono">npm run docs:manual</span>.</td></tr>
+</tbody></table>
+<div class="callout note">Manual ini menyertakan data contoh untuk ilustrasi. Angka pada
+screenshot merupakan data demo, bukan data keuangan sebenarnya.</div>
+
+  </main>
+</div>
+<script>
+(function(){
+  const nav=[...document.querySelectorAll('.side-nav a')];
+  const q=document.getElementById('q');
+  // Scrollspy
+  const heads=nav.map(a=>document.getElementById(a.dataset.id)).filter(Boolean);
+  const spy=()=>{let cur=heads[0];for(const h of heads){if(h.getBoundingClientRect().top<=120)cur=h;}
+    nav.forEach(a=>a.classList.toggle('active',a.dataset.id===(cur&&cur.id)));};
+  document.addEventListener('scroll',spy,{passive:true});spy();
+  // Search: filter nav + highlight in content
+  let marks=[];
+  q.addEventListener('input',()=>{
+    const term=q.value.trim().toLowerCase();
+    nav.forEach(a=>a.classList.toggle('hide',term&&!a.textContent.toLowerCase().includes(term)));
+    marks.forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();});marks=[];
+    if(term.length<2)return;
+    const walk=document.createTreeWalker(document.querySelector('.content'),NodeFilter.SHOW_TEXT);
+    const hits=[];let n;while(n=walk.nextNode()){if(n.parentNode.closest('script,style,.cover'))continue;if(n.nodeValue.toLowerCase().includes(term))hits.push(n);}
+    hits.slice(0,400).forEach(node=>{const idx=node.nodeValue.toLowerCase().indexOf(term);if(idx<0)return;
+      const m=document.createElement('mark');m.textContent=node.nodeValue.substr(idx,term.length);
+      const after=node.splitText(idx);after.nodeValue=after.nodeValue.substr(term.length);
+      node.parentNode.insertBefore(m,after);marks.push(m);});
+  });
+})();
+</script>

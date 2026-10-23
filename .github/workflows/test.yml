@@ -1,0 +1,49 @@
+name: Test SAS
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  accounting:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sas
+          POSTGRES_PASSWORD: sas_local_password
+          POSTGRES_DB: sas_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U sas -d sas_test"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      TEST_DATABASE_URL: postgres://sas:sas_local_password@127.0.0.1:5432/sas_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm audit --omit=dev
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config --quiet
+      - run: docker compose up -d --build --wait --wait-timeout 180
+      - name: Verifikasi HTTP dan restart tanpa menimpa data
+        run: |
+          curl -fsS http://127.0.0.1:3000/api/health
+          curl -fsS http://127.0.0.1:3000/login | grep 'Sistem Akuntansi Sekolah'
+          curl -fsS -c /tmp/sas-cookie -H 'Content-Type: application/json' \
+            -d '{"email":"admin1@sekolah.example","password":"sasDemo123!"}' \
+            http://127.0.0.1:3000/api/auth/login
+          curl -fsS -b /tmp/sas-cookie http://127.0.0.1:3000/api/auth/me
+          docker compose exec -T db psql -U sas -d sas -c "UPDATE units SET nama='Sekolah Tetap' WHERE kode='SD'"
+          docker compose restart app
+          docker compose up -d --wait --wait-timeout 90
+          docker compose exec -T db psql -U sas -d sas -Atc "SELECT nama FROM units WHERE kode='SD'" | grep 'Sekolah Tetap'
+      - if: failure()
+        run: docker compose logs
+      - if: always()
+        run: docker compose down -v
