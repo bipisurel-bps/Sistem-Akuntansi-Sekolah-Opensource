@@ -1,4 +1,5 @@
 node_modules/
+release/
 # Data lokal & database SQLite (jangan pernah di-commit)
 data/
 *.db

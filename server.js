@@ -36,6 +36,9 @@ app.get('/api/health', async (req, res) => {
 app.get('/api/config', (req, res) => res.json({
   appName: config.appName, institutionName: config.institutionName, schoolName: config.schoolName,
 }));
+app.get('/api/product', (req, res) => res.json({
+  supportEmail: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(process.env.SUPPORT_EMAIL || '') ? process.env.SUPPORT_EMAIL : null,
+}));
 app.use('/api/auth', require('./src/routes/auth'));
 // Semua rute di bawah wajib login
 app.use('/api', auth.requireAuth);
@@ -55,8 +58,15 @@ app.use(express.static(PUB));
 // Login page & app shell
 app.get('/', (req, res) => res.sendFile(path.join(PUB, 'index.html')));
 app.get('/login', (req, res) => res.sendFile(path.join(PUB, 'login.html')));
-// Fallback SPA (rute non-API diarahkan ke shell)
-app.get(/^\/(?!api\/).*/, (req, res) => res.sendFile(path.join(PUB, 'index.html')));
+app.get('/app', (req, res) => res.sendFile(path.join(PUB, 'app.html')));
+app.get('/download/sas-opensource.zip', (req, res) => {
+  const file = path.join(__dirname, 'release', 'sas-opensource.zip');
+  if (!require('fs').existsSync(file)) return res.status(503).send('Paket unduhan sedang disiapkan. Silakan coba kembali.');
+  res.download(file, 'sas-opensource.zip');
+});
+app.get('/download/panduan-instalasi.md', (req, res) => res.download(path.join(__dirname, 'README.md'), 'Panduan-SAS.md'));
+// Halaman publik yang tidak dikenal tidak boleh tampak sebagai beranda/aplikasi yang valid.
+app.get(/^\/(?!api\/).*/, (req, res) => res.status(404).send('Halaman tidak ditemukan. Kembali ke beranda SAS di /.'));
 
 app.listen(config.port, config.host, () => {
   console.log(`\n  ${config.appName} berjalan di http://${config.host}:${config.port}\n`);

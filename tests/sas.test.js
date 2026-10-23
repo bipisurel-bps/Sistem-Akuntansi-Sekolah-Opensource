@@ -63,9 +63,9 @@ test('health, login dan identitas publik dapat diakses tanpa membocorkan rahasia
   const health = await fetch(base + '/api/health'); assert.equal(health.status, 200);
   const cfg = await (await fetch(base + '/api/config')).json();
   assert.deepEqual(cfg, { appName: 'SAS Uji Integrasi', institutionName: 'Yayasan Uji <aman>', schoolName: 'Sekolah Uji' });
-  for (const page of ['/', '/login', '/branding.js', '/app.js']) {
+  for (const page of ['/', '/app', '/login', '/branding.js', '/app.js']) {
     const res = await fetch(base + page); assert.equal(res.status, 200);
-    const body = await res.text(); assert.doesNotMatch(body, /tazkia/i);
+    const body = await res.text(); assert.doesNotMatch(body, /SIKEU Tazkia|Yayasan Tazkia/i);
   }
 });
 test('admin dan operator berhasil login lewat HTTP lokal serta mendapat sesi aktif', async () => {

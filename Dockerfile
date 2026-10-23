@@ -10,6 +10,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 # Salin kode aplikasi (docs/, tests/, scripts/ dikecualikan via .dockerignore)
 COPY . .
+RUN node src/release.js
 
 # Folder data (backup) — dipetakan ke volume di compose
 RUN mkdir -p /app/data/backups

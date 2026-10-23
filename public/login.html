@@ -40,13 +40,14 @@
   </div>
   <div class="formside">
     <div class="formcard">
+      <a href="/" style="display:inline-block;margin-bottom:24px;">← Kenali SAS</a>
       <h2>Masuk ke akun Anda</h2>
       <div class="subtle">Gunakan kredensial yang diberikan administrator.</div>
       <div id="err" class="err-box hidden" style="margin-top:16px;"></div>
       <form id="loginForm">
-        <div class="field"><label>Email</label>
+        <div class="field"><label for="email">Email</label>
           <input class="inp" type="email" id="email" placeholder="nama@sekolah.example" required autofocus></div>
-        <div class="field"><label>Kata sandi</label>
+        <div class="field"><label for="password">Kata sandi</label>
           <input class="inp" type="password" id="password" placeholder="••••••••" required></div>
         <button class="btn primary" type="submit" style="width:100%;margin-top:20px;" id="submitBtn">Masuk</button>
       </form>
@@ -71,7 +72,7 @@ f.addEventListener('submit', async (e) => {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Gagal masuk.');
-    location.href = '/';
+    location.href = '/app';
   } catch(err) {
     errBox.textContent = err.message; errBox.classList.remove('hidden');
     btn.disabled = false; btn.textContent = 'Masuk';

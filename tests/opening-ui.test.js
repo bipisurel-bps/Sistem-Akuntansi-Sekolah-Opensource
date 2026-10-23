@@ -40,7 +40,7 @@ test.after(async()=>{
 });
 async function browser(hash='') {
   const errors=[]; const vc=new VirtualConsole(); vc.on('jsdomError',e=>errors.push(e.message));
-  const dom=new JSDOM(await (await fetch(base+'/')).text(),{url:base+'/'+hash,runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:vc});
+  const dom=new JSDOM(await (await fetch(base+'/app')).text(),{url:base+'/app'+hash,runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:vc});
   windows.push(dom.window);
   dom.window.fetch=(url,opts={})=>fetch(new URL(url,base),{...opts,headers:{...opts.headers,Cookie:cookie}});
   const context=dom.getInternalVMContext();

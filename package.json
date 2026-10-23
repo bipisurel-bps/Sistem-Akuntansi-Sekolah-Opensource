@@ -8,6 +8,9 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
+    "release": "node src/release.js",
+    "prestart": "npm run release",
+    "predev": "npm run release",
     "start": "node server.js",
     "dev": "node --watch server.js",
     "migrate": "node src/db/migrate.js",
@@ -34,6 +37,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
+    "fflate": "^0.8.3",
     "pg": "^8.22.0"
   }
 }

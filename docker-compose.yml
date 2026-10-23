@@ -29,6 +29,7 @@ services:
       APP_NAME: ${APP_NAME:-Sistem Akuntansi Sekolah (SAS) Open Source}
       INSTITUTION_NAME: ${INSTITUTION_NAME:-Yayasan Pendidikan Contoh}
       SCHOOL_NAME: ${SCHOOL_NAME:-Sekolah SAS}
+      SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
       SEED_PASSWORD: ${SEED_PASSWORD:-sasDemo123!}
       SEED_EMAIL_DOMAIN: ${SEED_EMAIL_DOMAIN:-sekolah.example}
       SEED_MODE: ${SEED_MODE:-demo}

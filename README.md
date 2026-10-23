@@ -4,6 +4,12 @@ Sistem keuangan dan akuntansi multi-unit untuk sekolah, madrasah, dan pesantren 
 
 Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
 
+## Halaman pengantar produk
+
+Buka `/` untuk mengenal manfaat, fitur, contoh tampilan, FAQ, dan pilihan penggunaan SAS. Pengunjung dapat mencoba simulasi jurnal tanpa akun dan tanpa menyimpan transaksi. Tombol **Buka aplikasi** menuju `/app`; pengguna terdaftar masuk melalui `/login`. Pendaftaran SAS Bersama belum tersedia.
+
+Unduhan `/download/sas-opensource.zip` berisi sumber aplikasi ini beserta lisensi dan panduan instalasi, bukan data sekolah atau konfigurasi privat. Paket dibuat dengan `npm run release`, otomatis sebelum `npm start`/`npm run dev` dan saat build Docker. Atur `SUPPORT_EMAIL` bila tersedia alamat publik untuk bantuan instalasi. Lihat [panduan halaman produk](docs/HALAMAN-PRODUK.md).
+
 ## Quickstart Docker
 
 Pasang Docker Engine/Desktop dan Compose v2, lalu dari folder proyek jalankan:

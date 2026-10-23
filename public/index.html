@@ -1,19 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sistem Akuntansi Sekolah (SAS) Open Source</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kenali SAS, aplikasi akuntansi sekolah open source. Catat kas, kelola SPP, susun jurnal dan laporan. Coba demo atau jalankan di server sekolah Anda.">
+  <meta name="theme-color" content="#332544">
+  <meta property="og:title" content="SAS — Pembukuan rapi. Sekolah lebih tenang.">
+  <meta property="og:description" content="Sistem Akuntansi Sekolah open source, dari transaksi harian sampai laporan yang bisa ditelusuri.">
+  <title>SAS — Sistem Akuntansi Sekolah Open Source</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/product.css">
+  <link rel="icon" href="/sas-mark.svg" type="image/svg+xml">
+  <script src="/product.js" defer></script>
 </head>
 <body>
-<div id="app"><div style="padding:40px;color:#8B8499;font-weight:600;">Memuat…</div></div>
-<div class="toast" id="toast"></div>
-<script src="/branding.js"></script>
-<script src="/opening.js"></script>
-<script src="/app.js"></script>
+  <a class="skip" href="#isi">Langsung ke isi</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="SAS, beranda"><img src="/sas-mark.svg" width="40" height="40" alt=""><span>SAS<small>AKUNTANSI SEKOLAH</small></span></a>
+    <button class="menu-toggle" aria-label="Buka navigasi" aria-expanded="false" aria-controls="navigation" hidden>Menu <span aria-hidden="true">☰</span></button>
+    <nav id="navigation" aria-label="Navigasi utama"><a href="#fitur">Kenali fiturnya</a><a href="#mulai">Cara memulai</a><a href="#pilihan">Open source</a><a href="/login" class="sign-in">Masuk <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="isi">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-line"></span> UNTUK MEREKA YANG MENGELOLA PENDIDIKAN</p>
+        <h1 id="hero-title">Pembukuan rapi.<br>Sekolah lebih <em>tenang.</em></h1>
+        <p class="hero-description">Dari uang kas dan tagihan SPP sampai laporan yayasan. SAS membantu sekolah mencatat dengan tertib, memeriksa bersama, dan melihat ke mana dana digunakan.</p>
+        <div class="hero-actions"><button class="button button-primary" data-open-demo>Coba demo interaktif <span aria-hidden="true">↗</span></button><a class="text-link" href="/app">Buka aplikasi <span aria-hidden="true">→</span></a></div>
+        <p class="microcopy">Demo tanpa akun · Kode sumber terbuka dengan lisensi MIT</p>
+        <div class="audience"><span class="audience-symbol" aria-hidden="true">✳</span><p>Untuk sekolah, madrasah, pesantren,<br>dan yayasan pendidikan di Indonesia.</p></div>
+      </div>
+      <div class="product-stage" aria-label="Ilustrasi antarmuka SAS dengan data contoh">
+        <div class="stage-caption"><span class="status-dot"></span> RUANG KERJA SAS <span>DATA ILUSTRASI</span></div>
+        <div class="workspace-preview">
+          <div class="preview-sidebar" aria-hidden="true"><span class="mini-brand">S<span>AS</span></span><i class="selected">◫</i><i>▤</i><i>⇄</i><i>▥</i><span class="sidebar-bottom">SA</span></div>
+          <div class="preview-main">
+            <div class="preview-top"><span>Sekolah Contoh <span aria-hidden="true">⌄</span></span><span class="mini-avatar" aria-hidden="true">BU</span></div>
+            <div class="preview-intro"><div><p class="preview-kicker">RINGKASAN KEUANGAN</p><h2>Satu pandangan.<br>Lebih banyak kejelasan.</h2></div><span class="period">Oktober 2026</span></div>
+            <div class="preview-tabs" role="tablist" aria-label="Jelajahi contoh fitur"><button role="tab" aria-selected="true" aria-controls="preview-panel" id="tab-kas" data-preview="kas">Kas &amp; Bank</button><button role="tab" aria-selected="false" aria-controls="preview-panel" id="tab-spp" data-preview="spp" tabindex="-1">SPP Siswa</button><button role="tab" aria-selected="false" aria-controls="preview-panel" id="tab-laporan" data-preview="laporan" tabindex="-1">Laporan</button></div>
+            <div id="preview-panel" role="tabpanel" aria-labelledby="tab-kas" tabindex="0">
+              <div class="balance-panel"><div><span id="preview-label">Saldo kas &amp; bank</span><strong id="preview-value">Rp48.750.000</strong><small id="preview-note">Posisi dana pada ilustrasi sekolah</small></div><svg class="sparkline" viewBox="0 0 180 74" role="img" aria-label="Grafik ilustrasi saldo kas"><path d="M4 65H176M4 35H176M4 5H176" stroke="#d9d4df" stroke-width="1"/><path d="M5 60L29 51L52 55L76 33L100 40L124 22L149 29L175 8" fill="none" stroke="#4d3c65" stroke-width="3"/><circle cx="175" cy="8" r="4" fill="#bc9353"/></svg></div>
+              <div class="preview-table-title"><h3 id="preview-list-title">Transaksi terbaru</h3><span class="preview-badge" id="preview-badge">Jejak tercatat</span></div>
+              <div id="preview-rows"><div class="preview-row"><span class="transaction-icon">↙</span><div><b>Sumbangan pendidikan</b><small>Penerimaan · Kas operasional</small></div><strong>+ Rp1.500.000</strong></div><div class="preview-row"><span class="transaction-icon expense">↗</span><div><b>Bahan ajar kelas</b><small>Pengeluaran · Sudah disetujui</small></div><strong>− Rp750.000</strong></div></div>
+            </div>
+            <div class="preview-footer"><span class="status-dot"></span><span id="preview-footer-text">Setiap catatan memiliki alur pemeriksaan.</span></div>
+          </div>
+        </div>
+        <div class="floating-note"><span aria-hidden="true">✓</span><div><b>Debit dan kredit seimbang.</b><small>Ketelitian dimulai dari setiap transaksi.</small></div></div>
+      </div>
+    </section>
+    <div class="principles section-shell" aria-label="Dasar aplikasi"><span>BAHASA INDONESIA</span><span>DOUBLE-ENTRY</span><span>FORMAT LAPORAN ISAK 35</span><span>OPEN SOURCE · MIT</span></div>
+
+    <section class="section-shell benefits" id="fitur" aria-labelledby="benefits-title">
+      <div class="section-intro" data-reveal><p class="eyebrow">LEBIH DEKAT DENGAN KEUANGAN SEKOLAH</p><h2 id="benefits-title">Catatan yang mudah dibuat.<br>Laporan yang bisa <em>ditelusuri.</em></h2><p>Pembukuan tidak berhenti saat uang diterima. SAS menghubungkan transaksi, pemeriksaan, dan laporan dalam satu alur kerja.</p></div>
+      <div class="feature-grid">
+        <article class="feature feature-large" data-reveal><span class="feature-number">01 / TRANSAKSI HARIAN</span><h3>Catat uang masuk.<br>Tahu uang keluar.</h3><p>Pilih kategori penerimaan atau pengeluaran. Sistem membentuk jurnal untuk diajukan, tanpa mengharuskan operator mengetik debit dan kredit sendiri.</p><div class="flow-strip" aria-label="Alur transaksi"><span>Catat</span><i aria-hidden="true">→</i><span>Periksa</span><i aria-hidden="true">→</i><span class="flow-posted">Posting ✓</span></div><a class="text-link" href="#contoh">Lihat contohnya <span aria-hidden="true">↗</span></a></article>
+        <article class="feature feature-spp" data-reveal><span class="feature-number">02 / TAGIHAN SISWA</span><h3>SPP lebih mudah<br>diikuti.</h3><p>Kelola tagihan, pembayaran, dan cicilan. Lihat sisa piutang per siswa agar tindak lanjut punya dasar yang jelas.</p><div class="invoice-mini"><span>Sisa tagihan · contoh</span><b>Rp150.000</b><div><span>Sudah dibayar</span><strong>Rp350.000</strong></div><div class="payment-progress" aria-label="Ilustrasi 70 persen tagihan dibayar"><i></i></div></div></article>
+        <article class="feature feature-plain" data-reveal><span class="feature-number">03 / LAPORAN &amp; PENGAWASAN</span><h3>Bisa dilihat angkanya.<br>Bisa diperiksa asalnya.</h3><p>Buku besar, neraca saldo, dan laporan keuangan membantu bendahara menelusuri pencatatan. Jurnal terposting dikoreksi lewat jurnal balik, dengan jejak audit.</p><div class="document-lines" aria-hidden="true"><span>Posisi keuangan<i></i></span><span>Penghasilan komprehensif<i></i></span><span>Arus kas<i></i></span></div></article>
+        <article class="feature feature-plain" data-reveal><span class="feature-number">04 / YAYASAN MULTI-UNIT</span><h3>Setiap sekolah jelas.<br>Gambaran yayasan utuh.</h3><p>Pada instalasi mandiri, kelola unit SD, SMP, SMA, atau unit lain dengan laporan per unit dan konsolidasi dalam satu instansi.</p><div class="unit-tags"><span>SD</span><span>SMP</span><span>SMA</span><span>Yayasan</span></div></article>
+      </div>
+    </section>
+
+    <section class="demo-band" id="contoh" aria-labelledby="demo-title"><div class="section-shell demo-band-inner" data-reveal><div><p class="eyebrow">RASAKAN ALURNYA TERLEBIH DAHULU</p><h2 id="demo-title">Satu penerimaan.<br>Jurnalnya ikut <em>tersusun.</em></h2></div><div><p>Coba mencatat sumbangan atau belanja sekolah. Lihat bagaimana nominal yang sama masuk ke pasangan debit dan kredit.</p><button class="button button-light" data-open-demo>Buka simulasi transaksi <span aria-hidden="true">↗</span></button><p class="demo-footnote">Data contoh di browser Anda. Tidak masuk ke pembukuan sekolah.</p></div></div></section>
+
+    <section class="section-shell getting-started" id="mulai" aria-labelledby="start-title"><div class="start-copy" data-reveal><p class="eyebrow">BELUM PUNYA JURNAL? MULAI DARI SINI.</p><h2 id="start-title">Tidak harus mengulang<br>semua catatan <em>lama.</em></h2><p>Panduan Mulai Pembukuan membantu sekolah menyiapkan posisi awal sebelum mencatat transaksi harian di SAS.</p><a class="text-link" href="/app#/mulai">Buka panduan di aplikasi <span aria-hidden="true">→</span></a></div><ol class="start-steps" data-reveal><li><span>01</span><div><h3>Tentukan tanggal mulai</h3><p>Pilih kapan sekolah mulai mencatat di SAS. Siapkan bukti saldo tepat sebelum transaksi pertama.</p></div></li><li><span>02</span><div><h3>Isi saldo yang dimiliki</h3><p>Kas, bank, aset, utang, dan piutang per siswa. Mulai tanpa saldo juga diperbolehkan.</p></div></li><li><span>03</span><div><h3>Periksa, lalu ajukan</h3><p>Sistem memeriksa keseimbangan. Bendahara atau admin menyetujui jurnal sebelum saldo masuk laporan.</p></div></li></ol></section>
+
+    <section class="choice-section" id="pilihan" aria-labelledby="choice-title"><div class="section-shell"><div class="section-intro" data-reveal><p class="eyebrow">PILIH SESUAI KEMAMPUAN SEKOLAH</p><h2 id="choice-title">Kode terbuka.<br>Ruang untuk <em>mandiri.</em></h2><p>Unduh, pelajari, dan jalankan SAS di infrastruktur sekolah. Kami juga sedang menyiapkan konsep layanan bersama untuk sekolah yang belum dapat mengelola server.</p></div><div class="choices">
+      <article class="choice choice-primary" data-reveal><div class="choice-top"><span class="eyebrow">SAS MANDIRI</span><span class="choice-tag">Tersedia</span></div><h3>Aplikasi di tangan sekolah.</h3><p>Kode gratis dengan lisensi MIT. Kelola instansi dan gunakan fitur yang sudah dirilis, sesuai kebutuhan serta kapasitas server Anda.</p><ul><li>Kas, bank, SPP, jurnal, dan laporan</li><li>Multi-unit, RKAT, rekonsiliasi, dan modul pajak</li><li>Panduan instalasi Docker dan manual</li><li>Bantuan instalasi berkontribusi seikhlasnya</li></ul><a class="button button-primary" href="/download/sas-opensource.zip" download>Unduh kode sumber <span aria-hidden="true">↓</span></a><button class="text-link" data-open-help>Butuh bantuan instalasi? <span aria-hidden="true">↗</span></button><p class="note">Biaya server dan domain, bila diperlukan, terpisah dari kode aplikasi.</p></article>
+      <article class="choice choice-community" data-reveal><div class="choice-top"><span class="eyebrow">SAS BERSAMA</span><span class="choice-tag muted">Dalam persiapan</span></div><h3>Untuk yang perlu<br>dibantu memulai.</h3><p>Rencana layanan online dengan fitur pembukuan dasar dan infrastruktur yang dikelola penyelenggara.</p><ul><li>Fokus pada pembukuan satu sekolah</li><li>Kas, SPP, jurnal, dan laporan dasar</li><li>Rencana pemisahan data tiap instansi</li><li>Jalur berpindah ke instalasi mandiri</li></ul><p class="community-note">Pendaftaran banyak sekolah belum dibuka. Anda sudah dapat mengenal alurnya melalui demo interaktif.</p><button class="text-link" data-open-demo>Jelajahi demo sekarang <span aria-hidden="true">→</span></button></article>
+    </div></div></section>
+
+    <section class="section-shell faq-section" aria-labelledby="faq-title"><div><p class="eyebrow">SEBELUM MENCOBA</p><h2 id="faq-title">Ada yang ingin<br>Anda <em>pastikan?</em></h2></div><div class="faq-list">
+      <details><summary>Haruskah operator memahami debit dan kredit?</summary><p>Untuk penerimaan dan pengeluaran rutin, operator dapat memakai kategori yang sudah dipetakan ke akun. Sistem membentuk jurnalnya. Penentuan saldo awal, pemetaan akun, dan pemeriksaan laporan tetap perlu melibatkan bendahara atau pendamping.</p></details>
+      <details><summary>Apa bedanya demo dengan aplikasi?</summary><p>Demo di halaman ini adalah simulasi transaksi dengan data contoh, tanpa akun dan tanpa menyimpan data ke server. Aplikasi sebenarnya berada di menu Buka Aplikasi dan membutuhkan akun dari administrator instalasi.</p></details>
+      <details><summary>Apakah kode aplikasinya benar-benar gratis?</summary><p>Ya, SAS menggunakan lisensi MIT. Anda dapat mengunduh dan memasangnya sendiri. Bantuan instalasi direncanakan dengan kontribusi seikhlasnya; server, domain, dan pekerjaan khusus perlu dibahas terpisah.</p></details>
+      <details><summary>Apakah SAS langsung terhubung dengan ARKAS atau bank?</summary><p>Belum. Tersedia rekening dan akun BOS serta rekonsiliasi melalui CSV, tetapi belum ada integrasi otomatis ARKAS atau koneksi langsung ke bank. COA dan kebijakan pencatatan perlu disesuaikan sekolah.</p></details>
+      <details><summary>Bagaimana jika sekolah belum pernah membukukan transaksi?</summary><p>Gunakan mode sekolah baru dan panduan Mulai Pembukuan. Isi tanggal serta saldo awal berdasarkan bukti, tanpa memasukkan ulang seluruh transaksi lama. Jika tidak ada saldo, mulai dari nol.</p></details>
+      <details><summary>Saya sudah punya akun. Masuk lewat mana?</summary><p>Pilih Masuk di bagian atas, gunakan email dan kata sandi yang diberikan administrator, lalu buka ruang kerja sekolah. Anda tidak perlu menjalankan demo terlebih dahulu.</p><a class="text-link" href="/login">Masuk ke akun <span aria-hidden="true">→</span></a></details>
+    </div></section>
+
+    <section class="final-cta section-shell" data-reveal><p class="eyebrow">PEMBUKUAN YANG MEMBANTU PENDIDIKAN BERJALAN</p><h2>Mulai mengenal SAS.<br>Lihat apakah cocok untuk sekolah Anda.</h2><div><button class="button button-primary" data-open-demo>Coba demo interaktif <span aria-hidden="true">↗</span></button><a class="text-link" href="/login">Sudah punya akun? Masuk →</a></div></section>
+  </main>
+  <footer class="site-footer section-shell"><div><a class="brand" href="/"><img src="/sas-mark.svg" width="36" height="36" alt=""><span>SAS<small>AKUNTANSI SEKOLAH</small></span></a><p>Sistem Akuntansi Sekolah Open Source.<br>Untuk pencatatan yang bisa dipertanggungjawabkan.</p></div><nav aria-label="Tautan pendukung"><a href="/download/panduan-instalasi.md">Panduan instalasi</a><a href="/download/sas-opensource.zip">Unduh kode</a><a href="/app">Buka aplikasi</a><button data-open-help>Bantuan instalasi</button></nav><div class="footer-bottom"><span>Open source · Lisensi MIT</span><span>Basis kode: <a href="https://github.com/galihsidik86/sikeu-tazkia" target="_blank" rel="noopener noreferrer">galihsidik86/sikeu-tazkia</a></span></div></footer>
+
+  <dialog id="demo-dialog" aria-labelledby="demo-heading"><div class="dialog-heading"><span class="eyebrow">DEMO INTERAKTIF · DATA CONTOH</span><button class="close-dialog" data-close-dialog aria-label="Tutup demo">×</button></div><h2 id="demo-heading">Coba satu transaksi.</h2><p>Isi nominal, lalu lihat jurnal yang terbentuk. Simulasi ini tidak menyimpan data ke server.</p><form id="demo-form"><label for="demo-kind">Jenis transaksi</label><select id="demo-kind"><option value="receipt">Penerimaan sumbangan tidak terikat</option><option value="expense">Belanja operasional sekolah</option></select><label for="demo-amount">Nominal (Rp)</label><input id="demo-amount" inputmode="decimal" value="500.000" required aria-describedby="demo-example"><small id="demo-example">Contoh: 500.000 atau 1.250.000,50</small><p id="demo-error" role="alert" hidden></p><button type="submit" class="button button-primary">Lihat jurnalnya <span aria-hidden="true">→</span></button></form><div id="demo-result" aria-live="polite" hidden></div><div class="dialog-footer"><button class="text-link" id="demo-reset">Ulangi simulasi</button><a class="text-link" href="/app">Lanjut ke aplikasi →</a></div></dialog>
+  <dialog id="help-dialog" aria-labelledby="help-heading"><div class="dialog-heading"><span class="eyebrow">BANTUAN INSTALASI</span><button class="close-dialog" data-close-dialog aria-label="Tutup informasi bantuan">×</button></div><h2 id="help-heading">Kita mulai dari kebutuhan sekolah.</h2><p>Bantuan dapat mencakup pemasangan aplikasi, HTTPS, backup, dan pengenalan alur transaksi. Kontribusi bantuan instalasi seikhlasnya; biaya infrastruktur dibahas terpisah.</p><div id="help-contact"><p>Kontak pendampingan akan diumumkan saat layanan online dibuka. Untuk sekarang, Anda dapat mengunduh kode dan mengikuti panduan instalasi mandiri.</p></div><a class="button button-primary" href="/download/panduan-instalasi.md">Unduh panduan instalasi ↓</a><p class="note">Jangan mengirim kata sandi, data siswa, atau kunci akses server melalui permintaan awal.</p></dialog>
 </body>
 </html>
