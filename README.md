@@ -2,6 +2,8 @@
 
 Sistem keuangan dan akuntansi multi-unit untuk sekolah, madrasah, dan pesantren (Double-entry & ISAK 35). Dibangun dengan Node.js, Express, PostgreSQL, HTML, dan JavaScript. Bahasa antarmuka Indonesia; nilai uang disimpan sebagai BIGINT sen.
 
+Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
+
 ## Quickstart Docker
 
 Pasang Docker Engine/Desktop dan Compose v2, lalu dari folder proyek jalankan:
