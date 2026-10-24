@@ -4,6 +4,8 @@ Sistem keuangan dan akuntansi multi-unit untuk sekolah, madrasah, dan pesantren 
 
 Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
 
+Untuk teman yang akan melanjutkan proyek: baca [catatan serah-terima](docs/SERAH-TERIMA.md) dan [riwayat pengembangan SAS](docs/RIWAYAT-PENGEMBANGAN.md). README berisi panduan penggunaan/instalasi; riwayat perubahan dicatat terpisah dan detail teknisnya tersedia di Git.
+
 ## Halaman pengantar produk
 
 Buka `/` untuk mengenal manfaat, fitur, contoh tampilan, FAQ, dan pilihan penggunaan SAS. Pengunjung dapat mencoba simulasi jurnal tanpa akun dan tanpa menyimpan transaksi. Tombol **Buka aplikasi** menuju `/app`; pengguna terdaftar masuk melalui `/login`. Pendaftaran SAS Bersama belum tersedia.
