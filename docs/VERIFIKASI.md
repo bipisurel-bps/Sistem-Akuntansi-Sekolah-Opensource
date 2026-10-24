@@ -30,7 +30,7 @@ Lingkungan: Termux Android ARM64, Node.js 24, PostgreSQL 18.6. Database aplikasi
 
 Panduan baru: [MULAI-PEMBUKUAN.md](MULAI-PEMBUKUAN.md). Saat pengembangan ini, contoh sekolah tanpa transaksi dijalankan terpisah pada `http://127.0.0.1:3001` dengan database `sas_school_preview`; database demo `sas` tetap berada pada port 3000. Ketersediaan kedua proses lokal mengikuti sesi Termux, bukan deployment publik.
 
-Container Docker **belum dijalankan**: Docker CLI/Compose tersedia, tetapi host Android tidak menyediakan Docker daemon. Pengujian container PostgreSQL 16 + aplikasi disediakan dalam `.github/workflows/test.yml` untuk dijalankan setelah push ke GitHub. Validasi rendering UI dengan browser nyata dan pembuatan PDF/screenshot baru belum dilakukan di host ini.
+Pada host Android, container Docker **tidak dijalankan** karena tidak tersedia daemon. Setelah push, workflow GitHub untuk snapshot `12807a8` berhasil menjalankan tes dan pemeriksaan Docker. Pada 24 Oktober 2026, deployment VPS Ubuntu 24.04 juga terverifikasi: container aplikasi non-root/read-only dan PostgreSQL 16 sehat, HTTPS/domain dan login admin lulus, serta backup PostgreSQL berhasil dipulihkan ke database sementara. Catatan lengkap: [operasional produksi](../deploy/PRODUKSI-SAS.md). Validasi rendering UI dengan browser nyata dan pembuatan PDF/screenshot baru belum dilakukan.
 
 Audit penuh masih memiliki satu temuan high pada `image-size` transitif dari `html-to-docx` (devDependency untuk dokumen). Dependensi ini tidak masuk image produksi (`npm ci --omit=dev`).
 

@@ -22,7 +22,7 @@ Belum tersedia: pendaftaran SAS Bersama, isolasi banyak sekolah independen, inte
 
 ## Lokasi dan peta kode
 
-Folder pada perangkat pengembangan awal: `/data/data/com.termux/files/home/sas-opensource`. Lokasi ini khusus perangkat tersebut; pada komputer/VPS lain bebas dipilih. Remote GitHub belum dikonfigurasi ketika catatan dibuat.
+Folder pada perangkat pengembangan awal: `/data/data/com.termux/files/home/sas-opensource`. Lokasi ini khusus perangkat tersebut; pada komputer/VPS lain bebas dipilih. Remote resmi sekarang [bipisurel-bps/Sistem-Akuntansi-Sekolah-Opensource](https://github.com/bipisurel-bps/Sistem-Akuntansi-Sekolah-Opensource). Instalasi VPS berada pada `/opt/sas-opensource`; lihat [catatan operasional](../deploy/PRODUKSI-SAS.md).
 
 | Lokasi | Isi |
 | --- | --- |
@@ -111,7 +111,7 @@ Sebelum mengaktifkan deploy otomatis, rekan perlu meninjau hal-hal berikut:
 
 Verifikasi terakhir kode aplikasi: **83 tes lulus** pada Termux Android, Node 24 dan PostgreSQL 18.6; HTTP/DOM diuji dengan jsdom, audit runtime pada pemeriksaan sebelumnya 0 kerentanan. Detail: [VERIFIKASI.md](VERIFIKASI.md). Ini hasil lokal, bukan klaim tes pada VPS tujuan.
 
-Belum diverifikasi: rendering browser nyata desktop/mobile, runtime container pada host pengembangan Android, pengiriman workflow GitHub aktual, deployment domain/VPS, uji beban dan restore produksi. Audit penuh masih mencatat temuan high transitif `image-size` pada tool dokumen dev; dependency runtime diperiksa terpisah.
+Pembaruan deployment 24 Oktober 2026: workflow GitHub snapshot `12807a8` berhasil; domain/VPS, container produksi PostgreSQL 16, login HTTPS dan pemulihan backup pada database terpisah telah diuji. Belum diverifikasi: rendering browser nyata desktop/mobile, uji beban dan audit keamanan menyeluruh. Host Android tetap tidak menyediakan Docker daemon. Audit penuh sebelumnya mencatat temuan high transitif `image-size` pada tool dokumen dev; dependency runtime diperiksa terpisah dan audit build VPS bersih.
 
 Prioritas rekan: jalankan CI dan staging pada Linux → periksa tampilan serta alur akuntansi bersama bendahara → amankan deployment/backup → baru buka pilot satu instansi. Pengembangan SAS Bersama memerlukan pekerjaan isolasi tenant tersendiri.
 
