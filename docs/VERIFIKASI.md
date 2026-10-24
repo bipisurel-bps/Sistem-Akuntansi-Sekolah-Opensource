@@ -7,7 +7,7 @@ Lingkungan: Termux Android ARM64, Node.js 24, PostgreSQL 18.6. Database aplikasi
 | `npm install` | Berhasil, tanpa kegagalan instalasi |
 | `npm run db:init` | Migrasi dan seed pertama berhasil |
 | Seed | 4 unit, 55 akun, 19 pengguna, 14 siswa, 27 tagihan, 85 jurnal |
-| `npm test` | 82 tes lulus; tidak ada gagal/skipped |
+| `npm test` | 83 tes lulus; tidak ada gagal/skipped (24 Oktober 2026) |
 | Startup berulang | Data dan kredensial tersimpan tidak ditimpa |
 | Login admin/operator melalui HTTP | Berhasil; cookie sesi dan `/api/auth/me` terverifikasi |
 | `/`, `/login`, `/branding.js`, `/app.js` | HTTP 200, tidak mengandung branding instansi asal |
@@ -26,6 +26,7 @@ Lingkungan: Termux Android ARM64, Node.js 24, PostgreSQL 18.6. Database aplikasi
 | Interaksi formulir | Tiga tes HTTP/DOM melalui jsdom dan API/PostgreSQL nyata lulus |
 | Halaman produk | Beranda publik, aplikasi terpisah, menu mobile, tab keyboard dan simulasi penerimaan/pengeluaran lulus tes HTTP/DOM |
 | Unduhan sumber | ZIP berisi aplikasi/lisensi; tidak menyertakan env privat, database, sesi, Git atau node_modules |
+| Atribusi SAS | Kredit bipi (jaddadeveloper), pesan kemanfaatan bersama, MIT dan sumber awal terverifikasi pada halaman publik/login serta halaman Tentang aplikasi |
 
 Panduan baru: [MULAI-PEMBUKUAN.md](MULAI-PEMBUKUAN.md). Saat pengembangan ini, contoh sekolah tanpa transaksi dijalankan terpisah pada `http://127.0.0.1:3001` dengan database `sas_school_preview`; database demo `sas` tetap berada pada port 3000. Ketersediaan kedua proses lokal mengikuti sesi Termux, bukan deployment publik.
 

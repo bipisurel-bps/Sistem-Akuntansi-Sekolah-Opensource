@@ -60,6 +60,18 @@ function click(w,selector){const el=w.document.querySelector(selector);assert.ok
 test('API saldo awal membutuhkan autentikasi',async()=>{
   assert.equal((await fetch(base+'/api/opening?unit_id='+school.id)).status,401);
 });
+test('atribusi aplikasi dan halaman Tentang mempertahankan kredit pengembang awal serta MIT',async()=>{
+  const {w,errors}=await browser('#/tentang'),q=s=>w.document.querySelector(s);
+  await until(w,()=>q('#about-developer'));
+  for(const el of [q('.app-credit'),q('.about-sas')]){
+    assert.match(el.textContent,/bipi \(jaddadeveloper\)/);
+    assert.match(el.textContent,/kemanfaatan bersama seluas-luasnya/);
+  }
+  assert.match(q('.about-sas').textContent,/Lisensi MIT/);
+  assert.equal(q('.about-sas a').href,'https://github.com/galihsidik86/sikeu-tazkia');
+  assert.equal(q('.app-credit a').getAttribute('href'),'#/tentang');
+  assert.deepEqual(errors,[]);
+});
 test('UI mengarahkan sekolah kosong ke panduan dan mengajukan jurnal seimbang melalui API sebenarnya',async()=>{
   const {w,errors}=await browser(); const q=s=>w.document.querySelector(s);
   await until(w,()=>q('#openingNext'));

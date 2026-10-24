@@ -1,6 +1,6 @@
 # Serah-terima SAS untuk pengembangan dan deployment
 
-Status diperiksa: **24 Oktober 2026**. Snapshot kode aplikasi: `ac73715`; perubahan setelahnya pada serah-terima ini berupa dokumentasi. Dokumen ini boleh dibagikan bersama repositori/ZIP sumber. Tidak berisi kredensial produksi.
+Status diperiksa: **24 Oktober 2026**. Snapshot awal halaman produk: `ac73715`; pengembangan setelahnya termasuk atribusi bipi (jaddadeveloper) dan halaman Tentang dicatat pada riwayat pengembangan/Git. Dokumen ini boleh dibagikan bersama repositori/ZIP sumber. Tidak berisi kredensial produksi.
 
 ## Ringkasan untuk rekan pengembang
 
@@ -8,7 +8,7 @@ SAS adalah adaptasi aplikasi akuntansi multi-unit untuk sekolah Indonesia. Basis
 
 Target dekat: satu sekolah/yayasan memasang SAS pada server sendiri. **Kode saat ini satu instansi dengan multi-unit, belum SaaS banyak sekolah independen.** Jangan menempatkan sekolah-sekolah yang tidak terkait dalam satu instalasi lalu menganggapnya sudah memiliki isolasi tenant.
 
-Lisensi aktif masih **MIT**. Pemilik telah membahas AGPLv3, tetapi migrasi lisensi belum dikerjakan. Jika dilanjutkan, selaraskan LICENSE, pemberitahuan MIT asal, metadata, dokumentasi, tes dan penawaran kode sumber; jangan sekadar mengganti label.
+Lisensi aktif **MIT**. Setelah mempertimbangkan AGPLv3, pemilik memutuskan tetap memakai MIT untuk memudahkan adopsi dan kemanfaatan bersama. Nama pengembangan SAS: **bipi (jaddadeveloper)**. Pemberitahuan MIT dan hak cipta pengembang awal tetap dipertahankan.
 
 ## Yang sudah tersedia
 
@@ -109,10 +109,10 @@ Sebelum mengaktifkan deploy otomatis, rekan perlu meninjau hal-hal berikut:
 
 ## Bukti pengujian dan pekerjaan berikutnya
 
-Verifikasi terakhir kode aplikasi: **82 tes lulus** pada Termux Android, Node 24 dan PostgreSQL 18.6; HTTP/DOM diuji dengan jsdom, audit runtime saat itu 0 kerentanan. Detail: [VERIFIKASI.md](VERIFIKASI.md). Ini hasil historis, bukan klaim tes ulang pada VPS tujuan.
+Verifikasi terakhir kode aplikasi: **83 tes lulus** pada Termux Android, Node 24 dan PostgreSQL 18.6; HTTP/DOM diuji dengan jsdom, audit runtime pada pemeriksaan sebelumnya 0 kerentanan. Detail: [VERIFIKASI.md](VERIFIKASI.md). Ini hasil lokal, bukan klaim tes pada VPS tujuan.
 
 Belum diverifikasi: rendering browser nyata desktop/mobile, runtime container pada host pengembangan Android, pengiriman workflow GitHub aktual, deployment domain/VPS, uji beban dan restore produksi. Audit penuh masih mencatat temuan high transitif `image-size` pada tool dokumen dev; dependency runtime diperiksa terpisah.
 
-Prioritas rekan: jalankan CI dan staging pada Linux → periksa tampilan serta alur akuntansi bersama bendahara → amankan deployment/backup → tentukan lisensi → baru buka pilot satu instansi. Pengembangan SAS Bersama memerlukan pekerjaan isolasi tenant tersendiri.
+Prioritas rekan: jalankan CI dan staging pada Linux → periksa tampilan serta alur akuntansi bersama bendahara → amankan deployment/backup → baru buka pilot satu instansi. Pengembangan SAS Bersama memerlukan pekerjaan isolasi tenant tersendiri.
 
 Bacaan lanjut: [riwayat pengembangan](RIWAYAT-PENGEMBANGAN.md), [adaptasi](ADAPTASI.md), [panduan saldo awal](MULAI-PEMBUKUAN.md), [halaman produk](HALAMAN-PRODUK.md), [deployment](../deploy/README.md), [konsep layanan](KONSEP-LAYANAN.md), dan [arsitektur rencana](ARSITEKTUR-LAYANAN.md).

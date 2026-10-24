@@ -37,6 +37,12 @@ test('beranda produk publik terpisah dari ruang kerja dan login',async()=>{
   for(const url of ['/app','/login','/product.css','/product.js','/sas-mark.svg'])assert.equal((await fetch(base+url)).status,200,url);
   const app=await(await fetch(base+'/app')).text();assert.match(app,/src="\/app.js"/);
   const login=await(await fetch(base+'/login')).text();assert.match(login,/location.href = '\/app'/);
+  for(const page of [html,login]){
+    assert.match(page,/bipi \(jaddadeveloper\)/);
+    assert.match(page,/kemanfaatan bersama seluas-luasnya/);
+    assert.match(page,/github\.com\/galihsidik86\/sikeu-tazkia/);
+    assert.match(page,/Lisensi MIT/);
+  }
   assert.equal((await fetch(base+'/halaman-tidak-ada')).status,404);
 });
 test('navigasi mobile dan tab contoh dapat digunakan dengan keyboard',()=>{

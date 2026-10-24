@@ -2,6 +2,8 @@
 
 Sistem keuangan dan akuntansi multi-unit untuk sekolah, madrasah, dan pesantren (Double-entry & ISAK 35). Dibangun dengan Node.js, Express, PostgreSQL, HTML, dan JavaScript. Bahasa antarmuka Indonesia; nilai uang disimpan sebagai BIGINT sen.
 
+Dikembangkan oleh **bipi (jaddadeveloper)** untuk kemanfaatan bersama seluas-luasnya, berbasis [galihsidik86/sikeu-tazkia](https://github.com/galihsidik86/sikeu-tazkia). Lisensi MIT dan pemberitahuan hak cipta asal tetap dipertahankan.
+
 Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
 
 Untuk teman yang akan melanjutkan proyek: baca [catatan serah-terima](docs/SERAH-TERIMA.md) dan [riwayat pengembangan SAS](docs/RIWAYAT-PENGEMBANGAN.md). README berisi panduan penggunaan/instalasi; riwayat perubahan dicatat terpisah dan detail teknisnya tersedia di Git.

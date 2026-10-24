@@ -178,6 +178,10 @@ function renderShell() {
         </div>
       </header>
       <main id="main"></main>
+      <footer class="developer-credit app-credit no-print">
+        <p>Dikembangkan oleh <strong>bipi (jaddadeveloper)</strong> untuk kemanfaatan bersama seluas-luasnya.</p>
+        <a href="#/tentang">Tentang SAS, lisensi &amp; apresiasi</a>
+      </footer>
     </div>
   </div>`;
 
@@ -220,9 +224,23 @@ async function route() {
       case 'admin': setActive('admin', 'Administrasi'); return viewAdmin(parts[1] || 'tutupbuku');
       case 'master': setActive('master', 'Master Data'); return viewMaster(parts[1] || 'coa');
       case 'audit': setActive('audit', 'Jejak Audit'); return viewAudit();
+      case 'tentang': setActive('tentang', 'Tentang SAS'); return viewAbout();
       default: location.hash = '#/dashboard';
     }
   } catch (e) { main.innerHTML = `<div class="err-box">${esc(e.message)}</div>`; }
+}
+
+function viewAbout() {
+  $('#main').innerHTML = `
+    <h1 class="page">Tentang SAS</h1>
+    <section class="card pad about-sas" aria-labelledby="about-developer">
+      <h2 id="about-developer">Untuk kemanfaatan bersama</h2>
+      <p>Sistem Akuntansi Sekolah (SAS) Open Source dikembangkan oleh <strong>bipi (jaddadeveloper)</strong> untuk kemanfaatan bersama seluas-luasnya, khususnya membantu sekolah dan yayasan pendidikan mengelola pembukuan.</p>
+      <p>Pengembangan SAS merupakan adaptasi dari <a href="https://github.com/galihsidik86/sikeu-tazkia" target="_blank" rel="noopener noreferrer">galihsidik86/sikeu-tazkia</a>. Terima kasih kepada pengembang awal dan seluruh kontributor; kontribusi serta hak cipta mereka tetap dihormati.</p>
+      <h2>Lisensi MIT</h2>
+      <p>Anda dapat menggunakan, mempelajari, mengembangkan, dan membagikan aplikasi sesuai ketentuan MIT. Pemberitahuan hak cipta dan lisensi yang relevan wajib dipertahankan. Pesan kemanfaatan bersama ini bukan pembatasan penggunaan nonkomersial.</p>
+      <p><a href="/download/sas-opensource.zip">Unduh kode sumber dan lisensi</a> · <a href="/">Kenali SAS</a></p>
+    </section>`;
 }
 
 // ================= DASHBOARD EKSEKUTIF =================

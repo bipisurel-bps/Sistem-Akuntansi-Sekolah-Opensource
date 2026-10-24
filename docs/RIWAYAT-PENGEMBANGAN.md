@@ -2,7 +2,14 @@
 
 Catatan ini merangkum pengembangan fork SAS, bukan seluruh sejarah basis kode. Tanggal mengikuti commit lokal. Daftar lengkap: `git log --oneline`; rincian perubahan: `git show <commit>`.
 
-## 24 Oktober 2026 — dokumentasi serah-terima
+## 24 Oktober 2026 — atribusi pengembangan
+
+- Menambahkan nama bipi (jaddadeveloper) dan pesan kemanfaatan bersama pada footer halaman produk, login dan ruang kerja aplikasi.
+- Menambahkan halaman `/app#/tentang` yang menjelaskan pengembangan SAS, apresiasi basis sikeu-tazkia, serta lisensi MIT yang tetap berlaku.
+- Menambahkan pengujian atribusi; pesan sosial tidak menjadi pembatasan penggunaan nonkomersial.
+- Mempertahankan MIT sesuai keputusan pemilik; keseluruhan suite lulus 83 tes.
+
+## 24 Oktober 2026 — dokumentasi serah-terima (`b7874cf`)
 
 - Menambahkan panduan untuk melanjutkan pengembangan, membuat repositori GitHub mandiri, dan menyiapkan deployment internet.
 - Mencatat batas fitur, status pengujian dan pekerjaan sebelum produksi.
