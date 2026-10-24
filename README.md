@@ -136,6 +136,6 @@ git push -u origin main
 
 Jika belum ada commit lokal, gunakan `git add .` dan `git commit -m "Initial SAS Open Source adaptation"` sebelum push. Workflow build image memakai nama repositori Anda. Deployment otomatis memerlukan secrets VPS yang sengaja disetel pemilik; lihat panduan deployment.
 
-## Lisensi dan apresiasi
+## Lisensi
 
-MIT — lihat [LICENSE](LICENSE). Basis kode awal: **[galihsidik86/sikeu-tazkia](https://github.com/galihsidik86/sikeu-tazkia)**, commit `c9d14ea3ea5556a7b8e047601bf03ddac4f47405`. Terima kasih kepada pengembang awal atas mesin akuntansi dan modul multi-unitnya. Pemberitahuan hak cipta asli dipertahankan sesuai syarat MIT. Adaptasi SAS bersifat independen.
+MIT — lihat [LICENSE](LICENSE).
