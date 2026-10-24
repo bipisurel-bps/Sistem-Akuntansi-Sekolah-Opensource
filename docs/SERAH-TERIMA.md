@@ -1,6 +1,6 @@
 # Serah-terima SAS untuk pengembangan dan deployment
 
-Status diperiksa: **24 Oktober 2026**. Snapshot awal halaman produk: `ac73715`; pengembangan setelahnya termasuk atribusi bipi (jaddadeveloper) dan halaman Tentang dicatat pada riwayat pengembangan/Git. Dokumen ini boleh dibagikan bersama repositori/ZIP sumber. Tidak berisi kredensial produksi.
+Status diperiksa: **24 Oktober 2026**. Snapshot awal halaman produk: `2a3f16c`; pengembangan setelahnya termasuk atribusi bipi (jaddadeveloper) dan halaman Tentang dicatat pada riwayat pengembangan/Git. Dokumen ini boleh dibagikan bersama repositori/ZIP sumber. Tidak berisi kredensial produksi.
 
 ## Ringkasan untuk rekan pengembang
 
