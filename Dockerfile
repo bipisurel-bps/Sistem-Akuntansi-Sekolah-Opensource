@@ -9,13 +9,16 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 # Salin sumber termasuk panduan/tes untuk paket unduhan; env privat/data dikecualikan.
-COPY . .
+COPY --chown=node:node . .
 RUN node src/release.js
 
 # Folder data (backup) — dipetakan ke volume di compose
 RUN mkdir -p /app/data/backups
 RUN chown -R node:node /app/data
 USER node
+
+# Tetap dapat dibaca bila checkout host dibuat dengan umask 077.
+RUN node -e "const fs=require('fs'); for (const file of ['server.js','src/db/initialize.js','src/db/schema.sql','public/index.html','release/sas-opensource.zip']) fs.accessSync(file,fs.constants.R_OK)"
 
 EXPOSE 3000
 
