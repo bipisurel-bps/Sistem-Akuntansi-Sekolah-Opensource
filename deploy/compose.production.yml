@@ -1,0 +1,26 @@
+# Gabungkan dengan docker-compose.yml dari root proyek.
+# COMPOSE_FILE=docker-compose.yml:deploy/compose.production.yml
+services:
+  app:
+    mem_limit: 512m
+    cpus: 0.75
+    pids_limit: 128
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      NODE_OPTIONS: --max-old-space-size=256
+    logging:
+      driver: local
+      options:
+        max-size: 10m
+        max-file: '3'
+  db:
+    mem_limit: 512m
+    cpus: 0.75
+    pids_limit: 256
+    logging:
+      driver: local
+      options:
+        max-size: 10m
+        max-file: '3'

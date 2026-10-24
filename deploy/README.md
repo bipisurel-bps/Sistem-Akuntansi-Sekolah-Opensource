@@ -21,6 +21,18 @@ Workflow `.github/workflows/build-image.yml` membangun `ghcr.io/<pemilik>/<repo>
 
 ## Backup
 
+Untuk membatasi resource pada VPS bersama, tersedia override `deploy/compose.production.yml`: batas memori 512 MiB per layanan, CPU 0,75 per layanan, rotasi log, serta filesystem aplikasi read-only (volume data tetap dapat ditulis). Uji kapasitas sebelum menambah sekolah/pengguna. Tambahkan pada `.env` produksi:
+
+```dotenv
+COMPOSE_PROJECT_NAME=sas
+COMPOSE_FILE=docker-compose.yml:deploy/compose.production.yml
+APP_PORT=3300
+```
+
+Gunakan `docker compose config --quiet` untuk validasi. Jangan menampilkan konfigurasi lengkap pada log publik karena berisi rahasia. Contoh Caddy **host** tersedia pada `deploy/Caddy.host.example`; `deploy/Caddyfile` yang lama ditujukan untuk proxy container di jaringan aplikasi. Compose tidak memasang Caddy otomatis.
+
+Backup PostgreSQL penuh dapat dijalankan dengan `sudo bash deploy/backup-postgres.sh`. Output privat disimpan pada `/var/backups/sas` (direktori 700, berkas 600). Skrip memakai lock dan tidak menghapus backup lama; atur pemantauan disk, salinan off-site serta kebijakan retensi terpisah. Jadwalkan melalui systemd/cron pada VPS, bukan melalui proses browser. Jangan memasukkan backup ke repositori.
+
 ```sh
 docker compose exec -T db pg_dump -U sas sas > sas-backup.sql
 ```

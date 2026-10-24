@@ -1,0 +1,12 @@
+# Contoh Caddy pada host, terpisah dari container aplikasi.
+# Ganti domain/port sesuai instalasi. Validasi konfigurasi lengkap sebelum reload.
+sistemakuntansisekolah.web.id {
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options SAMEORIGIN
+        Referrer-Policy strict-origin-when-cross-origin
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    }
+    reverse_proxy 127.0.0.1:3300
+}

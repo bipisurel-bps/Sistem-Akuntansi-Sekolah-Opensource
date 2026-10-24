@@ -8,7 +8,7 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-# Salin kode aplikasi (docs/, tests/, scripts/ dikecualikan via .dockerignore)
+# Salin sumber termasuk panduan/tes untuk paket unduhan; env privat/data dikecualikan.
 COPY . .
 RUN node src/release.js
 
