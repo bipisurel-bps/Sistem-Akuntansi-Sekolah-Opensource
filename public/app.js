@@ -3,12 +3,14 @@
 
 // ---------------- Utilities ----------------
 const $ = (s, r = document) => r.querySelector(s);
+const appUrl = window.sasUrl || (path=>path);
 const api = {
   async req(method, url, body) {
+    if(state.isDemo&&!['GET','HEAD'].includes(method))throw new Error('Demo hanya-baca. Gunakan instalasi sekolah untuk mencatat transaksi.');
     const opt = { method, headers: {} };
     if (body !== undefined) { opt.headers['Content-Type'] = 'application/json'; opt.body = JSON.stringify(body); }
-    const res = await fetch(url, opt);
-    if (res.status === 401) { location.href = '/login'; throw new Error('Sesi berakhir.'); }
+    const res = await fetch(appUrl(url), opt);
+    if (res.status === 401) { location.href = appUrl('/login'); throw new Error('Sesi berakhir.'); }
     const data = res.status === 204 ? null : await res.json().catch(() => ({}));
     if (!res.ok) throw new Error((data && data.error) || 'Terjadi kesalahan.');
     return data;
@@ -68,7 +70,7 @@ function openChangePassword() {
 }
 
 // ---------------- State ----------------
-const state = { user: null, units: [], unit: 'all', accounts: [] };
+const state = { user: null, units: [], unit: 'all', accounts: [], isDemo:false };
 const perms = {};
 function computePerms() {
   const r = state.user.role;
@@ -99,8 +101,9 @@ const unitName = () => state.unit === 'all' ? 'Konsolidasi — semua unit'
 (async function boot() {
   await window.sasBrandingReady;
   try {
-    const me = await api.get('/api/auth/me'); state.user = me.user;
-  } catch { location.href = '/login'; return; }
+    const me = await api.get('/api/auth/me'); state.user = me.user; state.isDemo=!!me.isDemo;
+  } catch { location.href = appUrl('/login'); return; }
+  if(state.isDemo)document.body.classList.add('demo-page');
   computePerms();
   state.units = await api.get('/api/master/units');
   try { state.accounts = await api.get('/api/master/accounts'); } catch { state.accounts = []; }
@@ -134,7 +137,7 @@ const NAV = [
   { k: 'neraca', label: 'Neraca Saldo', icon: iconChart },
   { group: 'PENGATURAN' },
   { k: 'mulai', label: 'Mulai Pembukuan', icon: iconBook, need: () => ['admin', 'bendahara', 'staf_akuntansi'].includes(state.user.role) },
-  { k: 'master', label: 'Master Data', icon: iconDb, need: () => true },
+  { k: 'master', label: 'Master Data', icon: iconDb, need: () => !state.isDemo },
   { k: 'admin', label: 'Administrasi', icon: iconGear, need: () => perms.closing || perms.backup },
   { k: 'audit', label: 'Jejak Audit', icon: iconShield, need: () => perms.admin || state.user.role === 'pengurus_yayasan' },
 ];
@@ -173,10 +176,11 @@ function renderShell() {
             ${iconBuilding()}
             <select id="unitSel">${unitOpts}</select>
           </div>
-          <button class="btn sm" id="pwdBtn">Ganti Sandi</button>
-          <button class="btn sm" id="logoutBtn">Keluar</button>
+          ${state.isDemo?'':`<button class="btn sm" id="pwdBtn">Ganti Sandi</button>`}
+          <button class="btn sm" id="logoutBtn">${state.isDemo?'Keluar demo':'Keluar'}</button>
         </div>
       </header>
+      ${state.isDemo?'<aside class="demo-notice no-print" aria-label="Informasi demo"><strong>Demo hanya-baca · seluruh data fiktif</strong><span>Database terpisah dari sekolah. Anda dapat menjelajahi laporan; pencatatan, penghapusan, impor, dan perubahan akun dinonaktifkan.</span></aside>':''}
       <main id="main"></main>
       <footer class="developer-credit app-credit no-print">
         <p>Dikembangkan oleh <strong>bipi (jaddadeveloper)</strong> untuk kemanfaatan bersama seluas-luasnya.</p>
@@ -187,8 +191,8 @@ function renderShell() {
 
   $('#unitSel').value = state.unit;
   $('#unitSel').addEventListener('change', e => { state.unit = e.target.value; route(); });
-  $('#logoutBtn').addEventListener('click', async () => { await api.post('/api/auth/logout'); location.href = '/login'; });
-  $('#pwdBtn').addEventListener('click', openChangePassword);
+  $('#logoutBtn').addEventListener('click', async () => { if(state.isDemo){location.href='/';return;}await api.post('/api/auth/logout'); location.href = appUrl('/login'); });
+  $('#pwdBtn')?.addEventListener('click', openChangePassword);
   $('#app').querySelectorAll('[data-nav]').forEach(el =>
     el.addEventListener('click', () => { location.hash = '#/' + el.dataset.nav; }));
 }
@@ -204,6 +208,9 @@ async function route() {
   const parts = hash.split('/').filter(Boolean); // e.g. ['jurnal','5']
   document.body.classList.toggle('opening-page', parts[0] === 'mulai');
   const main = $('#main'); if (!main) return;
+  if(state.isDemo&&(['admin','master','mulai'].includes(parts[0])||(parts[0]==='jurnal'&&(parts[1]==='baru'||parts[2]==='edit')))){
+    main.innerHTML='<h1 class="page">Demo hanya-baca</h1><p>Pengaturan dan pencatatan tersedia pada instalasi sekolah. Jelajahi dashboard, kas, tagihan contoh, dan laporan melalui menu.</p>';return;
+  }
   main.innerHTML = '<div class="subtle" style="padding:20px;">Memuat…</div>';
   try {
     switch (parts[0]) {
@@ -620,7 +627,8 @@ function bankAccountsForUnit() {
 }
 
 async function viewKasBank(tab) {
-  const tabs = [['rekening', 'Rekening & saldo'], ['terima', 'Penerimaan kas'], ['keluar', 'Pengeluaran kas'], ['rekon', 'Rekonsiliasi bank']];
+  const tabs = state.isDemo?[['rekening','Rekening & saldo']]:[['rekening', 'Rekening & saldo'], ['terima', 'Penerimaan kas'], ['keluar', 'Pengeluaran kas'], ['rekon', 'Rekonsiliasi bank']];
+  if(state.isDemo)tab='rekening';
   if (perms.master) tabs.push(['kategori', 'Kategori']);
   const tabHtml = tabs.map(([k, l]) => `<div class="tab ${k === tab ? 'active' : ''}" onclick="location.hash='#/kasbank/${k}'">${l}</div>`).join('');
   $('#main').innerHTML = `<h1 class="page">Kas &amp; Bank</h1><div class="subtle">${esc(unitName())}</div>
@@ -886,7 +894,8 @@ function umurChip(days) {
 }
 
 async function viewPiutang(tab) {
-  const tabs = [['daftar', 'Daftar tagihan'], ['siswa', 'Siswa'], ['generate', 'Generate tagihan massal'], ['ckpn', 'Aging & CKPN'], ['amortisasi', 'Pengakuan pendapatan']];
+  const tabs = [['daftar', 'Daftar tagihan'], ['siswa', 'Siswa'], ...(!state.isDemo?[['generate', 'Generate tagihan massal']]:[]), ['ckpn', 'Aging & CKPN'], ['amortisasi', 'Pengakuan pendapatan']];
+  if(state.isDemo&&tab==='generate')tab='daftar';
   const tabHtml = tabs.map(([k, l]) => `<div class="tab ${k === tab ? 'active' : ''}" onclick="location.hash='#/piutang/${k}'">${l}</div>`).join('');
   $('#main').innerHTML = `<h1 class="page">Piutang Siswa (SPP)</h1><div class="subtle">${esc(unitName())}</div>
     <div class="tabs">${tabHtml}</div><div id="piOut"></div>`;

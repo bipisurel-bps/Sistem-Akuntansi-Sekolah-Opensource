@@ -10,6 +10,7 @@ Deployment awal diperiksa pada 24 Oktober 2026.
 - Compose project `sas`, memakai `docker-compose.yml` dan `deploy/compose.production.yml` melalui `.env` privat.
 - Aplikasi hanya mendengarkan `127.0.0.1:3300`; Caddy host meneruskan domain HTTPS ke port ini. Database hanya berada dalam jaringan Docker SAS dan tidak membuka port host.
 - Mode awal `school`: satu unit, tiga pengguna, tanpa siswa, tagihan maupun jurnal demo. Instalasi ini **bukan layanan banyak sekolah independen** dan tidak menyediakan pendaftaran publik.
+- Demo publik kini dirancang pada `/demo/app`: stack `sas-demo`, cluster/volume PostgreSQL terpisah, pengamat tanpa password dan role database SELECT saja. Lihat [panduan demo terpisah](DEMO-TERPISAH.md). Akun demo lama pada database utama dinonaktifkan; jangan mengaktifkannya kembali.
 - Batas awal masing-masing layanan: 512 MiB RAM dan 0,75 CPU. Aplikasi memakai pengguna non-root dan filesystem read-only; volume data tetap dapat ditulis.
 
 Konfigurasi/kredensial tidak masuk Git atau ZIP. Jangan menjalankan perintah yang menampilkan seluruh environment atau Docker inspect lengkap pada log publik.
@@ -17,6 +18,8 @@ Konfigurasi/kredensial tidak masuk Git atau ZIP. Jangan menjalankan perintah yan
 ## Akses awal
 
 Identitas login admin: `admin1@sistemakuntansisekolah.web.id`. Password acak tidak ditulis dalam dokumen ini. Salinan privat akses awal berada pada akun administrator VPS di `~/.config/sas/initial-admin.txt`; pemilik menerima salinan privat di perangkatnya. Ganti sandi melalui aplikasi setelah login, lalu sesuaikan akun operator/bendahara sebelum penggunaan riil. Tidak ada layanan email otomatis yang disetel pada deployment awal.
+
+Kontak bantuan publik: **jaddadeveloper@gmail.com**. Tidak ada nomor WhatsApp. Kontak email berupa tautan untuk membuka aplikasi email pengunjung; bukan konfigurasi SMTP aplikasi.
 
 SSH memakai key khusus deployment SAS pada perangkat pemilik. Dokumen Word password transit sudah dihapus setelah key terverifikasi. Pemasangan key tidak menonaktifkan metode login SSH yang sebelumnya ada.
 

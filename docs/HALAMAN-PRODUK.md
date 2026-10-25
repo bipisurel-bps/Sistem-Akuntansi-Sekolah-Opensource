@@ -1,5 +1,7 @@
 # Halaman pengantar SAS
 
+Pembaruan 25 Oktober 2026: tombol demo aplikasi penuh menuju `/demo/app`, pada stack/database fiktif terpisah dan hanya-baca. Simulasi jurnal di modal tetap berjalan lokal di browser. Akun demo lama pada database utama tidak digunakan lagi. Kontak bantuan adalah jaddadeveloper@gmail.com; tidak ada nomor WhatsApp. Implementasi: [demo terpisah](../deploy/DEMO-TERPISAH.md).
+
 Halaman ini membantu pengunjung memahami aplikasi sebelum masuk ke ruang kerja. Gaya editorial memakai warna plum, latar hangat, tipografi serif dan ilustrasi antarmuka berbasis HTML/CSS; tidak membutuhkan gambar besar. Animasi menghormati preferensi pengurangan gerak.
 
 ## Alur pengunjung

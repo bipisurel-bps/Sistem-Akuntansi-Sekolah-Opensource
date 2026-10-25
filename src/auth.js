@@ -1,6 +1,9 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const db = require('./db');
+const config = require('./config');
+const DEMO_EMAIL = 'pengamat@demo.sas.invalid';
+const RETIRED_DEMO_EMAIL = 'demo@sistemakuntansisekolah.web.id';
 
 // ---- Definisi peran & label ----
 const ROLES = {
@@ -24,6 +27,7 @@ const findByEmail = db.prepare('SELECT * FROM users WHERE lower(email) = lower(?
 const findById = db.prepare('SELECT * FROM users WHERE id = ?');
 
 async function authenticate(email, password) {
+  if (config.demoMode || String(email || '').trim().toLowerCase() === RETIRED_DEMO_EMAIL) return null;
   const u = await findByEmail.get(String(email || '').trim());
   if (!u || !u.aktif) return null;
   if (!verifyPassword(password, u.password_hash)) return null;
@@ -32,7 +36,14 @@ async function authenticate(email, password) {
 
 async function getUser(id) {
   const u = await findById.get(id);
-  return u && u.aktif ? sanitize(u) : null;
+  return u && u.aktif && u.email.toLowerCase() !== RETIRED_DEMO_EMAIL ? sanitize(u) : null;
+}
+
+async function getDemoUser() {
+  if (!config.demoMode) { const e = new Error('Demo tidak tersedia pada database utama.'); e.status=403; throw e; }
+  const u = await findByEmail.get(DEMO_EMAIL);
+  if (!u || !u.aktif || u.role !== 'kepala_unit') throw new Error('Pengamat demo belum disiapkan dengan hak baca.');
+  return sanitize(u);
 }
 
 async function changePassword(userId, oldPass, newPass) {
@@ -61,6 +72,12 @@ function sanitize(u) {
 // ---- Middleware ----
 async function requireAuth(req, res, next) {
   try {
+    if (config.demoMode) {
+      if (!['GET','HEAD','OPTIONS'].includes(req.method)) return res.status(403).json({ error:'Demo hanya-baca. Perubahan data dinonaktifkan pada server dan database demo.' });
+      req.user = await getDemoUser();
+      return next();
+    }
+    if (req.session?.isDemo) return res.status(401).json({error:'Sesi demo lama tidak berlaku. Gunakan ruang demo terpisah.'});
     if (!req.session || !req.session.userId) {
       return res.status(401).json({ error: 'Belum masuk. Silakan login.' });
     }
@@ -70,6 +87,7 @@ async function requireAuth(req, res, next) {
       return res.status(401).json({ error: 'Sesi tidak valid.' });
     }
     req.user = user;
+
     next();
   } catch (e) { next(e); }
 }
@@ -86,6 +104,6 @@ function requireRole(...roles) {
 
 module.exports = {
   ROLES, APPROVER_ROLES, AUTHOR_ROLES, MASTER_ROLES, PERIOD_ROLES,
-  hashPassword, verifyPassword, authenticate, changePassword, getUser, sanitize,
+  hashPassword, verifyPassword, authenticate, changePassword, getUser, getDemoUser, sanitize, DEMO_EMAIL,
   requireAuth, requireRole,
 };

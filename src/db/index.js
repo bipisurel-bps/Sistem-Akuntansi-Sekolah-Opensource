@@ -48,7 +48,7 @@ function withReturning(sql) {
   return sql;
 }
 
-async function q(sql, args) {
+async function q(sql, args = []) {
   const { text, values } = bind(translate(sql), args);
   return conn().query(text, values);
 }

@@ -1,0 +1,79 @@
+# Jalankan sebagai project sas-demo dengan --env-file privat di /opt/sas-demo/.env.
+# Cluster, jaringan, volume, pengguna, dan password terpisah dari produksi.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sas_demo_owner
+      POSTGRES_PASSWORD: ${DEMO_OWNER_PASSWORD:?required}
+      POSTGRES_DB: sas_demo
+    volumes:
+      - demo_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U sas_demo_owner -d sas_demo']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    mem_limit: 256m
+    cpus: 0.5
+    logging:
+      driver: local
+      options: {max-size: 10m, max-file: '3'}
+  initialize:
+    profiles: [setup]
+    image: ${SAS_DEMO_IMAGE:-sas-opensource:demo}
+    build: {context: ..}
+    command: [node, src/db/initializeDemo.js]
+    environment:
+      DATABASE_URL: postgres://sas_demo_owner:${DEMO_OWNER_PASSWORD:?required}@db:5432/sas_demo
+      NODE_ENV: production
+      SESSION_SECRET: ${DEMO_OWNER_PASSWORD:?required}
+      DEMO_READER_PASSWORD: ${DEMO_READER_PASSWORD:?required}
+      SEED_PASSWORD: ${DEMO_SEED_PASSWORD:?required}
+      SEED_MODE: demo
+      SEED_EMAIL_DOMAIN: contoh.invalid
+      APP_DEMO_MODE: 'false'
+      INSTITUTION_NAME: Yayasan Contoh (Fiktif)
+      SCHOOL_NAME: Sekolah Contoh (Fiktif)
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck: {disable: true}
+    mem_limit: 384m
+  app:
+    image: ${SAS_DEMO_IMAGE:-sas-opensource:demo}
+    build: {context: ..}
+    restart: unless-stopped
+    command: [node, server.js]
+    environment:
+      DATABASE_URL: postgres://sas_demo_reader:${DEMO_READER_PASSWORD:?required}@db:5432/sas_demo
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      APP_DEMO_MODE: 'true'
+      APP_BASE_PATH: /demo
+      TRUST_PROXY: 'true'
+      COOKIE_SECURE: 'true'
+      APP_NAME: SAS — Demo Data Fiktif
+      INSTITUTION_NAME: Yayasan Contoh (Fiktif)
+      SCHOOL_NAME: Sekolah Contoh (Fiktif)
+      SUPPORT_EMAIL: jaddadeveloper@gmail.com
+      NODE_OPTIONS: --max-old-space-size=192
+    ports: ['127.0.0.1:3301:3000']
+    depends_on: {db: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, wget, -qO-, 'http://127.0.0.1:3000/demo/api/health']
+      interval: 15s
+      start_period: 15s
+      timeout: 5s
+      retries: 5
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    logging:
+      driver: local
+      options: {max-size: 10m, max-file: '3'}
+volumes:
+  demo_pgdata:

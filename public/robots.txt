@@ -1,0 +1,11 @@
+# Robots.txt untuk Sistem Akuntansi Sekolah (SAS) Open Source
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /download/panduan-instalasi.md
+Disallow: /app
+Disallow: /demo/
+Disallow: /api/
+Disallow: /download/sas-opensource.zip
+
+Sitemap: https://sistemakuntansisekolah.web.id/sitemap.xml

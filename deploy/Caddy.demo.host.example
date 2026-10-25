@@ -1,0 +1,21 @@
+# Gunakan sesudah layanan demo terpisah di 3301 sehat; jangan gunakan handle_path.
+sistemakuntansisekolah.web.id {
+    encode zstd gzip
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options SAMEORIGIN
+        Referrer-Policy strict-origin-when-cross-origin
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    }
+    redir /demo /demo/ 308
+    handle /demo/* {
+        reverse_proxy 127.0.0.1:3301 {
+            header_up -Cookie
+            header_up -Authorization
+            header_down -Set-Cookie
+        }
+    }
+    handle {
+        reverse_proxy 127.0.0.1:3300
+    }
+}

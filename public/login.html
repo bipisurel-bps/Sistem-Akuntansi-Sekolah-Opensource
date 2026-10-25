@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
 <title>Masuk · Sistem Akuntansi Sekolah (SAS) Open Source</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +22,8 @@
   .formcard{width:100%;max-width:380px;}
   .formcard h2{font-size:24px;font-weight:800;letter-spacing:-.01em;margin:0 0 4px;}
   .formcard .field{margin-top:16px;}
-  .demo{margin-top:20px;font-size:11.5px;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;line-height:1.7;}
+  .demo-card{margin-top:20px;padding:16px;background:#F6F2FC;border:1px solid #D6CCEC;border-radius:12px;text-align:center;}
+  .demo{margin-top:18px;font-size:11.5px;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;line-height:1.7;}
   .demo b{color:var(--ink);}
   @media(max-width:820px){.wrap{grid-template-columns:1fr;} .brandside{display:none;}}
 </style>
@@ -51,6 +53,15 @@
           <input class="inp" type="password" id="password" placeholder="••••••••" required></div>
         <button class="btn primary" type="submit" style="width:100%;margin-top:20px;" id="submitBtn">Masuk</button>
       </form>
+
+      <div class="demo-card">
+        <div style="font-size:13.5px;font-weight:700;color:#3F2A68;margin-bottom:6px;">Mau mencoba tanpa mendaftar?</div>
+        <p style="font-size:12px;color:#5a5369;margin:0 0 12px;line-height:1.5;">Jelajahi dashboard, kas, dan laporan dengan data fiktif di database demo terpisah. Demo hanya-baca.</p>
+        <button type="button" class="btn" id="demoLoginBtn" style="width:100%;background:#4B3080;color:#fff;font-weight:700;border:none;padding:11px;border-radius:8px;cursor:pointer;font-size:13px;">
+          Masuk Mode Demo (1-Klik) →
+        </button>
+      </div>
+
       <div class="demo">Akun awal dan panduan tersedia pada README untuk instalasi percobaan.
         Hubungi administrator sekolah untuk akses penggunaan bersama.</div>
       <footer class="developer-credit login-credit">
@@ -60,6 +71,7 @@
     </div>
   </div>
 </div>
+<script src="/runtime.js"></script>
 <script src="/branding.js"></script>
 <script>
 const f = document.getElementById('loginForm');
@@ -70,7 +82,7 @@ f.addEventListener('submit', async (e) => {
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'Memproses…';
   try {
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(window.sasUrl('/api/auth/login'), {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ email: email.value.trim(), password: password.value }),
     });
@@ -82,6 +94,13 @@ f.addEventListener('submit', async (e) => {
     btn.disabled = false; btn.textContent = 'Masuk';
   }
 });
+
+const demoBtn = document.getElementById('demoLoginBtn');
+if (demoBtn) {
+  demoBtn.addEventListener('click', async () => {
+    location.href = '/demo/app';
+  });
+}
 </script>
 </body>
 </html>

@@ -40,6 +40,17 @@ document.querySelectorAll('[data-open-demo]').forEach(b=>b.addEventListener('cli
 document.querySelectorAll('[data-open-help]').forEach(b=>b.addEventListener('click',()=>openDialog('help-dialog',b)));
 document.querySelectorAll('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>closeDialog(b.closest('dialog'))));
 document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDialog(d);}});d.addEventListener('close',()=>returnFocus?.focus());});
+
+// Aksi 1-Klik Masuk ke Aplikasi Demo Penuh
+async function launchDemoApp(btn) {
+  location.href = '/demo/app';
+}
+
+const launchBtn = document.getElementById('btn-dialog-launch-app');
+if (launchBtn) {
+  launchBtn.addEventListener('click', () => launchDemoApp(launchBtn));
+}
+
 const form=document.getElementById('demo-form'),result=document.getElementById('demo-result'),error=document.getElementById('demo-error');
 const rupiah=n=>'Rp'+(n/100).toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2});
 form.addEventListener('submit',e=>{
@@ -52,16 +63,20 @@ form.addEventListener('submit',e=>{
   const receipt=document.getElementById('demo-kind').value==='receipt';
   const debit=receipt?'Kas operasional':'Beban operasional sekolah';
   const credit=receipt?'Sumbangan tidak terikat':'Kas operasional';
-  // Seluruh label di bawah adalah konstanta; nominal dirender dari angka tervalidasi.
   result.innerHTML=`<table><caption>Contoh jurnal ${receipt?'penerimaan':'pengeluaran'}</caption><thead><tr><th>Akun</th><th>Debit</th><th>Kredit</th></tr></thead><tbody><tr><td>${debit}</td><td>${rupiah(amount)}</td><td>—</td></tr><tr><td>${credit}</td><td>—</td><td>${rupiah(amount)}</td></tr></tbody></table><p class="balanced-notice">✓ Seimbang. Total debit = total kredit = ${rupiah(amount)}.</p><p>Di aplikasi, transaksi kas diajukan untuk diperiksa dan disetujui sebelum masuk laporan. Di sini Anda hanya melihat simulasinya.</p>`;
   result.hidden=false;
 });
 document.getElementById('demo-reset').addEventListener('click',()=>{form.reset();result.hidden=true;error.hidden=true;document.getElementById('demo-amount').focus();});
 fetch('/api/product').then(r=>{if(!r.ok)throw new Error('Informasi belum tersedia');return r.json();}).then(p=>{
   if(!p.supportEmail)return;
-  const box=document.getElementById('help-contact');box.replaceChildren();
-  const text=document.createElement('p');text.textContent='Ceritakan nama sekolah, kebutuhan instalasi, serta apakah sudah memiliki server. Kirim permintaan awal ke:';
-  const link=document.createElement('a');link.textContent=p.supportEmail;link.href='mailto:'+encodeURIComponent(p.supportEmail)+'?subject='+encodeURIComponent('Permintaan bantuan instalasi SAS');box.append(text,link);
+  const box=document.getElementById('help-contact');
+  if (box) {
+    box.replaceChildren();
+    const text=document.createElement('p');text.textContent='Atau kirim permintaan awal langsung ke: ';
+    const link=document.createElement('a');link.textContent=p.supportEmail;link.href='mailto:'+encodeURIComponent(p.supportEmail)+'?subject='+encodeURIComponent('Permintaan bantuan instalasi SAS');
+    link.style.fontWeight='600';link.style.textDecoration='underline';
+    box.appendChild(text);box.appendChild(link);
+  }
 }).catch(()=>{});
 if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');observer.unobserve(e.target);}}),{threshold:.08});

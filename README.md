@@ -6,6 +6,8 @@ Dikembangkan oleh **bipi (jaddadeveloper)** untuk kemanfaatan bersama seluas-lua
 
 Situs SAS: **https://sistemakuntansisekolah.web.id/**. Halaman pengantar dan demo interaktif dapat diakses publik; aplikasi memerlukan akun administrator. Instalasi saat ini satu instansi, bukan pendaftaran SAS Bersama. Catatan operasional: [deployment SAS](deploy/PRODUKSI-SAS.md).
 
+Demo aplikasi penuh: **https://sistemakuntansisekolah.web.id/demo/app** — data fiktif, hanya-baca, dengan server/database terpisah dari pembukuan sekolah. Penyiapan demo mandiri: [demo terpisah](deploy/DEMO-TERPISAH.md). Bantuan: **jaddadeveloper@gmail.com**.
+
 Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
 
 Untuk teman yang akan melanjutkan proyek: baca [catatan serah-terima](docs/SERAH-TERIMA.md) dan [riwayat pengembangan SAS](docs/RIWAYAT-PENGEMBANGAN.md). README berisi panduan penggunaan/instalasi; riwayat perubahan dicatat terpisah dan detail teknisnya tersedia di Git.

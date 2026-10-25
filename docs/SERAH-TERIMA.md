@@ -109,7 +109,9 @@ Sebelum mengaktifkan deploy otomatis, rekan perlu meninjau hal-hal berikut:
 
 ## Bukti pengujian dan pekerjaan berikutnya
 
-Verifikasi terakhir kode aplikasi: **83 tes lulus** pada Termux Android, Node 24 dan PostgreSQL 18.6; HTTP/DOM diuji dengan jsdom, audit runtime pada pemeriksaan sebelumnya 0 kerentanan. Detail: [VERIFIKASI.md](VERIFIKASI.md). Ini hasil lokal, bukan klaim tes pada VPS tujuan.
+Verifikasi terakhir kode aplikasi: **92 tes lulus** pada Termux Android, Node 24 dan PostgreSQL 18.6 (25 Oktober 2026); HTTP/DOM diuji dengan jsdom, audit runtime 0 kerentanan. Termasuk penolakan login demo lama, pembatasan mutasi demo pada HTTP/PostgreSQL, validasi startup dan prefix UI. Detail: [VERIFIKASI.md](VERIFIKASI.md). Ini hasil lokal, bukan klaim seluruh suite dijalankan pada VPS tujuan.
+
+Demo aplikasi penuh memakai database/cluster terpisah, bukan akun bendahara pada database utama. Rujukan deployment dan pengaman: [DEMO-TERPISAH.md](../deploy/DEMO-TERPISAH.md). Kontak publik: jaddadeveloper@gmail.com; WhatsApp tidak digunakan.
 
 Pembaruan deployment 24 Oktober 2026: workflow GitHub snapshot `12807a8` berhasil; domain/VPS, container produksi PostgreSQL 16, login HTTPS dan pemulihan backup pada database terpisah telah diuji. Belum diverifikasi: rendering browser nyata desktop/mobile, uji beban dan audit keamanan menyeluruh. Host Android tetap tidak menyediakan Docker daemon. Audit penuh sebelumnya mencatat temuan high transitif `image-size` pada tool dokumen dev; dependency runtime diperiksa terpisah dan audit build VPS bersih.
 

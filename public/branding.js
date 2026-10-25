@@ -1,5 +1,5 @@
 'use strict';
-window.sasBrandingReady = fetch('/api/config')
+window.sasBrandingReady = fetch((window.sasUrl || (path=>path))('/api/config'))
   .then(response => { if (!response.ok) throw new Error('Identitas tidak tersedia'); return response.json(); })
   .then(brand => {
     window.SAS_BRAND = brand;
