@@ -10,6 +10,8 @@ Demo aplikasi penuh: **https://sistemakuntansisekolah.web.id/demo/app** — data
 
 Rencana layanan: [konsep SAS Bersama dan SAS Mandiri](docs/KONSEP-LAYANAN.md) serta [arsitektur teknis](docs/ARSITEKTUR-LAYANAN.md). Dokumen tersebut adalah rancangan pengembangan; kode saat ini masih instalasi satu instansi dengan multi-unit, belum layanan banyak sekolah independen.
 
+Untuk mencoba aplikasi langkah demi langkah, unduh [Panduan Uji Coba SAS (Word)](https://sistemakuntansisekolah.web.id/download/panduan-uji-coba.docx). Panduan membedakan demo publik hanya-baca dan praktik transaksi pada instalasi percobaan, dilengkapi contoh angka serta lembar hasil pengujian. Sumber: [docs/PANDUAN-UJI-COBA.html](docs/PANDUAN-UJI-COBA.html); bangun ulang dengan `npm run docs:trial`.
+
 Untuk teman yang akan melanjutkan proyek: baca [catatan serah-terima](docs/SERAH-TERIMA.md) dan [riwayat pengembangan SAS](docs/RIWAYAT-PENGEMBANGAN.md). README berisi panduan penggunaan/instalasi; riwayat perubahan dicatat terpisah dan detail teknisnya tersedia di Git.
 
 ## Halaman pengantar produk

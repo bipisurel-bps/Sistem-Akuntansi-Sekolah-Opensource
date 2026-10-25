@@ -1,5 +1,15 @@
 # Dokumentasi Sistem Akuntansi Sekolah (SAS) Open Source
 
+## Panduan uji coba untuk sekolah
+
+- [Panduan Word (.docx)](Panduan-Uji-Coba-SAS.docx): demo publik 20–30 menit, praktik transaksi 60–90 menit, angka pembanding, pemeriksaan validasi, dan lembar hasil uji coba.
+- [Versi HTML yang dapat dibaca di peramban](PANDUAN-UJI-COBA.html), sekaligus sumber dokumen Word.
+- Unduh dari website: [Panduan Uji Coba SAS](https://sistemakuntansisekolah.web.id/download/panduan-uji-coba.docx).
+
+Regenerasi setelah mengedit sumber HTML: `npm run docs:trial`. Tidak membutuhkan database, screenshot, atau browser. Demo publik hanya-baca; latihan input wajib memakai instalasi/database percobaan tersendiri.
+
+## Manual lengkap
+
 Folder ini berisi **Manual Penggunaan Sistem Akuntansi Sekolah (SAS) Open Source** beserta perkakas untuk
 meregenerasinya. Satu sumber dapat menghasilkan HTML, PDF, dan DOCX.
 HTML SAS telah dirakit ulang. PDF dan screenshot membutuhkan browser Playwright

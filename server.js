@@ -91,6 +91,7 @@ app.get('/download/sas-opensource.zip', (req, res) => {
   res.download(file, 'sas-opensource.zip');
 });
 app.get('/download/panduan-instalasi.md', (req, res) => res.download(path.join(__dirname, 'README.md'), 'Panduan-SAS.md'));
+app.get('/download/panduan-uji-coba.docx', (req, res) => res.download(path.join(__dirname, 'docs', 'Panduan-Uji-Coba-SAS.docx'), 'Panduan-Uji-Coba-SAS.docx'));
 // Halaman publik yang tidak dikenal tidak boleh tampak sebagai beranda/aplikasi yang valid.
 app.get(/^\/(?!api\/).*/, (req, res) => res.status(404).send('Halaman tidak ditemukan. Kembali ke beranda SAS di /.'));
 

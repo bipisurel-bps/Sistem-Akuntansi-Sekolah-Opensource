@@ -33,7 +33,7 @@ function submit(w,amount,kind='receipt'){
   d.querySelector('#demo-form').dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
 }
 test('beranda produk publik terpisah dari ruang kerja dan login',async()=>{
-  assert.match(html,/Pembukuan rapi/);assert.match(html,/data-open-demo/);assert.doesNotMatch(html,/src="\/app.js"/);
+  assert.match(html,/Sistem akuntansi/);assert.match(html,/yang bisa diandalkan/);assert.match(html,/data-open-demo/);assert.doesNotMatch(html,/src="\/app.js"/);
   for(const url of ['/app','/login','/product.css','/product.js','/sas-mark.svg'])assert.equal((await fetch(base+url)).status,200,url);
   const app=await(await fetch(base+'/app')).text();assert.match(app,/src="\/app.js"/);
   const login=await(await fetch(base+'/login')).text();assert.match(login,/location.href = '\/app'/);
@@ -88,4 +88,9 @@ test('paket ZIP memuat kode dan lisensi, tanpa env privat, data sekolah, sesi, g
   assert.match(strFromU8(files['sas-opensource/LICENSE']),/MIT License/);
   for(const name of Object.keys(files))assert.doesNotMatch(name,/\/(?:\.git|node_modules|data|release|backups)\/|\/\.env$/);
   assert.equal((await fetch(base+'/download/panduan-instalasi.md')).status,200);
+  const guide=await fetch(base+'/download/panduan-uji-coba.docx');
+  assert.equal(guide.status,200);
+  assert.match(guide.headers.get('content-disposition'),/attachment.*Panduan-Uji-Coba-SAS\.docx/);
+  const guideFiles=unzipSync(new Uint8Array(await guide.arrayBuffer()));
+  assert.match(strFromU8(guideFiles['word/document.xml']),/Lembar hasil uji coba/);
 });

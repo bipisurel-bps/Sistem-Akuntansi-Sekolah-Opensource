@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panduan Uji Coba SAS — untuk Sekolah dan Yayasan</title>
+  <style>
+    body{max-width:900px;margin:36px auto;padding:0 22px;font-family:Arial,sans-serif;color:#292238;font-size:11pt;line-height:1.6}
+    h1,h2,h3{color:#3f2a68;line-height:1.25}h1{font-size:26pt}h2{font-size:17pt;margin-top:30px}h3{font-size:13pt}
+    a{color:#493278}table{border-collapse:collapse;width:100%;margin:14px 0}th,td{border:1px solid #d4cede;padding:8px;text-align:left;vertical-align:top;font-size:10pt}th{background:#f0edf7}
+    .note{background:#f5f2fa;border-left:4px solid #74549e;padding:12px}.warn{background:#fff4da;border-left:4px solid #a57712;padding:12px}
+    .cover{text-align:center;padding:35px 0}.small{font-size:10pt;color:#615b6a}li{margin:6px 0}
+    @media print{body{margin:0;max-width:none}.cover{page-break-after:always}h2,h3{page-break-after:avoid}tr{page-break-inside:avoid}}
+  </style>
+</head>
+<body>
+<div class="cover">
+  <p>SISTEM AKUNTANSI SEKOLAH (SAS) OPEN SOURCE</p>
+  <h1>Panduan Uji Coba Aplikasi</h1>
+  <p>Sistem akuntansi yang bisa diandalkan sekolah</p>
+  <p>Untuk kepala sekolah, bendahara, operator, dan pengurus yayasan</p>
+  <p><strong>Versi panduan 1.0 • 25 Oktober 2026</strong></p>
+  <p>Disusun sesuai alur aplikasi setelah pembaruan demo terpisah.</p>
+  <p>Dikembangkan oleh <strong>bipi (jaddadeveloper)</strong><br>Untuk kemanfaatan bersama seluas-luasnya</p>
+  <p><a href="https://sistemakuntansisekolah.web.id">sistemakuntansisekolah.web.id</a><br>
+  Bantuan: <a href="mailto:jaddadeveloper@gmail.com">jaddadeveloper@gmail.com</a></p>
+</div>
+
+<h2 id="tujuan">1. Mulai di sini: pilih jenis uji coba</h2>
+<p>Panduan ini membantu Anda menilai apakah SAS mudah digunakan dan apakah alur pencatatannya sesuai kebutuhan sekolah. Anda tidak perlu menguasai debit dan kredit untuk mulai menjelajahi demo.</p>
+<table>
+  <thead><tr><th>Pilihan</th><th>Untuk siapa dan durasi</th><th>Yang dapat dilakukan</th></tr></thead>
+  <tbody>
+    <tr><td>A. Demo publik</td><td>Semua pengunjung • 20–30 menit</td><td>Melihat data fiktif, jurnal, tagihan, saldo, dan laporan. Tanpa akun dan tanpa mengubah data.</td></tr>
+    <tr><td>B. Praktik transaksi</td><td>Tim sekolah dengan instalasi percobaan dan akun yang disiapkan administrator • 60–90 menit</td><td>Mengisi saldo awal, mencatat kas, menyetujui jurnal, serta mencoba tagihan dan cicilan SPP.</td></tr>
+  </tbody>
+</table>
+<p class="warn"><strong>Penting:</strong> akun sekolah pada layanan utama bukan akun uji coba publik. Jangan menggunakan data siswa, rekening, atau transaksi asli untuk latihan. Praktik pada bagian B harus memakai database percobaan terpisah, bukan database operasional sekolah.</p>
+<p>Siapkan peramban dengan koneksi internet. Laptop lebih nyaman untuk tabel; ponsel dapat digunakan untuk melihat tampilan dan mencoba navigasi. Catat perangkat, peramban, dan waktu pengujian.</p>
+<h3>Isi panduan</h3>
+<ol>
+  <li>Memilih jenis uji coba dan batas keamanannya.</li>
+  <li>Menjelajahi demo publik.</li>
+  <li>Menyiapkan praktik transaksi.</li>
+  <li>Mencoba saldo awal, kas, dan persetujuan jurnal.</li>
+  <li>Mencoba tagihan dan pembayaran SPP.</li>
+  <li>Memeriksa laporan dan validasi input.</li>
+  <li>Mencatat temuan dan menentukan langkah berikutnya.</li>
+</ol>
+
+<h2 id="demo">2. Jalur A — menjelajahi demo publik</h2>
+<h3>A1. Buka aplikasi demo</h3>
+<ol>
+  <li>Buka <a href="https://sistemakuntansisekolah.web.id">https://sistemakuntansisekolah.web.id</a>.</li>
+  <li>Pilih tautan demo aplikasi, atau langsung buka <a href="https://sistemakuntansisekolah.web.id/demo/app">https://sistemakuntansisekolah.web.id/demo/app</a>.</li>
+  <li>Pastikan terdapat pemberitahuan bahwa ini demo dengan data fiktif dan akses hanya-baca.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> aplikasi terbuka tanpa memasukkan email atau kata sandi. Tombol menambah atau mengubah data tidak tersedia. Ini batas demo yang disengaja, bukan kerusakan.</p>
+<p class="note">Demo menggunakan server aplikasi dan database yang terpisah dari pembukuan sekolah. Akun contoh untuk instalasi lokal tidak dapat dipakai untuk masuk ke layanan utama atau membuka hak tulis demo.</p>
+
+<h3>A2. Kenali Dashboard dan pilihan unit</h3>
+<ol>
+  <li>Buka <strong>Dashboard</strong>. Baca ringkasan kas/bank, pendapatan, beban, dan piutang.</li>
+  <li>Temukan pemilih unit di bagian atas aplikasi. Pilih satu unit sekolah, lalu bandingkan dengan pilihan semua unit/konsolidasi.</li>
+  <li>Catat satu angka dan unit yang sedang dipilih. Gunakan catatan ini saat membandingkan laporan.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> label unit berubah dan angka mengikuti data unit tersebut. Angka demo adalah contoh, bukan kondisi keuangan sekolah Anda. Nilai nol pada suatu rentang tanggal dapat berarti tidak ada transaksi pada rentang itu.</p>
+
+<h3>A3. Telusuri satu jurnal</h3>
+<ol>
+  <li>Buka <strong>Jurnal Umum</strong> dan pilih satu baris jurnal.</li>
+  <li>Periksa nomor, tanggal, unit, uraian, status, serta pasangan debit dan kredit.</li>
+  <li>Bedakan jurnal <strong>Draft</strong>, <strong>Menunggu</strong>, dan <strong>Posted</strong>. Jurnal draft/menunggu belum masuk saldo laporan.</li>
+  <li>Jika ingin melihat dokumen bukti, gunakan <strong>Cetak voucher</strong>. Batalkan dialog cetak bila hanya meninjau.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> detail jurnal terbaca dan total debit sama dengan kredit. Anda dapat melihat jurnal tetapi tidak menyetujui, mengubah, atau menghapusnya pada demo.</p>
+
+<h3>A4. Lihat kas dan tagihan sekolah</h3>
+<ol>
+  <li>Buka <strong>Kas &amp; Bank → Rekening &amp; saldo</strong>. Perhatikan saldo dan transaksi yang terkait.</li>
+  <li>Buka <strong>Piutang SPP → Daftar tagihan</strong>. Coba filter <strong>Belum dibayar</strong>, <strong>Sebagian</strong>, dan <strong>Lunas</strong>.</li>
+  <li>Bandingkan kolom tagihan, terbayar, dan sisa pada satu siswa fiktif.</li>
+  <li>Buka tab <strong>Siswa</strong>, kemudian <strong>Aging &amp; CKPN</strong> untuk mengenali daftar siswa dan kelompok umur tunggakan.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> daftar dapat dibaca dan difilter. Untuk tagihan tanpa keringanan, sisa sama dengan tagihan dikurangi pembayaran. Jika ada potongan atau beasiswa, perhatikan pengaruh keringanan; jangan menyimpulkan selisih sebagai kesalahan tanpa memeriksa rinciannya.</p>
+
+<h3>A5. Buka laporan</h3>
+<ol>
+  <li>Buka <strong>Laporan Keuangan</strong> dan pilih satu unit.</li>
+  <li>Coba <strong>Laporan Posisi Keuangan</strong>, <strong>Laporan Penghasilan Komprehensif</strong>, <strong>Laporan Perubahan Aset Neto</strong>, dan <strong>Laporan Arus Kas</strong>.</li>
+  <li>Sesuaikan tanggal laporan. Data contoh awal terutama menggunakan tahun 2026; rentang Januari–Desember 2026 dapat dipakai untuk penelusuran awal.</li>
+  <li>Lanjutkan ke <strong>Neraca Saldo</strong> dan <strong>Buku Besar</strong>; pilih akun kas atau piutang untuk menelusuri transaksi.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> laporan tampil sesuai unit dan tanggal, tidak memunculkan kesalahan pemuatan. Catat bila ada peringatan tidak seimbang. Jangan menyamakan angka dari tanggal atau unit yang berbeda.</p>
+<p><strong>Jalur A selesai.</strong> Catat menu yang paling membantu, istilah yang membingungkan, serta apakah Anda ingin mencoba input transaksi pada instalasi percobaan.</p>
+
+<h2 id="persiapan">3. Jalur B — persiapan praktik transaksi</h2>
+<p class="warn"><strong>Jangan jalankan bagian ini pada demo publik atau data sekolah asli.</strong> Mintalah administrator menyiapkan instalasi latihan dengan database tersendiri dan data fiktif. Pendaftaran akun publik mandiri belum tersedia.</p>
+<ol>
+  <li>Administrator menyiapkan database baru dengan <strong>SEED_MODE=school</strong> sebelum inisialisasi pertama. Ini menghasilkan unit sekolah dan master awal tanpa transaksi contoh.</li>
+  <li>Mintalah alamat instalasi latihan, akun admin, akun operator/staf akuntansi, dan akun bendahara. Kata sandi disampaikan secara pribadi, bukan dicantumkan pada panduan ini.</li>
+  <li>Pastikan operator ditugaskan ke unit latihan yang sama. Untuk pengujian peran, gunakan profil peramban berbeda atau keluar sebelum berganti akun.</li>
+  <li>Pilih bulan yang periodenya terbuka. Untuk panduan ini gunakan <strong>bulan berjalan</strong>: tanggal 1 untuk mulai pembukuan, tanggal 2 untuk kas masuk, tanggal 3 untuk kas keluar, tanggal 4 untuk penerbitan SPP, tanggal 5–6 untuk pembayaran.</li>
+  <li>Pastikan rekening yang dipakai adalah <strong>Kas Operasional</strong> unit latihan dan terhubung ke akun <strong>1111</strong>. Jangan mencampurkan rekening unit lain.</li>
+</ol>
+<p>Jika hari ini masih tanggal 1–5, tanggal latihan berikutnya dapat berada sesudah hari ini: atur tanggal akhir laporan sampai tanggal 6 agar seluruh latihan terbaca. Jangan mengubah tanggal komputer.</p>
+<p class="note">Petunjuk instalasi teknis tersedia di README repositori. Mengganti SEED_MODE pada database yang sudah berisi data tidak mengosongkannya. Jangan menjalankan perintah reset, seed, clean, atau menghapus volume untuk menyiapkan latihan pada data operasional.</p>
+<table>
+  <thead><tr><th>Data latihan</th><th>Nilai</th></tr></thead>
+  <tbody>
+    <tr><td>Nama sekolah/unit</td><td>Sekolah Latihan SAS (sesuaikan nama unit percobaan)</td></tr>
+    <tr><td>Saldo awal kas / aset neto tanpa pembatasan</td><td>Rp10.000.000 / Rp10.000.000; saldo lain nol</td></tr>
+    <tr><td>Penerimaan pendaftaran</td><td>Rp500.000</td></tr>
+    <tr><td>Pengeluaran operasional/ATK</td><td>Rp200.000</td></tr>
+    <tr><td>Siswa fiktif</td><td>NIS UJI-SAS-001 • Siswa Latihan Satu • kelas UJI-SAS • angkatan tahun berjalan</td></tr>
+    <tr><td>Tagihan SPP dan tenor</td><td>Rp600.000 untuk satu siswa • 6 bulan</td></tr>
+    <tr><td>Cicilan pertama / pelunasan</td><td>Rp250.000 / Rp350.000</td></tr>
+  </tbody>
+</table>
+<p>Angka di atas hanya untuk menguji perilaku aplikasi. Bukan contoh kebijakan akuntansi yang wajib diikuti semua sekolah.</p>
+
+<h2 id="saldo-kas">4. Praktik saldo awal, kas, dan persetujuan</h2>
+<h3>B1. Isi saldo awal</h3>
+<ol>
+  <li>Masuk sebagai admin pada instalasi latihan dan buka <strong>Mulai Pembukuan</strong>.</li>
+  <li>Pilih unit latihan dan tanggal 1 bulan berjalan sebagai tanggal mulai.</li>
+  <li>Isi kas Rp10.000.000; isi aset neto tanpa pembatasan Rp10.000.000. Saldo lain nol, tanpa piutang historis untuk latihan ini.</li>
+  <li>Periksa keseimbangan, centang konfirmasi pemeriksaan, lalu ajukan jurnal pembuka.</li>
+  <li>Buka <strong>Jurnal Umum</strong>, temukan jurnal pembuka, tinjau lalu pilih <strong>Setujui &amp; posting</strong> sebagai bendahara/admin.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> sebelum persetujuan, saldo belum masuk laporan dan transaksi harian menunggu pembuka. Setelah posting, saldo Kas Operasional unit menjadi Rp10.000.000. Jangan membuat saldo awal kedua untuk unit yang sama.</p>
+
+<h3>B2. Catat penerimaan tanpa mengetik jurnal manual</h3>
+<ol>
+  <li>Masuk sebagai operator/staf akuntansi, pilih unit latihan.</li>
+  <li>Buka <strong>Kas &amp; Bank → Penerimaan kas</strong>.</li>
+  <li>Pilih Kas Operasional, kategori <strong>Pendaftaran</strong> yang terhubung ke akun 4200, tanggal 2, dan jumlah <strong>500.000</strong>.</li>
+  <li>Isi catatan <strong>UJI-SAS penerimaan pendaftaran</strong>, periksa pratinjau jurnal, lalu klik <strong>Ajukan penerimaan</strong>.</li>
+  <li>Catat nomor jurnal. Masuk sebagai bendahara, buka jurnal tersebut, dan klik <strong>Setujui &amp; posting</strong>.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> saat Menunggu, saldo tetap Rp10.000.000. Sesudah posting, kas menjadi Rp10.500.000. Jurnal otomatis mendebit kas dan mengkredit pendapatan pendaftaran Rp500.000. Operator biasa tidak memperoleh tombol persetujuan.</p>
+
+<h3>B3. Catat pengeluaran operasional</h3>
+<ol>
+  <li>Buka <strong>Kas &amp; Bank → Pengeluaran kas</strong>.</li>
+  <li>Pilih Kas Operasional, kategori <strong>Operasional sekolah</strong> yang terhubung ke akun 5400, tanggal 3, dan jumlah <strong>200.000</strong>.</li>
+  <li>Isi catatan <strong>UJI-SAS pembelian ATK</strong>, kemudian klik <strong>Ajukan pengeluaran</strong>.</li>
+  <li>Tinjau dan setujui jurnal sebagai bendahara/admin.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> kas sesudah posting menjadi Rp10.300.000; beban operasional bertambah Rp200.000. Jurnal otomatis mendebit beban dan mengkredit kas. Nama kategori dapat berbeda pada instalasi yang telah disesuaikan; cocokkan akun, bukan hanya namanya.</p>
+
+<h2 id="spp">5. Praktik tagihan dan cicilan SPP</h2>
+<h3>B4. Tambahkan satu siswa fiktif dan terbitkan tagihan</h3>
+<ol>
+  <li>Sebagai admin/staf akuntansi, buka <strong>Piutang SPP → Siswa → + Tambah siswa</strong>.</li>
+  <li>Isi NIS <strong>UJI-SAS-001</strong>, nama <strong>Siswa Latihan Satu</strong>, kelas <strong>UJI-SAS</strong>, unit latihan, dan angkatan tahun berjalan.</li>
+  <li>Buka <strong>Generate tagihan massal</strong>. Pilih unit latihan dan isi filter kelas <strong>UJI-SAS</strong> serta angkatan agar hanya siswa latihan yang terpilih.</li>
+  <li>Isi semester unik, misalnya <strong>UJI-SAS 2026-10</strong> (sesuaikan tahun/bulan latihan), nominal Rp600.000, tanggal terbit tanggal 4, jatuh tempo akhir bulan, tenor 6 bulan, dan mulai amortisasi tanggal 1 bulan latihan.</li>
+  <li><strong>Pastikan pratinjau hanya 1 siswa dan total Rp600.000.</strong> Jika lebih dari satu, batalkan dahulu dan perbaiki filter.</li>
+  <li>Klik <strong>Generate tagihan</strong>, lalu lihat hasil pada Daftar tagihan.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> satu tagihan Rp600.000 berstatus Belum dibayar. Penerbitan tagihan ini otomatis memposting debit Piutang SPP dan kredit Pendapatan Diterima di Muka; berbeda dengan penerimaan kas umum yang menunggu persetujuan.</p>
+<p class="warn">Jangan mencatat pelunasan tagihan SPP yang sama sekali lagi lewat Penerimaan kas. Untuk memperbarui kartu tagihan siswa dan buku besar sekaligus, gunakan <strong>Catat bayar</strong> pada tagihan yang bersangkutan.</p>
+
+<h3>B5. Catat cicilan, lalu lunasi</h3>
+<ol>
+  <li>Sebagai kasir/bendahara/admin, cari tagihan siswa UJI-SAS-001 pada <strong>Daftar tagihan</strong>.</li>
+  <li>Klik <strong>Catat bayar</strong>, isi Rp250.000, pilih Kas Operasional, tanggal 5, metode tunai, lalu simpan.</li>
+  <li>Periksa: terbayar Rp250.000, sisa Rp350.000, status Sebagian. Kas menjadi Rp10.550.000.</li>
+  <li>Klik Catat bayar lagi; isi Rp350.000 dengan rekening yang sama, tanggal 6, lalu simpan.</li>
+  <li>Periksa: total terbayar Rp600.000, sisa Rp0, status Lunas. Kas menjadi Rp10.900.000.</li>
+</ol>
+<p><strong>Hasil yang diharapkan:</strong> kedua pembayaran langsung diposting, riwayat pembayaran berisi dua transaksi, dan piutang siswa menjadi nol. Penerimaan uang tidak langsung mengakui seluruh pendapatan SPP pada model tagihan bertahap ini.</p>
+
+<h3>B6. Opsional — lihat pengakuan pendapatan bertahap</h3>
+<p>Buka <strong>Piutang SPP → Pengakuan pendapatan</strong>, pilih bulan/tahun latihan dan unit yang sama. Pada instalasi latihan kosong dengan satu tagihan tersebut, pratinjau bulan pertama semestinya Rp100.000 (Rp600.000 dibagi 6 bulan). Jika administrator mengizinkan, proses pengakuan dan periksa jurnalnya di Jurnal Umum. Tinjau status jurnal yang dihasilkan sebelum menyimpulkan pengaruhnya pada laporan.</p>
+<p>Pengakuan pendapatan tidak menambah kas. Jangan memproses CKPN, pajak, tutup buku, atau jurnal balik sekadar mencoba pada data riil. Fitur lanjutan perlu skenario dan pemeriksaan bendahara tersendiri.</p>
+
+<h2 id="rekonsiliasi">6. Cocokkan hasil latihan dengan laporan</h2>
+<p>Pilih <strong>unit latihan</strong> dan tanggal laporan yang mencakup tanggal 1–6. Tabel berikut berlaku jika instalasi dimulai tanpa transaksi lain, semua transaksi wajib sudah posted, dan pengakuan pendapatan opsional B6 belum dijalankan.</p>
+<table>
+  <thead><tr><th>Pemeriksaan</th><th>Hasil akhir yang diharapkan</th></tr></thead>
+  <tbody>
+    <tr><td>Kas Operasional / saldo akun 1111</td><td>Rp10.900.000</td></tr>
+    <tr><td>Tagihan siswa / total pembayaran / sisa</td><td>Rp600.000 / Rp600.000 / Rp0; status Lunas</td></tr>
+    <tr><td>Pendapatan pendaftaran / beban operasional</td><td>Rp500.000 / Rp200.000</td></tr>
+    <tr><td>Piutang SPP</td><td>Rp0 setelah pelunasan</td></tr>
+    <tr><td>Pendapatan Diterima di Muka SPP</td><td>Rp600.000 sebelum pengakuan pendapatan bertahap</td></tr>
+    <tr><td>Posisi keuangan</td><td>Aset Rp10.900.000 = kewajiban Rp600.000 + aset neto Rp10.300.000</td></tr>
+    <tr><td>Neraca Saldo</td><td>Total debit sama dengan kredit; tidak ada selisih</td></tr>
+  </tbody>
+</table>
+<p>Di Buku Besar, pilih akun 1111 untuk menelusuri saldo awal dan empat transaksi kas. Di Laporan Keuangan, periksa rentang dan unit yang sama. Coba fungsi cetak/ekspor yang tersedia, lalu periksa judul, tanggal, unit, dan angka pada hasilnya. Jangan mengunggah dokumen berisi data asli saat mengirim masukan.</p>
+
+<h2 id="validasi">7. Uji kesalahan input dan pembatasan akses</h2>
+<p>Lakukan hanya pada instalasi latihan. Batalkan formulir setelah pengujian; jangan menerbitkan transaksi valid tambahan yang akan mengubah patokan angka di atas.</p>
+<table>
+  <thead><tr><th>Skenario</th><th>Yang seharusnya terjadi</th></tr></thead>
+  <tbody>
+    <tr><td>Ajukan penerimaan dengan jumlah 0 atau negatif</td><td>Muncul pesan validasi dan tidak ada jurnal baru.</td></tr>
+    <tr><td>Buat jurnal manual dengan debit Rp100.000 dan kredit Rp90.000, lalu coba ajukan</td><td>Pengajuan ditolak karena tidak seimbang. Jika sempat tersimpan sebagai draft, hapus draft latihan melalui akun berwenang; jangan diposting.</td></tr>
+    <tr><td>Bayar melebihi sisa tagihan</td><td>Ditolak; sisa dan saldo kas tidak berubah. Lakukan saat tagihan masih Sebagian, sebelum pelunasan B5, lalu kembali lanjutkan skenario normal.</td></tr>
+    <tr><td>Operator membuka jurnal berstatus Menunggu</td><td>Tidak tersedia kewenangan Setujui &amp; posting.</td></tr>
+    <tr><td>Akses transaksi tanpa masuk akun pada instalasi biasa</td><td>Diminta masuk; data transaksi tidak boleh terbuka untuk pengunjung anonim.</td></tr>
+    <tr><td>Jelajahi demo publik</td><td>Tetap hanya-baca; tidak ada fasilitas mengubah data atau mengganti kata sandi.</td></tr>
+  </tbody>
+</table>
+<p>Periksa pula layar ponsel: menu dapat ditemukan, teks terbaca, tabel dapat digeser jika lebar, dan tombol tidak tertutup. Ini pemeriksaan manual oleh penguji, bukan klaim bahwa semua perangkat telah diuji.</p>
+
+<h2 id="kendala">8. Jika menemui kendala</h2>
+<table>
+  <thead><tr><th>Kendala</th><th>Langkah pemeriksaan</th></tr></thead>
+  <tbody>
+    <tr><td>Tidak ada tombol tambah/simpan</td><td>Periksa apakah Anda berada di /demo/app. Jika bukan demo, periksa peran akun dengan administrator.</td></tr>
+    <tr><td>Saldo tidak berubah setelah input kas</td><td>Periksa apakah jurnal masih Menunggu; pastikan sudah posted, rekening/unit benar, dan tanggal termasuk dalam laporan.</td></tr>
+    <tr><td>Transaksi ditolak karena periode/tanggal</td><td>Pastikan periode terbuka, tanggal tidak sebelum tanggal mulai, dan pembuka telah disetujui. Jangan membuka periode operasional tanpa izin bendahara.</td></tr>
+    <tr><td>Generate tagihan menghasilkan lebih dari satu siswa</td><td>Jangan lanjutkan. Periksa filter kelas/angkatan, unit, dan daftar siswa aktif pada pratinjau.</td></tr>
+    <tr><td>Angka laporan berbeda dari tabel latihan</td><td>Pastikan database awal kosong, tidak ada transaksi tambahan/duplikat, tanggal dan unit sama, serta apakah B6 sudah diproses.</td></tr>
+    <tr><td>Tidak bisa masuk atau terlalu banyak percobaan login</td><td>Pastikan alamat instalasi dan akun benar. Hentikan percobaan berulang; tunggu sesuai pemberitahuan atau hubungi administrator. Jangan kirim kata sandi ke email bantuan.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="hasil">9. Lembar hasil uji coba</h2>
+<p>Nama penguji: ____________________ &nbsp; Tanggal: ____________________<br>Sekolah/tim: ____________________ &nbsp; Perangkat dan peramban: ____________________<br>Alamat instalasi: ____________________ &nbsp; Jalur A / B: ____________________</p>
+<p>Isi status <strong>Lulus / Perlu perbaikan / Belum diuji / Tidak berlaku</strong>. Jangan menandai praktik transaksi sebagai gagal bila Anda hanya menggunakan demo publik.</p>
+<table>
+  <thead><tr><th>Butir pengujian</th><th>Status</th><th>Catatan/bukti</th></tr></thead>
+  <tbody>
+    <tr><td>A1–A2. Demo, Dashboard, dan filter unit</td><td>____________</td><td>________________</td></tr>
+    <tr><td>A3–A4. Jurnal, kas, siswa, dan tagihan terbaca</td><td>____________</td><td>________________</td></tr>
+    <tr><td>A5. Empat laporan, Neraca Saldo, dan Buku Besar</td><td>____________</td><td>________________</td></tr>
+    <tr><td>B1. Saldo awal dan persetujuan pembuka</td><td>____________</td><td>________________</td></tr>
+    <tr><td>B2–B3. Penerimaan/pengeluaran dan persetujuan</td><td>____________</td><td>________________</td></tr>
+    <tr><td>B4–B5. Tagihan, cicilan, dan pelunasan</td><td>____________</td><td>________________</td></tr>
+    <tr><td>B6. Pengakuan pendapatan (opsional)</td><td>____________</td><td>________________</td></tr>
+    <tr><td>Saldo akhir, cetak/ekspor, validasi, dan akses</td><td>____________</td><td>________________</td></tr>
+    <tr><td>Kenyamanan navigasi pada laptop/ponsel</td><td>____________</td><td>________________</td></tr>
+  </tbody>
+</table>
+<h3>Format laporan temuan</h3>
+<ol>
+  <li><strong>Menu dan langkah:</strong> di mana masalah terjadi dan urutan untuk mengulanginya.</li>
+  <li><strong>Yang diharapkan:</strong> contoh “sisa tagihan menjadi Rp350.000”.</li>
+  <li><strong>Yang terjadi:</strong> tulis pesan persis yang muncul, tanpa kata sandi atau token sesi.</li>
+  <li><strong>Bukti:</strong> nomor jurnal/tagihan latihan, tanggal, unit, dan tangkapan layar yang telah disamarkan.</li>
+  <li><strong>Dampak:</strong> menghalangi transaksi, angka tidak sesuai, atau sekadar saran tampilan.</li>
+</ol>
+<p>Kirim masukan ke <a href="mailto:jaddadeveloper@gmail.com">jaddadeveloper@gmail.com</a>. Jangan mengirim data siswa asli, kata sandi, konfigurasi .env, backup database, atau nomor rekening riil.</p>
+
+<h2 id="lanjutan">10. Setelah uji coba</h2>
+<p>Tentukan bersama tim apakah alur SAS cocok dengan pekerjaan sehari-hari dan apa yang perlu disesuaikan. Jalur publik saat ini adalah demo hanya-baca; penggunaan sekolah dengan input data memerlukan instalasi dan akun tersendiri. Layanan banyak sekolah independen masih merupakan rencana, bukan fitur pendaftaran yang sudah tersedia.</p>
+<p>Sebelum penggunaan riil: siapkan instalasi produksi, akun/peran dan kata sandi unik, master sekolah, periode, saldo awal yang diverifikasi, prosedur persetujuan, serta backup dan uji pemulihan. Mintalah bendahara meninjau bagan akun dan kebijakan pengakuan pendapatan. Keberhasilan latihan ini bukan pengganti verifikasi seluruh kebutuhan akuntansi atau kepatuhan sekolah.</p>
+<p>Repositori: <a href="https://github.com/bipisurel-bps/Sistem-Akuntansi-Sekolah-Opensource">bipisurel-bps/Sistem-Akuntansi-Sekolah-Opensource</a>.<br>Dokumen pelengkap: README instalasi, docs/MULAI-PEMBUKUAN.md, dan manual penggunaan lengkap di docs/manual/.</p>
+<p class="small">Panduan ini disusun dari alur aplikasi dan pengujian kode, bukan laporan bahwa seluruh langkah telah dimainkan oleh pengguna pada semua perangkat. Label atau data dapat berubah pada pembaruan berikutnya. Perbarui sumber HTML panduan dan bangun ulang DOCX agar tetap sesuai.</p>
+</body>
+</html>

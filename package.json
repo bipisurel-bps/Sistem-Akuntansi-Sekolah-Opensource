@@ -23,6 +23,7 @@
     "docs:manual": "node scripts/build-manual.mjs",
     "docs:pdf": "node scripts/build-pdf.mjs",
     "docs:docx": "node scripts/build-docx.mjs",
+    "docs:trial": "node scripts/build-trial-guide.mjs",
     "docs:all": "npm run docs:manual && npm run docs:pdf && npm run docs:docx"
   },
   "license": "MIT",
