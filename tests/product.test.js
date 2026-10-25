@@ -75,6 +75,11 @@ test('demo menolak input rusak, negatif dan berlebihan tanpa merender HTML pengg
 });
 test('tautan internal dan nama kontrol halaman produk memiliki target yang nyata',()=>{
   const d=new JSDOM(html).window.document;
+  const guideLinks=d.querySelectorAll('a[href="/download/panduan-uji-coba.docx"]');
+  assert.equal(guideLinks.length,2);
+  for(const link of guideLinks){assert.match(link.textContent,/Panduan uji coba \(Word\)/);assert.ok(link.hasAttribute('download'));}
+  assert.ok(d.querySelector('.hero-copy a[href="/download/panduan-uji-coba.docx"]'));
+  assert.ok(d.querySelector('.site-footer a[href="/download/panduan-uji-coba.docx"]'));
   for(const a of d.querySelectorAll('a[href^="#"]'))assert.ok(d.getElementById(a.getAttribute('href').slice(1)));
   assert.equal(d.querySelectorAll('h1').length,1);
   for(const button of d.querySelectorAll('button'))assert.ok(button.textContent.trim()||button.getAttribute('aria-label'));
