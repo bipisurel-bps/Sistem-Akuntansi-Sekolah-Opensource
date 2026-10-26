@@ -14,6 +14,19 @@ dialog{color:var(--ink);background:var(--paper);border:1px solid var(--line);pad
 @media(max-width:600px){.section-shell,.site-header{width:calc(100% - 40px);}.site-header{min-height:80px;flex-wrap:wrap;padding-block:16px;gap:16px;}.brand img{width:36px;height:36px;}.brand>span{font-size:24px;}.brand small{font-size:7px;}.site-header nav{width:100%;justify-content:space-between;gap:8px;flex-wrap:wrap;}.js-nav .menu-toggle{display:block;}.js-nav .site-header nav:not(.is-open){display:none;}.site-header .sign-in{padding:8px 14px;}.hero{padding-top:40px;gap:24px;}.hero .eyebrow{font-size:8px;letter-spacing:.09em;}.hero h1{font-size:50px;}.hero-description{font-size:13px;}.hero-actions{gap:18px;}.hero-actions .button{font-size:11px;gap:18px;padding:14px 16px;}.microcopy{font-size:9px;}.audience{margin-top:24px;}.audience p{font-size:10px;}.stage-caption{font-size:7px;}.stage-caption>span:last-child{font-size:6px;}.workspace-preview{min-height:390px;}.preview-sidebar{width:36px;padding-inline:3px;}.preview-sidebar i{width:25px;}.preview-main{padding:16px 12px;}.preview-intro h2{font-size:16px;}.period{display:none;}.preview-tabs{gap:20px;}.balance-panel{padding:14px 10px;gap:10px;}.balance-panel strong{font-size:22px;}.sparkline{width:30%;}.floating-note{padding:12px;}.floating-note b{font-size:9px;}.floating-note small{font-size:7px;}.principles{font-size:8px;display:grid;grid-template-columns:1fr 1fr;gap:16px;}.section-intro{margin-bottom:32px;}.section-intro>p:last-child{font-size:13px;}.feature-grid,.choices{grid-template-columns:1fr;}.feature{padding:28px;}.feature-plain{padding:24px 0;}.flow-strip{gap:8px;}.flow-strip span{padding:9px 12px;}.feature h3{font-size:34px;}.demo-band{padding-block:56px;}.start-steps li{gap:20px;}.choice{padding:28px;}.choice h3{font-size:36px;}.faq-section h2 br{display:initial;}.final-cta{padding-bottom:56px;}.final-cta .eyebrow{font-size:8px;}.final-cta>div{gap:12px;}.site-footer{grid-template-columns:1fr;gap:32px;}.site-footer nav{gap:16px;}.footer-bottom{flex-direction:column;gap:8px;}dialog{padding:24px;}dialog h2{font-size:34px;}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*,*:before,*:after{animation:none!important;transition:none!important;}}
 
+/* Video perkenalan: satu media pilihan, tidak mengganggu hero atau alur demo. */
+.intro-video-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);align-items:center;gap:clamp(48px,9vw,144px);padding-block:clamp(64px,8vw,112px);border-bottom:1px solid var(--line);}
+.intro-video-copy{max-width:58ch;}
+.intro-video-copy h2{max-width:12ch;margin:18px 0 24px;}
+.intro-video-copy>p:not(.eyebrow){max-width:50ch;color:var(--muted);font-size:15px;line-height:1.85;}
+.intro-video-copy .button{margin-top:28px;}
+.intro-video-copy .intro-video-note{margin-top:14px;font-size:11px;}
+.intro-video-media{width:100%;max-width:340px;margin:0;justify-self:center;}
+.intro-video-media video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:var(--ink);border:1px solid #e3dcd2;border-radius:var(--radius);box-shadow:var(--shadow);}
+.intro-video-media figcaption{margin-top:12px;text-align:center;color:var(--muted);font-size:11px;}
+@media(max-width:850px){.intro-video-section{grid-template-columns:minmax(0,1fr) minmax(230px,300px);gap:40px;}}
+@media(max-width:600px){.intro-video-section{grid-template-columns:1fr;gap:32px;padding-block:64px;}.intro-video-copy h2{max-width:14ch;font-size:clamp(36px,10vw,46px);}.intro-video-copy>p:not(.eyebrow){font-size:14px;}.intro-video-media{width:min(100%,320px);}}
+
 /* SAS Modernisasi UI & Aksen */
 .button-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:10px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font-weight:600;font-size:13px;transition:all .2s var(--ease);}
 .button-ghost:hover{background:var(--soft);border-color:var(--ink);}
